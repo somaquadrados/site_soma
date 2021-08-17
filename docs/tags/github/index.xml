@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitHub on Soma dos quadrados</title>
+    <link>http://somaquadrados.netlify.app/tags/github/</link>
+    <description>Recent content in GitHub on Soma dos quadrados</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-BR</language>
+    <lastBuildDate>Tue, 17 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://somaquadrados.netlify.app/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>{PT} O Git e o GitHub</title>
+      <link>http://somaquadrados.netlify.app/blog/git/github/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/blog/git/github/</guid>
+      <description>window.xaringanExtraClipboard(null, {&#34;button&#34;:&#34; Copy Code&#34;,&#34;success&#34;:&#34; Copied!&#34;,&#34;error&#34;:&#34;Press Ctrl+C to Copy&#34;}).page-main img {box-shadow: 0px 0px 2px 2px rgba( 0, 0, 0, 0.2 );}IntroduçãoO Git é um software de controle deversões que visa gerenciar arquivos de texto, principalmente códigos de programação. Esta ferramenta funciona de forma semelhante aos sistemas em nuvem (Google Drive, Dropbox, Mega, etc.), em que podemos compartilhar edições de um script com uma equipe, além de retomar versões antigas de nossos arquivos.</description>
+    </item>
+    
+  </channel>
+</rss>

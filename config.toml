@@ -1,0 +1,208 @@
+baseURL = "http://somaquadrados.netlify.app"
+theme = "hugo-apero"
+languageCode = "pt-BR"
+#title = "Hugo Apéro"
+title = "Soma dos quadrados"
+author = "Soma dos quadrados"
+copyright = "" # set to override the auto generated copyright using org info and now year
+googleAnalytics = ""
+disqusShortname = "" # see params.utterances to use utterances instead of Disqus
+metaDataFormat = "yaml"
+footnoteReturnLinkContents = "&#8617;" # ↩
+# set deliberately low for testing choose your preffered number based on the blog layout you've chosen
+paginate = 5
+preserveTaxonomyNames = true
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
+enableEmoji = true
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark.renderer]
+    unsafe = true  # Enable user to embed HTML snippets in Markdown content.
+    hardwraps = false 
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 2
+    ordered = false
+  [markup.highlight]
+    # one of: https://xyproto.github.io/splash/docs/ 
+    #style = "arduino" # "arduino" "github"
+    noClasses = false
+    
+# Syntax highlighting
+pygmentsUseClasses = true  # use class names instead of directly inserting color codes
+#pygmentsCodeFences = true  # enable GitHub style code snippets
+
+[params]
+  orgName = "Soma dos quadrados"
+  orgLocal = ""
+  #description = "A modern, beautiful, and easily configurable blog theme for Hugo."
+  description = "Site de Soma dos quadrados"
+  #favicon = "/img/favicon.ico"
+  favicon = "/img/simbolo.png"
+  #logo = "/img/blogophonic-mark-dark.png"
+  logo = "/img/simbolo.png"
+  mainSections = ["blog", "talk", "publication", "project"]
+  navallcaps = true
+  # show/hide social icons in site header & footer
+  # configure social icons and links below in [[params.social]]
+  socialInHeader = false
+  socialInFooter = true
+  # Default image for social sharing and search engines. 
+  # Place image file in `static` folder and specify image name here.
+  #sharing_image = "/img/papillons.jpg"
+  sharing_image = "/img/simbolo.png"
+  # Twitter username (without @). Used when a visitor shares your site on Twitter.
+  twitter = "somaquadrados"
+  
+  # use a built-in color theme
+  # one of: forest / grayscale / peach / plum /
+  #         poppy / sky / violet / water 
+  theme = "grayscale"
+  
+  # or, leave theme empty & make your own palette
+  # see docs at https://hugo-apero.netlify.app/blog/color-themes/
+  # the custom scss file must be in the assets/ folder
+  # add the filename name here, without extension
+  # to use hex colors instead of named tachyons colors, include "hex" in filename
+  custom_theme = ""
+  
+  # use an embedded font-family
+  # serif options: Fraunces / EB Garamond / Bitter
+  # sans-serif options: Commissioner / Alegreya Sans / Metropolis
+  # if you import your own fonts, name them here too
+  customtextFontFamily = "Commissioner"
+  customheadingFontFamily = "Heuristica" # Libre Baskerville / Heuristica / Ovo
+  # alternatively, leave empty and select basic font options: sans-serif or serif
+  # for more http://tachyons.io/docs/typography/font-family/
+  textFontFamily = "EB Garamond"
+  #headingFontFamily = "serif"
+  #textFontFamily = "avenir"
+  headingFontFamily = "EB Garamond"
+
+  # Configuration of https://utteranc.es/ for comments
+  [params.utterances]
+    use_utterances = true
+    repo_name = "somaquadrados/site"
+    issue_term = "title" # url, pathname, or title
+    theme = "boxy-light" # TODO: change to "preferred-color-scheme" when you enable dark mode toggle
+    label = "comments :crystal_ball:"
+
+  # Social icons may appear on homepage and in site header or footer
+  # Configure show/hide above - add as many as you like below
+  # Icon pack "fab" includes brand icons, see: https://fontawesome.com/icons?d=gallery&s=brands&m=free
+  # Icon pack "fas" includes solid icons, see: https://fontawesome.com/icons?d=gallery&s=solid&m=free
+  # Icon pack "far" includes regular icons, see: https://fontawesome.com/icons?d=gallery&s=regular&m=free
+  # Icon pack "ai" includes academic icons, see: https://jpswalsh.github.io/academicons/
+  [[params.social]]
+      icon      = "github" # icon name without the 'fa-'
+      icon_pack = "fab"
+      url       = "https://github.com/somaquadrados"
+  [[params.social]]
+      icon      = "twitter" # icon name without the 'fa-'
+      icon_pack = "fab"
+      url       = "https://twitter.com/somaquadrados"
+  [[params.social]]
+       icon      = "instagram" # icon name without the 'fa-'
+       icon_pack = "fab"
+       url       = "https://www.instagram.com/somaquadrados/"
+    [[params.social]]
+       icon      = "twitch" # icon name without the 'fa-'
+       icon_pack = "fab"
+       url       = "https://www.twitch.tv/somaquadrados"
+    [[params.social]]
+       icon      = "youtube" # icon name without the 'fa-'
+       icon_pack = "fab"
+       url       = "https://www.youtube.com/channel/UC8_OHjnszxRiit92ZJlNH4A"
+       
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+
+[menu]
+  # Configure header 
+  [[menu.header]]
+    name = "Equipe/Equipo"
+    title = "Equipe/Equipo"
+    url = "/about/"
+    weight = 1
+  [[menu.header]]
+    name = "Blog"
+    title = "Meeting People Where They R"
+    url = "/blog/"
+    weight = 2
+  [[menu.header]]
+    name = "Produções/Producciones"
+    title = "Produções/Producciones"
+    url = "/talk/"
+    weight = 3
+#  [[menu.header]]
+#    name = "Cursos"
+#    title = "Cursos"
+#    url = "/cursos/"
+#    weight = 4
+# [[menu.header]]
+#   name = "Projects"
+#   title = "Project Portfolio"
+#   url = "/project/"
+#   weight = 5
+  #[[menu.header]]
+  #  name = "A collection"
+  #  title = "A collection"
+  #  url = "/collection/"
+  #  weight = 6
+  #[[menu.header]]
+  #  name = "Elements"
+  #  title = "Element Page"
+  #  url = "/elements/"
+  #  weight = 7
+  # Configure footer  
+  [[menu.footer]]
+    name = "📄"
+    title = "📄"
+    url = "/license/"
+    weight = 3
+  [[menu.footer]]
+    name = "📞"
+    title = "📞"
+    url = "/contact/"
+    weight = 2
+  [[menu.footer]]
+    name = "⚠️"
+    title = "⚠️"
+    url = "/accessibility/"
+    weight = 1
+  #[[menu.footer]]
+  #  name = "Contributors"
+  #  title = "Contributors"
+  #  url = "/contributors/"
+  #  weight = 3
+  [[menu.footer]]
+    name = "RSS"
+    title = "Subscribe via RSS"
+    url = "/blog/index.xml/"
+    weight = 5
+# see https://gohugo.io/about/hugo-and-gdpr/    
+[privacy]
+  [privacy.disqus]
+    disable = false
+  [privacy.googleAnalytics]
+    disable = false
+    anonymizeIP = true
+    respectDoNotTrack = true
+  [privacy.instagram]
+    disable = false
+    simple = true
+  [privacy.twitter]
+    disable = false
+    enableDNT = true
+    simple = false
+  [privacy.vimeo]
+    disable = false
+    enableDNT = true
+    simple = true
+  [privacy.youtube]
+    disable = false
+    privacyEnhanced = true

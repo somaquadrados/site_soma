@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Soma dos quadrados</title>
+    <link>http://somaquadrados.netlify.app/tags/r/</link>
+    <description>Recent content in R on Soma dos quadrados</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-BR</language>
+    <lastBuildDate>Mon, 16 Aug 2021 14:00:00 +0000</lastBuildDate><atom:link href="http://somaquadrados.netlify.app/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducción al análisis de datos biológicos con R</title>
+      <link>http://somaquadrados.netlify.app/talk/2021-08-17-intror-inmet/</link>
+      <pubDate>Mon, 16 Aug 2021 14:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/talk/2021-08-17-intror-inmet/</guid>
+      <description>Este es un curso de un mes y medio en programación R para análisis de datos biológicos. Se realiza de forma virtual y contará con una combinación de clases sincrónicas y asincrónicas, con ejercicios que se entregarán semanalmente y una presentación final.</description>
+    </item>
+    
+  </channel>
+</rss>

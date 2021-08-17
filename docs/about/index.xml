@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Equipe/Equipo on Soma dos quadrados</title>
+    <link>http://somaquadrados.netlify.app/about/</link>
+    <description>Recent content in Equipe/Equipo on Soma dos quadrados</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-BR</language><atom:link href="http://somaquadrados.netlify.app/about/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

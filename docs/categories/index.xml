@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Soma dos quadrados</title>
+    <link>http://somaquadrados.netlify.app/categories/</link>
+    <description>Recent content in Categories on Soma dos quadrados</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-BR</language>
+    <lastBuildDate>Tue, 17 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://somaquadrados.netlify.app/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git</title>
+      <link>http://somaquadrados.netlify.app/categories/git/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/categories/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GitHub</title>
+      <link>http://somaquadrados.netlify.app/categories/github/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/categories/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PT</title>
+      <link>http://somaquadrados.netlify.app/categories/pt/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/categories/pt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>curso</title>
+      <link>http://somaquadrados.netlify.app/categories/curso/</link>
+      <pubDate>Mon, 16 Aug 2021 14:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/categories/curso/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>http://somaquadrados.netlify.app/categories/r/</link>
+      <pubDate>Mon, 16 Aug 2021 14:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/categories/r/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

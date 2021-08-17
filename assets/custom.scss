@@ -1,0 +1,257 @@
+// Installed following guidance at https://hugo-apero-docs.netlify.app/blog/fonts/
+
+// Ovo: https://www.fontsquirrel.com/fonts/ovo
+
+@font-face {
+  //font-family: 'Ovo';
+  src: url('fonts/Ovo-Regular.otf') format('otf');
+}
+
+// Libre Baskerville: https://www.fontsquirrel.com/fonts/libre-baskerville
+
+@font-face{
+//	src: url('fonts/LibreBaskerville-Bold.otf') format('otf');
+	//src: url('fonts/LibreBaskerville-Italic.otf') format('otf');
+	src: url('fonts/LibreBaskerville-Regular.otf') format('otf');
+	//font-style: normal;
+}
+
+// Heuristica: https://www.fontsquirrel.com/fonts/heuristica
+
+@font-face{
+	src: local(''),
+	     url('../static/fonts/Heuristica-Bold.otf') format('otf');
+	src: local(''),
+	     url('../static/fonts/Heuristica-Italic.otf') format('otf');
+	src: local(''),
+	     url('../static/fonts/Heuristica-Regular.otf') format('otf');
+}
+
+// Cyntho Next: https://www.fontspring.com/fonts/mint-type/cyntho-next
+
+@font-face {
+    font-family: 'Cyntho Next';
+    src: url('fonts/cynthonext-light-webfont.woff2') format('woff2'),
+         url('fonts/cynthonext-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'cynthonext-lightitalic';
+    src: url('fonts/cynthonext-lightitalic-webfont.woff2') format('woff2'),
+         url('fonts/cynthonext-lightitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* crimson-pro-regular - latin */
+// source: https://google-webfonts-helper.herokuapp.com/fonts/crimson-pro?subsets=latin
+@font-face {
+  font-family: 'Crimson Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/crimson-pro-v14-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('fonts/crimson-pro-v14-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/crimson-pro-v14-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/crimson-pro-v14-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('fonts/crimson-pro-v14-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('fonts/crimson-pro-v14-latin-regular.svg#CrimsonPro') format('svg'); /* Legacy iOS */
+}
+
+/* petrona-regular - latin */
+@font-face {
+  font-family: 'Petrona';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/petrona-v16-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('fonts/petrona-v16-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/petrona-v16-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/petrona-v16-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('fonts/petrona-v16-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('fonts/petrona-v16-latin-regular.svg#Petrona') format('svg'); /* Legacy iOS */
+}
+
+/* petrona-500 - latin */
+@font-face {
+  font-family: 'Petrona';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/petrona-v16-latin-500.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('fonts/petrona-v16-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/petrona-v16-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/petrona-v16-latin-500.woff') format('woff'), /* Modern Browsers */
+       url('fonts/petrona-v16-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('fonts/petrona-v16-latin-500.svg#Petrona') format('svg'); /* Legacy iOS */
+}
+
+
+// ----------------------------------------------------------------------------
+// ----custom styling----------------------------------------------------------
+
+// Experimental: ToC: navigating up or down the ToC is smooth not jumpy
+/*html {
+  scroll-behavior: smooth;
+}*/
+
+// headline: make smaller than default
+.f1-m {
+  font-size: 5.7rem;
+}
+
+// sidebar: make smaller after a11y mod to h3
+#profile h3 {
+  font-size: 1rem;
+}
+
+// ToC ------------------------------------------------------------------------
+// modified from: scaffold.scss, series + collections table of contents
+
+
+// styles h1 and h2
+nav#TableOfContents ul li {
+  @extend .f5, .lh-title-ns;
+  // all links
+  a {
+    @extend .no-underline;
+    // transition: all 50mx ease-in-out;
+  }
+  // active list items
+  &.active {
+    @extend .pl3, .bg-#{$siteBgColor}, .bl, .b--#{$borderColor}, .bw1;
+  }
+  // non-active list items
+  &:not(.active) {
+    @extend .pl3, .bl, .bw1, .b--transparent;
+  }
+  // hovering over active links
+  &:hover.active a {
+    @extend .underline;
+  }
+  // hovering over non-active links
+  &:hover:not(.active) a {
+   //@extend .underline;
+  }
+  &a:hover {
+    @extend .br;
+  }
+  // within nested list items
+  li {
+    // hovering over active links
+    &:hover.active a {
+      //@extend .dim;
+    }
+    // hovering over non-active links
+    &:hover:not(.active) a {
+      @extend .underline; //.dim;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// WIP: a11y: add indicator for external links
+// source: https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_links#including_icons_on_links
+/*
+a[href*="http"] {
+  background: url('../static/img/external-link.png') no-repeat 100% 0;
+  background-size: 16px 16px;
+  padding-right: 19px;
+}
+*/
+
+// single post ----------------------------------------------------------------
+
+/*
+.single {
+  .page-main {
+    grid-column: 1 / 5;
+  }
+  .page-sidebar {
+    @extend .mt7;
+    grid-column: 5 / 7;
+    @extend .bg-transparent;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .single {
+    .page-main,
+    .page-sidebar {
+      grid-column: 1 / 7;
+    }
+  }
+}*/
+
+// inline code ----------------------------------------------------------------
+// apply tachyons classes to blog post and single page markdown
+
+// increase line spacing within panels
+.panelset * {
+  @extend .lh-copy;
+}
+
+.post-body,
+.page-body {
+  
+  blockquote > p > code,// code within blockquote paragraphs
+  .panelset * p > code, // code within panelset paragraphs
+  > p > code,           // code within paragraphs
+  li > code,            // level 1 list item 
+  li li > code,         // level 2 list item
+  li p > code {         // paragaph in list item
+    @extend .f6, .pa1, .ba, .bw1, .br0;
+    color: #415200;     // 415200 434f54
+    background-color: #EEF1E0; // DCE3C0 EEF1E0
+    border-color: #b9c680;// 728e00 b9c680 ebebeb
+  }
+  
+  // code inside links
+  a > code {
+    @extend .f6, .pa1, .ba, .bw1, .br0;
+    color: #415200;     // 415200 434f54
+    background-color: none; // DCE3C0 EEF1E0
+    border: none;  // 728e00 b9c680 ebebeb
+  }
+  
+}
+
+// wrap code chunks
+// source: https://stackoverflow.com/a/56469907
+code {
+  white-space : pre-wrap !important;
+}
+
+// Style code chunks ----------------------------------------------------------
+pre {
+  @extend .pre, .br1, .pa3, .bg-transparent;
+  border: 1px solid #ebebeb;
+}
+
+pre code span {
+	font-weight: normal !important;
+}
+
+// a11y: scaling up to 18px font size -----------------------------------------
+p, summary {
+  font-size: 1.125em;
+}
+
+ul, ol {
+  font-size: 1.125em;
+  > li > p {
+    font-size: 1em;
+  }
+  ul, ol {
+    li {
+      font-size: 0.9em;
+    }
+  }
+  p, summary {
+    font-size: 1em;
+  }
+}

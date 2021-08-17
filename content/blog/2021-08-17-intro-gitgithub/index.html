@@ -1,0 +1,121 @@
+---
+title: "{PT} O Git e o GitHub"
+subtitle: "Texto em construção"
+layout: single-sidebar
+excerpt: "Olá, você teria um momento para ouvir a palavra do Git e do GitHub?"
+author: Marília Melo Favalesso
+date: '2021-08-17'
+slug: Git/GitHub
+categories: 
+  - PT
+  - Git
+  - GitHub
+tags: 
+  - PT
+  - Git
+  - GitHub
+images: ~
+series: ~
+alt: ''
+featured: yes
+draft: no
+image:
+  focal_point: 'Center'
+  preview_only: no
+lastmod: '2021-08-17'
+
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index_files/clipboard/clipboard.min.js"></script>
+<link href="{{< blogdown/postref >}}index_files/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+<script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i> Copy Code","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i> Copied!","error":"Press Ctrl+C to Copy"})</script>
+<link href="{{< blogdown/postref >}}index_files/font-awesome/css/all.css" rel="stylesheet" />
+<link href="{{< blogdown/postref >}}index_files/font-awesome/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">
+.page-main img {
+  box-shadow: 0px 0px 2px 2px rgba( 0, 0, 0, 0.2 );
+}
+</style>
+<div id="introdução" class="section level1">
+<h1>Introdução</h1>
+<p>O <a href="https://www.atlassian.com/br/git/tutorials/what-is-git"><em>Git</em></a> é um software de <a href="https://www.devmedia.com.br/sistemas-de-controle-de-versao/24574">controle de
+versões</a> que visa gerenciar arquivos de texto, principalmente códigos de programação. Esta ferramenta funciona de forma semelhante aos sistemas em nuvem (Google Drive, Dropbox, Mega, etc.), em que podemos compartilhar edições de um script com uma equipe, além de retomar versões antigas de nossos arquivos. Resumidamente, <em>Git</em> examina as alterações feitas nos arquivos em um diretório e mantém essas informações para compartilhar com outros usuários e possibilitar a reversão das alterações feitas. Além de ser uma ferramenta útil, o <em>Git</em> se conecta ao serviço de hospedagem e armazenamento de versão chamado <a href="https://github.com/"><em>GitHub</em></a>. A partir do <em>GitHub</em>, é possível contribuir com projetos de qualquer parte do mundo, além de compartilhar nossos códigos para fins de divulgação e colaboração.</p>
+</div>
+<div id="como-funciona-o-controle-de-versões" class="section level1">
+<h1>Como funciona o controle de versões?</h1>
+<p>O Git é um exemplo de sistema de controle de versão distribuído (DVCS)
+comumente utilizado para código aberto e desenvolvimento de softwares.
+Os DVCSs permitem acesso total a todos os arquivos, ramificações e
+iterações de um projeto e permitem que todos os usuários acessem um
+histórico completo e independente de todas as alterações.</p>
+<p>Usando o <em>Git</em>, você pode fazer upload de novas versões de um projeto para um repositório (em outras palavras, um servidor) onde seus arquivos serão armazenados e o histórico de suas versões será salvo. Nesse caso, nosso armazenamento estará no GitHub. Todos os colaboradores/desenvolvedores podem acessar e recuperar a versão mais recente do projeto disponível no <em>GitHub</em> e copiar em suas máquinas locais (seus computadores). Eles podem trabalhar nisso e continuar o processo de desenvolvimento em paralelo com outros colegas. Com cada alteração feita, você pode enviar suas alterações para o repositório e atualizar sua versão de outras feitas por outros desenvolvedores.</p>
+<p><strong>Por exemplo</strong>: Digamos que você tenha começado a participar de um projeto que já está em andamento e está hospedado no <em>GitHub</em>. Inicialmente, você precisará baixar a versão mais recente do projeto para sua máquina (<code>clone</code> do git). Com o tempo, você trabalhará neste projeto individualmente; você pegará o projeto em um estágio específico e começará a fazer suas alterações separadamente dos outros. Para fazer isso, você criará uma <code>branch</code> (braços ou ramos) a partir do projeto principal (o <code>trunk</code>, denominado <code>branch master</code>). Outros desenvolvedores também farão mudanças e as salvarão (<code>git commit</code>) em seus branches.</p>
+<p>Quando terminar sua parte do projeto, você mesclará seu <code>branch</code> com o <code>branch master</code> e fará uma solicitação de <code>pull</code> para que todos os seus colegas de trabalho saibam que uma etapa do projeto está pronta. Quando outro colaborador enviar suas alterações para o <em>GitHub</em> (<code>git commit</code> e <code>git push</code>), o <em>Git</em> irá alertá-lo de que sua versão está desatualizada (ele ainda não baixou o que você enviou para o repositório) e pedirá ao colega para atualizar a nova versão em sua máquina (<code>git pull</code>). O <em>Git</em> enviará as informações recém-adicionadas ao seu colega e permitirá que você mescle as diferentes versões (<code>git merge</code>). Além disso, ele também mostrará onde as atualizações foram feitas, trechos de código adicionados ou removidos e casos de conflito onde as linhas podem ser substituídas e oferecerá opções para mesclar manualmente, escolhendo a melhor solução.</p>
+<div class="figure">
+<img src="https://github.com/mmfava/blog/blob/mmf/content/talk/2021-08-14-git-github-rstudio/figs/Slide23.JPG?raw=true" alt="" />
+<p class="caption">Exemplo de funcionamento do Git e
+GitHub.</p>
+</div>
+<div id="termos-importantes" class="section level2">
+<h2>Termos importantes</h2>
+<p>Para usar o <em>Git</em>, os desenvolvedores usam comandos específicos para copiar, criar, alterar e combinar código. Esses comandos podem ser executados diretamente da linha de comando do <em>Git</em> ou usando um aplicativo como o <a href="https://desktop.github.com/">GitHub desktop</a> ou <a href="https://www.rstudio.com/">RStudio</a>. Aqui estão os comandos mais comuns para usar o Git:</p>
+<ul>
+<li><p><code>git init</code> inicializa um novo repositório <em>Git</em> e começa a rastrear um diretório existente. Ele adiciona uma subpasta oculta dentro do diretório existente com a finalidade de hospedar a estrutura de dados interna necessária para o controle de versão.</p></li>
+<li><p><code>git ignore</code> especifica arquivos que não serão verificados, ou seja, arquivos que o <em>Git</em> deve ignorar.</p></li>
+<li><p><code>git clone</code> cria uma cópia local (na sua máquina) de um projeto que já existe remotamente. O clone inclui todos os arquivos, histórico e branches do projeto. Ao clonar um repositório, as alterações que você realizar não entrarão no projeto principal se não for sequênciada de um <code>fork</code> ou estiver associada por um <code>branch</code>.</p></li>
+<li><p><code>git status</code> mostra o status das alterações dos arquivos.</p></li>
+<li><p><code>git branch</code> são branches de trabalho que permitem edições paralelas em nosso arquivo sem alterar o projeto principal (<code>branch master</code>). Em geral, um branch de desenvolvimento é uma bifurcação no estado do código que cria um novo caminho para sua evolução. Ramificações podem estar relacionadas a diferentes tipos de trabalho que compõem nosso projeto (por exemplo, introdução, métodos, resultados e discussão).</p></li>
+<li><p><code>git merge</code> é a união de duas branches, geralmente realizada no <code>branch master</code>, quando queremos reunir as diferentes partes em um único arquivo (ex. introdução, métodos, resultados e discussão em TCC).</p></li>
+<li><p><code>git pull</code>atualiza o pipeline de desenvolvimento local com atualizações de sua contraparte remota. Se um colega de equipe realizou mudanças no projeto/ramificação, você pode baixar essas mudanças no seu computador com esse comando.</p></li>
+<li><p><code>git push</code> atualiza o repositório remoto com quaisquer <code>commits</code> feitos localmente para um branch.</p></li>
+</ul>
+<p>Saiba mais em <a href="https://git-scm.com/docs">um guia de referência completo para comandos
+Git</a>.</p>
+</div>
+</div>
+<div id="o-que-é-um-repositório-github" class="section level1">
+<h1>O que é um repositório GitHub?</h1>
+<p>O <strong>Git</strong> é todo o acervo de arquivos e pastas associados a um projeto, somado ao histórico de versões de cada arquivo. Cada vez que salvamos uma alteração em um arquivo (ou <em>commitamos</em>), geramos um histórico de alterações para esse objeto. Todas as versões criadas são listadas pelo <em>Git</em> e podem ser organizadas em várias linhas de desenvolvimento chamadas <em>Branches</em>. Já o <strong>Hub</strong> é um aparelho
+utilizado na área de informática que permite a conexão de computadores a
+uma rede para compartilhar informação, sendo a nomenclatura em <strong>GitHub</strong>
+associada a conexão entre profissionais de programação de qualquer lugar
+do mundo.</p>
+<p>Para utilizar o <em>GitHub</em> é necessário criar uma conta pessoal ou uma conta de equipe em <a href="https://github.com/" class="uri">https://github.com/</a>. Para criar a sua conta, entre no <a href="https://github.com/">GitHub</a> e preencha os dados solicitados — nome, e-mail e senha. Em alguns minutos, você vai receber um e-mail de confirmação para começar a utilizar a plataforma. Além das contas
+individuais e gratuitas, também existem aquelas destinadas a trabalhos em equipe e que são pagas.</p>
+<p>Após confirar o seu e-mail para o <em>GitHub</em>, você estará livre para explorar a ferramenta. Para isso você pode utilizar o guia <a href="https://guides.github.com/activities/hello-world/">Hello World Guide</a> que o orientará como criar o seu primeiro <em>repositório</em>, fazer um <code>branch</code> ou abrir um <code>pull request</code>.</p>
+<div id="mas-porque-usar-o-controle-de-versões" class="section level2">
+<h2>Mas porque usar o controle de versões?</h2>
+<p>(<a href="https://stackoverflow.com/questions/1408450/why-should-i-use-version-control">tradução livre dos comentários em “Why should I use version
+control?”</a>)</p>
+<p><img src="https://github.com/gecdfoz/GECD/blob/master/Nivelamento%20e%20Integra%C3%A7%C3%A3o/GitHub/figuras/varios_arquivos.png?raw=true" width="295" /></p>
+<p>Você já:</p>
+<ul>
+<li><p>Teve que manter várias versões de um produto?</p></li>
+<li><p>Fez uma alteração no código, percebeu que era um erro e queria voltar?</p></li>
+<li><p>Perdeu o código ou tinha um backup antigo?</p></li>
+<li><p>Quis ver a diferença entre duas (ou mais) versões do seu código?</p></li>
+<li><p>Quis provar que uma determinada alteração quebrou ou consertou um trecho de código?</p></li>
+<li><p>Quis revisar o histórico do código?</p></li>
+<li><p>Desejou enviar uma alteração no código para outra pessoa?</p></li>
+<li><p>Desejou compartilhar seu código ou permitir que outras pessoas trabalhem nele?</p></li>
+<li><p>Quis ver quanto trabalho está sendo feito e onde, quando e por quem?</p></li>
+<li><p>Desejou experimentar um novo recurso sem interferir no trabalho do código?</p></li>
+</ul>
+<p>Nestes casos, e sem dúvida em outros, um sistema de controle de versão deve tornar sua vida mais fácil.</p>
+<p><img src="https://media.tenor.com/images/5e43669b9573fea08ede20a5bbbbe2df/tenor.gif" /></p>
+<p>Mesmo se você trabalhar sozinho, pode se beneficiar do <em>Git</em> pelos seguintes motivos:</p>
+<ul>
+<li><p>Você não perde nada. Você pode deletar frações de seu código e recuperá-las depois de algum tempo verificando antigos <code>commits</code>.</p></li>
+<li><p>Você pode experimentar à vontade. Se não resolver o problema, inverta o que foi feito.</p></li>
+<li><p>Você pode consultar as versões anteriores do seu código para descobrir quando e onde os bugs foram introduzidos.</p></li>
+<li><p>Recursos mais “avançados”, como ramificação e mesclagem, permitem que você tenha várias linhas paralelas de desenvolvimento. Você pode trabalhar em dois recursos simultaneamente sem interferência e alternar para frente e para trás sem muito trabalho.</p></li>
+<li><p>Você pode “ver o que mudou”. Freqüentemente, iniciamos o fluxo de trabalho individual com uma pergunta: o que eu fiz ontem?</p></li>
+</ul>
+<p>Vá em frente e experimente. Comece devagar com o básico e aprenda mais à medida que avança.</p>
+<p>Convencido? Bem-vindo ao clube!</p>
+</div>
+</div>

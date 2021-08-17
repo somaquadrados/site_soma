@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Soma dos quadrados</title>
+    <link>http://somaquadrados.netlify.app/tags/</link>
+    <description>Recent content in Tags on Soma dos quadrados</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-BR</language>
+    <lastBuildDate>Tue, 17 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://somaquadrados.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git</title>
+      <link>http://somaquadrados.netlify.app/tags/git/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GitHub</title>
+      <link>http://somaquadrados.netlify.app/tags/github/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PT</title>
+      <link>http://somaquadrados.netlify.app/tags/pt/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/tags/pt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>análisis de datos</title>
+      <link>http://somaquadrados.netlify.app/tags/an%C3%A1lisis-de-datos/</link>
+      <pubDate>Mon, 16 Aug 2021 14:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/tags/an%C3%A1lisis-de-datos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>curso</title>
+      <link>http://somaquadrados.netlify.app/tags/curso/</link>
+      <pubDate>Mon, 16 Aug 2021 14:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/tags/curso/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>http://somaquadrados.netlify.app/tags/r/</link>
+      <pubDate>Mon, 16 Aug 2021 14:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/tags/r/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

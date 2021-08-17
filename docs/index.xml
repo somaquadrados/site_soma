@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Soma dos Quadrados on Soma dos quadrados</title>
+    <link>http://somaquadrados.netlify.app/</link>
+    <description>Recent content in Soma dos Quadrados on Soma dos quadrados</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-BR</language>
+    <lastBuildDate>Tue, 17 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://somaquadrados.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>{PT} O Git e o GitHub</title>
+      <link>http://somaquadrados.netlify.app/blog/git/github/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/blog/git/github/</guid>
+      <description>window.xaringanExtraClipboard(null, {&#34;button&#34;:&#34; Copy Code&#34;,&#34;success&#34;:&#34; Copied!&#34;,&#34;error&#34;:&#34;Press Ctrl+C to Copy&#34;}).page-main img {box-shadow: 0px 0px 2px 2px rgba( 0, 0, 0, 0.2 );}IntroduçãoO Git é um software de controle deversões que visa gerenciar arquivos de texto, principalmente códigos de programação. Esta ferramenta funciona de forma semelhante aos sistemas em nuvem (Google Drive, Dropbox, Mega, etc.), em que podemos compartilhar edições de um script com uma equipe, além de retomar versões antigas de nossos arquivos.</description>
+    </item>
+    
+    <item>
+      <title>Introducción al análisis de datos biológicos con R</title>
+      <link>http://somaquadrados.netlify.app/talk/2021-08-17-intror-inmet/</link>
+      <pubDate>Mon, 16 Aug 2021 14:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/talk/2021-08-17-intror-inmet/</guid>
+      <description>Este es un curso de un mes y medio en programación R para análisis de datos biológicos. Se realiza de forma virtual y contará con una combinación de clases sincrónicas y asincrónicas, con ejercicios que se entregarán semanalmente y una presentación final.</description>
+    </item>
+    
+    <item>
+      <title>Acessibilidade/Accesibilidad</title>
+      <link>http://somaquadrados.netlify.app/accessibility/</link>
+      <pubDate>Tue, 01 Jun 2021 10:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/accessibility/</guid>
+      <description>PT     Agradecemos qualquer feedback sobre a acessibilidade do site e/ou dos materiais que disponibilizamos. Informe se você encontra alguma dificuldade no uso de nosso material por e-mail ou pelo twitter.
+Volte para a página inicial.
+ES     Agradecemos cualquier comentario sobre la accesibilidad del site y/o los materiales que ponemos a disposición. Háganos saber si tiene alguna dificultad al utilizar nuestro material por e-mail o por twitter.</description>
+    </item>
+    
+    <item>
+      <title>LICENSE: CC-BY-SA</title>
+      <link>http://somaquadrados.netlify.app/license/</link>
+      <pubDate>Tue, 01 Jun 2021 09:00:00 +0000</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/license/</guid>
+      <description>The site are released under a Creative Commons Attribution-ShareAlike 4.0 International License.
+</description>
+    </item>
+    
+    <item>
+      <title>Contato/Contacto</title>
+      <link>http://somaquadrados.netlify.app/contact/</link>
+      <pubDate>Mon, 25 Feb 2019 13:38:41 -0600</pubDate>
+      
+      <guid>http://somaquadrados.netlify.app/contact/</guid>
+      <description>** Contact page don&amp;rsquo;t contain a body, just the front matter above. See form.html in the layouts folder.
+Formspree requires a (free) account and new form to be set up. The link is made on the final published url in the field: Restrict to Domain. It is possible to register up to 2 emails free and you can select which one you want the forms to go to within Formspree in the Settings tab.</description>
+    </item>
+    
+  </channel>
+</rss>
