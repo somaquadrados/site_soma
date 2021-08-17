@@ -12,7 +12,7 @@ description: |
   - ------------------------------------------------------------------------
     <br> 
   
-  # Passadas:
+  # D+:
   
 author: "Soma dos Quadrados"
 show_post_thumbnail: true
