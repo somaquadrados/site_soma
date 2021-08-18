@@ -12,8 +12,7 @@ title: Equipe/Equipo
 
 <img src="mmf.png" width = 50%>
 
-[`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](mariliabioufpr@gmail.com) [`r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#FF9933")`](www.mmfava.com) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/mmfava)
-
+## [`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](mariliabioufpr@gmail.com) [`r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#FF9933")`](www.mmfava.com) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/mmfava)
 
 |     PT    	|     ES    	|
 |:---------:	|:---------:	|
@@ -27,8 +26,7 @@ title: Equipe/Equipo
 
 <img src="efb.png" width = 50%>
 
-[`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](burgosef@gmail.com ) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/EliFMBurgos)
-
+## [`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](burgosef@gmail.com ) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/EliFMBurgos)
 
 | PT 	| ES 	|
 |:---:	|:---:	|
