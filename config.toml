@@ -1,4 +1,4 @@
-baseURL = "http://somaquadrados.netlify.app"
+baseURL = "http://somaquadrados.com"
 theme = "hugo-apero"
 languageCode = "pt-BR"
 #title = "Hugo Apéro"
