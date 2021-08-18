@@ -10,7 +10,7 @@ title: Equipe/Equipo
 <center>
 # Marília Melo Favalesso
 
-<img src="https://github.com/somaquadrados/ArtesSoma/blob/main/mmf.png?raw=true" width = 63%>
+<img src="https://github.com/somaquadrados/ArtesSoma/blob/main/mmf.png?raw=true" width = 50%>
 
 [`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#339900")`](mariliabioufpr@gmail.com) [`r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#339900")`](www.mmfava.com) [`r icons::icon_style(icons::fontawesome("github"), fill = "#339900")`](https://github.com/mmfava)
 
@@ -32,6 +32,6 @@ title: Equipe/Equipo
 
 | PT 	| ES 	|
 |:---:	|:---:	|
-| Bióloga (UADER - Argentina), pós-graduanda biologia da conservação (UNaM - Argentina) e doutoranda em Ecologia, Genética e Evolução pela *Universidad de Buenos Aires*. Trabalha com o **R** desde 2018 quando começou sua pós-graduação. 	| Bióloga (UADER - Argentina), estudiante de la especialización en biología de la conservación (UNaM - Argentina) y estudiante de Doctorado en Ecología, Genética y Evolución (UBA - Argentina). Trabaja con **R** desde 2018 cuando inició sus estudios de posgrado. 	|
+| Bióloga (UADER - Argentina), pós-graduanda em Biologia da Conservação (UNaM - Argentina) e doutoranda em Ecologia, Genética e Evolução (UBA - Argentina). Trabalha com o **R** desde 2018 quando começou sua pós-graduação. | Bióloga (UADER - Argentina), estudiante de la especialización en Biología de la Conservación (UNaM - Argentina) y estudiante de Doctorado en Ecología, Genética y Evolución (UBA - Argentina). Trabaja con **R** desde 2018 cuando inició sus estudios de posgrado. 	|
 
 </center>
