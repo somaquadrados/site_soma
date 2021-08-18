@@ -26,10 +26,25 @@ title: Equipe/Equipo
 
 <img src="efb.png" width = 50%>
 
-## [`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](burgosef@gmail.com ) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/EliFMBurgos)
+## [`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](burgosef@gmail.com) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/EliFMBurgos)
 
 | PT 	| ES 	|
 |:---:	|:---:	|
 | Bióloga (UADER - Argentina), pós-graduanda em Biologia da Conservação (UNaM - Argentina) e doutoranda em Ecologia, Genética e Evolução (UBA - Argentina). Trabalha com o **R** desde 2018 quando começou sua pós-graduação. | Bióloga (UADER - Argentina), estudiante de la especialización en Biología de la Conservación (UNaM - Argentina) y estudiante de Doctorado en Ecología, Genética y Evolución (UBA - Argentina). Trabaja con **R** desde 2018 cuando inició sus estudios de posgrado. 	|
+
+<br>
+------------------------------------------------------
+<br>
+
+
+# Isabella Bicalho
+
+<img src="ib.png" width = 50%>
+
+## [`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](bicalhoisabella@gmail.com) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/bellabf)
+
+| PT 	| ES 	|
+|:---:	|:---:	|
+|Bióloga (UFMS - Brasil) e mestranda em bioinformática, com ênfase em biologia computacional e matemática pela Universidade d'Aix-Marseille (França). Trabalha com Python e R desde 2016. Entusiasta de bug. | Bióloga (UFMS - Brasil) y estudiante de maestría en bioinformática, con énfasis en biología computacional y matemáticas en la Universidade d'Aix-Marseille (Francia). Trabaja con Python y R desde 2016. Entusiasta de los bugs. |
 
 </center>
