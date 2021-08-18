@@ -19,6 +19,10 @@ title: Equipe/Equipo
 |:---------:	|:---------:	|
 | Bióloga (UFPR - Brasil), Mestre em Conservação e Manejo de Recursos Naturais (UNIOESTE - Brasil) e Doutoranda em Ecologia, Genética e Evolução (UBA - Argentina). Trabalha com o **R** desde 2016, quando atuou na área de consultoria e assessoria em bioestatística. 	| Bióloga (UFPR - Brasil), Magíster en Conservación y Manejo de Recursos Naturales (UNIOESTE - Brasil) y Estudiante de Doctorado en Ecología, Genética y Evolución (UBA - Argentina). Trabaja con **R** desde 2016 cuando realizaba labores de consultoría y asesoría en bioestadística. |
 
+<br>
+------------------------------------------------------
+<br>
+
 # Eliana Florencia Burgos
 
 <img src="https://github.com/somaquadrados/ArtesSoma/blob/main/efb.png?raw=true" width = 50%>
@@ -28,6 +32,6 @@ title: Equipe/Equipo
 
 | PT 	| ES 	|
 |:---:	|:---:	|
-| Bióloga (UADER) e doutoranda em Ecologia, Genética e Evolução pela *Universidad de Buenos Aires*. Trabalha com o **R** desde 2018 quando começou sua pós-graduação. 	| Bióloga (UADER - Argentina) y estudiante de Doctorado en Ecología, Genética y Evolución (UBA - Argentina). Trabaja con **R** desde 2018 cuando inició sus estudios de posgrado. 	|
+| Bióloga (UADER - Argentina), pós-graduanda biologia da conservação (UNaM - Argentina) e doutoranda em Ecologia, Genética e Evolução pela *Universidad de Buenos Aires*. Trabalha com o **R** desde 2018 quando começou sua pós-graduação. 	| Bióloga (UADER - Argentina), estudiante de la especialización en biología de la conservación (UNaM - Argentina) y estudiante de Doctorado en Ecología, Genética y Evolución (UBA - Argentina). Trabaja con **R** desde 2018 cuando inició sus estudios de posgrado. 	|
 
 </center>

@@ -134,8 +134,8 @@ pygmentsUseClasses = true  # use class names instead of directly inserting color
     url = "/blog/"
     weight = 2
   [[menu.header]]
-    name = "Produções/Producciones"
-    title = "Produções/Producciones"
+    name = "Atividades/Actividades"
+    title = "Atividades/Actividades"
     url = "/talk/"
     weight = 3
 #  [[menu.header]]
