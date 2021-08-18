@@ -10,9 +10,9 @@ title: Equipe/Equipo
 <center>
 # Marília Melo Favalesso
 
-<img src="https://github.com/somaquadrados/ArtesSoma/blob/main/mmf.png?raw=true" width = 50%>
+<img src="mmf.png" width = 50%>
 
-[`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#339900")`](mariliabioufpr@gmail.com) [`r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#339900")`](www.mmfava.com) [`r icons::icon_style(icons::fontawesome("github"), fill = "#339900")`](https://github.com/mmfava)
+[`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](mariliabioufpr@gmail.com) [`r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#FF9933")`](www.mmfava.com) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/mmfava)
 
 
 |     PT    	|     ES    	|
@@ -25,9 +25,9 @@ title: Equipe/Equipo
 
 # Eliana Florencia Burgos
 
-<img src="https://github.com/somaquadrados/ArtesSoma/blob/main/efb.png?raw=true" width = 50%>
+<img src="efb.png" width = 50%>
 
-[`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#339900")`](burgosef@gmail.com ) [`r icons::icon_style(icons::fontawesome("github"), fill = "#339900")`](https://github.com/EliFMBurgos)
+[`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](burgosef@gmail.com ) [`r icons::icon_style(icons::fontawesome("github"), fill = "#FF9933")`](https://github.com/EliFMBurgos)
 
 
 | PT 	| ES 	|
