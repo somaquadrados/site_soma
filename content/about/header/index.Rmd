@@ -47,4 +47,18 @@ title: Equipe/Equipo
 |:---:	|:---:	|
 |Bióloga (UFMS - Brasil) e mestranda em bioinformática, com ênfase em biologia computacional e matemática pela Universidade d'Aix-Marseille (França). Trabalha com Python e R desde 2016. Entusiasta de bug. | Bióloga (UFMS - Brasil) y estudiante de maestría en bioinformática, con énfasis en biología computacional y matemáticas en la Universidade d'Aix-Marseille (Francia). Trabaja con Python y R desde 2016. Entusiasta de los bugs. |
 
+<br>
+------------------------------------------------------
+<br>
+
+# Letícia Dal' Canton
+
+<img src="ldc.png" width = 50%>
+
+## [`r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#FF9933")`](leticiacanton@hotmail.com) [`r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#FF9933")`](http://lattes.cnpq.br/1085422685501012)
+
+| PT 	| ES 	|
+|:---:	|:---:	|
+|Matemática (UNIOESTE – Brasil), Mestre em Engenharia Agrícola (UNIOESTE – Brasil) e Doutoranda (UNIOESTE – Brasil) em Engenharia Agrícola com linha de pesquisa em Estatística Espacial. Trabalha com R desde 2016 quando iniciou a pós-graduação. | Matemáticas (UNIOESTE - Brasil), Maestría en Ingeniería Agrícola (UNIOESTE - Brasil) y Estudiante de Doctorado (UNIOESTE - Brasil) en Ingeniería Agrícola con una línea de investigación en Estadística Espacial. Trabaja con R desde 2016 cuando inició sus estudios de posgrado. |
+
 </center>
