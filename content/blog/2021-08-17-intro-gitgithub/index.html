@@ -2,7 +2,7 @@
 title: "{PT} O Git e o GitHub"
 subtitle: "Texto em construção"
 layout: single-sidebar
-excerpt: "Olá, você teria um momento para ouvir a palavra do Git e do GitHub?"
+excerpt: "Você começou a escrever um trabalho com colaboradores e se perdeu em um mar de versões e correções? Se você já passou por isso, quero dizer que existe uma solução linda e GRATUITA (bem, pelo menos para uso pessoal) que mudará sua vida: Git e GitHub!"
 author: Marília Melo Favalesso
 date: '2021-08-17'
 slug: Git/GitHub
@@ -23,7 +23,6 @@ image:
   focal_point: 'Center'
   preview_only: no
 lastmod: '2021-08-17'
-
 ---
 
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
@@ -40,10 +39,15 @@ lastmod: '2021-08-17'
   box-shadow: 0px 0px 2px 2px rgba( 0, 0, 0, 0.2 );
 }
 </style>
+<p>Você começou a escrever um trabalho com a colaboração de outras pessoas e se perdeu em um mar de versões e correções? Se você já passou por isso, quero dizer que existe uma solução linda e GRATUITA (bem, pelo menos para uso pessoal) que mudará sua vida: <strong>Git</strong> e <strong>GitHub</strong>!</p>
+<p><img src="https://github.com/mmfava/blog/blob/mmf/content/talk/2021-08-14-git-github-rstudio/figs/Slide10.JPG?raw=true" /></p>
 <div id="introdução" class="section level1">
 <h1>Introdução</h1>
 <p>O <a href="https://www.atlassian.com/br/git/tutorials/what-is-git"><em>Git</em></a> é um software de <a href="https://www.devmedia.com.br/sistemas-de-controle-de-versao/24574">controle de
-versões</a> que visa gerenciar arquivos de texto, principalmente códigos de programação. Esta ferramenta funciona de forma semelhante aos sistemas em nuvem (Google Drive, Dropbox, Mega, etc.), em que podemos compartilhar edições de um script com uma equipe, além de retomar versões antigas de nossos arquivos. Resumidamente, <em>Git</em> examina as alterações feitas nos arquivos em um diretório e mantém essas informações para compartilhar com outros usuários e possibilitar a reversão das alterações feitas. Além de ser uma ferramenta útil, o <em>Git</em> se conecta ao serviço de hospedagem e armazenamento de versão chamado <a href="https://github.com/"><em>GitHub</em></a>. A partir do <em>GitHub</em>, é possível contribuir com projetos de qualquer parte do mundo, além de compartilhar nossos códigos para fins de divulgação e colaboração.</p>
+versões</a> que visa gerenciar arquivos de texto, principalmente códigos de programação. Esta ferramenta funciona de forma semelhante aos sistemas em nuvem (Google Drive, Dropbox, Mega, etc.), em que podemos compartilhar edições de um script com uma equipe, além de retomar versões antigas de nossos arquivos. Resumidamente, <em>Git</em> examina as alterações feitas nos arquivos em um diretório e mantém essas informações para compartilhar com outros usuários e possibilitar a reversão das alterações feitas.</p>
+<p><img src="https://github.com/mmfava/blog/blob/mmf/content/talk/2021-08-14-git-github-rstudio/figs/Slide17.JPG?raw=true" /></p>
+<p>Além de ser uma ferramenta útil, o <em>Git</em> se conecta ao serviço de hospedagem e armazenamento de versão chamado <a href="https://github.com/"><em>GitHub</em></a>. A partir do <em>GitHub</em>, é possível contribuir com projetos de qualquer parte do mundo, além de compartilhar nossos códigos para fins de divulgação e colaboração.</p>
+<p><img src="https://github.com/mmfava/blog/blob/mmf/content/talk/2021-08-14-git-github-rstudio/figs/Slide20.JPG?raw=true" /></p>
 </div>
 <div id="como-funciona-o-controle-de-versões" class="section level1">
 <h1>Como funciona o controle de versões?</h1>
@@ -53,13 +57,10 @@ Os DVCSs permitem acesso total a todos os arquivos, ramificações e
 iterações de um projeto e permitem que todos os usuários acessem um
 histórico completo e independente de todas as alterações.</p>
 <p>Usando o <em>Git</em>, você pode fazer upload de novas versões de um projeto para um repositório (em outras palavras, um servidor) onde seus arquivos serão armazenados e o histórico de suas versões será salvo. Nesse caso, nosso armazenamento estará no GitHub. Todos os colaboradores/desenvolvedores podem acessar e recuperar a versão mais recente do projeto disponível no <em>GitHub</em> e copiar em suas máquinas locais (seus computadores). Eles podem trabalhar nisso e continuar o processo de desenvolvimento em paralelo com outros colegas. Com cada alteração feita, você pode enviar suas alterações para o repositório e atualizar sua versão de outras feitas por outros desenvolvedores.</p>
-<p><strong>Por exemplo</strong>: Digamos que você tenha começado a participar de um projeto que já está em andamento e está hospedado no <em>GitHub</em>. Inicialmente, você precisará baixar a versão mais recente do projeto para sua máquina (<code>clone</code> do git). Com o tempo, você trabalhará neste projeto individualmente; você pegará o projeto em um estágio específico e começará a fazer suas alterações separadamente dos outros. Para fazer isso, você criará uma <code>branch</code> (braços ou ramos) a partir do projeto principal (o <code>trunk</code>, denominado <code>branch master</code>). Outros desenvolvedores também farão mudanças e as salvarão (<code>git commit</code>) em seus branches.</p>
-<p>Quando terminar sua parte do projeto, você mesclará seu <code>branch</code> com o <code>branch master</code> e fará uma solicitação de <code>pull</code> para que todos os seus colegas de trabalho saibam que uma etapa do projeto está pronta. Quando outro colaborador enviar suas alterações para o <em>GitHub</em> (<code>git commit</code> e <code>git push</code>), o <em>Git</em> irá alertá-lo de que sua versão está desatualizada (ele ainda não baixou o que você enviou para o repositório) e pedirá ao colega para atualizar a nova versão em sua máquina (<code>git pull</code>). O <em>Git</em> enviará as informações recém-adicionadas ao seu colega e permitirá que você mescle as diferentes versões (<code>git merge</code>). Além disso, ele também mostrará onde as atualizações foram feitas, trechos de código adicionados ou removidos e casos de conflito onde as linhas podem ser substituídas e oferecerá opções para mesclar manualmente, escolhendo a melhor solução.</p>
-<div class="figure">
-<img src="https://github.com/mmfava/blog/blob/mmf/content/talk/2021-08-14-git-github-rstudio/figs/Slide23.JPG?raw=true" alt="" />
-<p class="caption">Exemplo de funcionamento do Git e
-GitHub.</p>
-</div>
+<p><strong>Por exemplo</strong>: Digamos que você esteja escrevendo seu Trabalho de Conclusão de Curso (TCC) e deseja compartilhar o desenvolvimento com a sua orientadora e coorientadora. Inicialmente, você precisará criar um projeto com o Git em sua máquina local. Com o tempo e conforme o seu texto evolui, você pode enviar suas alterações para um repositório no GitHub. Para fazer isso, você criará um <code>branch</code> (braços ou branches) no projeto principal (o<code>trunk</code>, chamado <code>branch master</code>) e enviará esse projeto para o Github. Com o tempo, suas orientadoras também mudarão este projeto e os salvarão em seus próprios <code>branches</code> la no Github.</p>
+<p><img src="https://github.com/mmfava/blog/blob/mmf/content/talk/2021-08-14-git-github-rstudio/figs/Slide21.JPG?raw=true" /></p>
+<p>Quando as suas orientadoras concluírem uma etapa, elas farão um <code>pull request</code> para informá-la de que uma correção foi concluída e está disponível em seu repositório virtual. Sempre que um contribuidor envia alterações para <em>GitHub</em>, um alerta de atualização de versão é gerado solicitando que você baixe a versão mais recente do projeto para sua máquina local (<code>git pull</code>). O <em>Git</em> fará o upload das correções recém-adicionadas e permitirá que você combine sua versão com a das orientadoras (<code>git merge</code>). Além disso, o <em>Git</em> também mostrará onde as correções foram feitas (trechos de texto adicionados ou removidos) e casos de conflito onde as linhas podem ser substituídas, oferecendo opções para mesclar manualmente os manuscritos.</p>
+<p><img src="https://github.com/mmfava/blog/blob/mmf/content/talk/2021-08-14-git-github-rstudio/figs/Slide22.JPG?raw=true" /></p>
 <div id="termos-importantes" class="section level2">
 <h2>Termos importantes</h2>
 <p>Para usar o <em>Git</em>, os desenvolvedores usam comandos específicos para copiar, criar, alterar e combinar código. Esses comandos podem ser executados diretamente da linha de comando do <em>Git</em> ou usando um aplicativo como o <a href="https://desktop.github.com/">GitHub desktop</a> ou <a href="https://www.rstudio.com/">RStudio</a>. Aqui estão os comandos mais comuns para usar o Git:</p>
@@ -75,6 +76,7 @@ GitHub.</p>
 </ul>
 <p>Saiba mais em <a href="https://git-scm.com/docs">um guia de referência completo para comandos
 Git</a>.</p>
+<p><img src="https://github.com/mmfava/blog/blob/mmf/content/talk/2021-08-14-git-github-rstudio/figs/Slide23.JPG?raw=true" /></p>
 </div>
 </div>
 <div id="o-que-é-um-repositório-github" class="section level1">
