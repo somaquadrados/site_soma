@@ -1,6 +1,8 @@
 ---
 title: "Cronograma"
-output: html_document
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 # 2021
