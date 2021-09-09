@@ -1,8 +1,3 @@
----
-title: "Cronograma"
-output: html_document
----
-
 # 2021
 
 |    <br>Data/Fecha                                      	|    <br>O quê?/¿Qué?    	|    <br>Título                                                                                   	|    <br>Autora              	|    <br>Idioma    	|    <br>Onde?/¿Donde?    	|    <br>ok?    	|
