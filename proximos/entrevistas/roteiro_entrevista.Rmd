@@ -1,0 +1,33 @@
+---
+title: "Roteiro de entrevista"
+author: "Tempo máximo dos vídeos: 45m."
+output: html_document
+---
+
+Tema: ________________________
+
+Entrevistados: _________________
+
+
+## Parte I: 
+- Começar o vídeo com a apresentação do canal e do projeto de entrevistas (máximo 3m).
+
+## Parte II: 
+- Apresentação do tema e dos entrevistados (máximo 5m)
+  - Apresentar o tema que será abordado na entrevista.
+  - Apresentar cada um dos entrevistados e também pedir para que cada um fale sobre si: “Então fulan@, quem é você no mundo bioestatistico?”. 
+  - Fulano se apresenta falando sobre sua trajetória profissional e no mundo dos dados. 
+
+## Parte III: 
+- Perguntas base da entrevista (máximo de 35m):
+  - Então fulan@/s, conte-nos um pouco sobre a sua área de trabalho, o que significa TEMA DA ENTREVISTA? (destacar as aplicações e implicações biológicas).
+  - Para os que querem trabalhar nessa área, por onde é necessário começar? Existe alguma formação específica para atuar nessa área ou qualquer profissional pode se especializar nela? (entrevistado pode falar sobre a própria trajetória profissional). 
+  - Quais são as análises estatísticas mais comuns na sua rotina de trabalho?
+  - Quais são as ferramentas mais utilizadas na sua rotina de trabalho?
+  - Você pode mostrar algum exemplo de análise para nós? [Pedir para o entrevistado mostrar algum script contendo exemplos de análises de dados sequencialmente interpretando os resultados; o script será postado junto com a entrevista no site www.somaquadrados.com].
+  - E fulan@, atualmente você está atuando na ACADEMIA/MERCADO, pra fechar, você pode comentar quais são os objetivos do seu trabalho e quais os resultados que você têm encontrado ou que espera encontrar? 
+
+## Parte IV: 
+- Fechamento da entrevista com agradecimentos, divulgação do contato dos entrevistados e pedido de assinatura do canal (máximo 5m).
+
+

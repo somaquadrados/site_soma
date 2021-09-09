@@ -1,0 +1,42 @@
+---
+title: "Guión de entrevista"
+author: "Tiempo máximo para videos: 45m."
+output: html_document
+---
+
+Tema: ________________________
+
+Entrevistado: _________________
+
+
+## Parte I: 
+- Inicie el video con la presentación del canal y el proyecto de entrevista (máximo 3m).
+
+## Parte II: 
+- Presentación del tema y entrevistados (máximo 5 m)
+  - Presenta el tema que se tratará en la entrevista.
+  - Presente lo entrevistado y también pídale que hable el mismos “Fulano de tal, ¿quién eres usd. en el mundo bioestadístico?”.
+    - Fulano de tal se presenta hablando de su trayectoria profesional y en el mundo de los datos.
+
+## Parte III: 
+- Preguntas básicas de la entrevista (máximo 30 m):
+  - Entonces fulan@/s, cuéntanos un poco sobre tu área de trabajo, ¿qué significa el TEMA DE LA ENTREVISTA? (resaltar las aplicaciones e implicaciones biológicas).
+  - Para aquellos que quieran trabajar en esta área, ¿por dónde deben empezar? ¿Existe alguna formación específica para trabajar en esta área o algún profesional puede especializarse en ella? (El entrevistado puede hablar de su propia trayectoria profesional).
+  - ¿Cuáles son los análisis estadísticos más habituales en su rutina laboral?
+  - ¿Cuáles son las herramientas más utilizadas en tu rutina laboral?
+  - ¿Puede mostrarnos algún análisis de muestra? [Pídale al encuestado que muestre un guión que contenga ejemplos de análisis de datos que interpreten secuencialmente los resultados; el guión se publicará con la entrevista en el sitio web www.somaquadrados.com].
+  - Y tal y tal, actualmente estás trabajando en la ACADEMY/MARKET, para cerrar, ¿puedes comentar cuáles son los objetivos de tu trabajo y qué resultados has encontrado o esperas encontrar?
+
+## Parte IV: 
+- Cierre de la entrevista con agradecimientos, divulgación de los datos de contacto de los entrevistados y solicitud de suscripción al canal (máximo 5m).
+
+-------------------------------------------------------------------------------
+
+# INVITACIÓN:
+
+Hola fulano de tal, ¿cómo estás?
+
+Me estoy comunicando contigo para hacerte una invitación. No sé si conoces mi proyecto, la suma de cuadrados. La idea del SQ es simplificar la bioestadística y la programación para los profesionales del gran área de las ciencias biológicas. Entre los diversos conceptos que estamos desarrollando, uno de ellos es un talk show en Youtube. Estamos planeando entrevistar a profesionales utilizando análisis de datos y programación con aplicaciones e implicaciones biológicas. Antes de grabar el programa, enviamos las preguntas al entrevistado y celebramos una reunión momentos antes de la grabación para que el programa se desarrolle correctamente. La entrevista no es en vivo y se somete a edición antes de ser lanzada en youtube. Dicho todo esto, nos pusimos en contacto para invitarlo a unirse a uno de nuestros programas. Conocemos su trabajo y estaríamos encantados si lo hiciera. (...)
+
+
+

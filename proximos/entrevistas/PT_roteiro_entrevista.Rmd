@@ -1,0 +1,43 @@
+---
+title: "Roteiro de entrevista"
+author: "Tempo máximo dos vídeos: 45m."
+output: html_document
+---
+
+Tema: ________________________
+
+Entrevistados: _________________
+
+
+## Parte I: 
+- Começar o vídeo com a apresentação do canal e do projeto de entrevistas (máximo 3m).
+
+## Parte II: 
+- Apresentação do tema e do entrevistado (máximo 5m)
+  - Apresentar o tema que será abordado na entrevista.
+  - Apresentar o entrevistado e também pedir para que fale sobre si: “Então fulan@, quem é você no mundo bioestatistico?”. 
+  - Fulano se apresenta falando sobre sua trajetória profissional e no mundo dos dados. 
+
+## Parte III: 
+- Perguntas base da entrevista (máximo de 30m):
+  - Então fulan@/s, conte-nos um pouco sobre a sua área de trabalho, o que significa TEMA DA ENTREVISTA? (destacar as aplicações e implicações biológicas).
+  - Para os que querem trabalhar nessa área, por onde é necessário começar? Existe alguma formação específica para atuar nessa área ou qualquer profissional pode se especializar nela? (entrevistado pode falar sobre a própria trajetória profissional). 
+  - Quais são as análises estatísticas mais comuns na sua rotina de trabalho?
+  - Quais são as ferramentas mais utilizadas na sua rotina de trabalho?
+  - Você pode mostrar algum exemplo de análise para nós? [Pedir para o entrevistado mostrar algum script contendo exemplos de análises de dados sequencialmente interpretando os resultados; o script será postado junto com a entrevista no site www.somaquadrados.com].
+  - E fulan@, atualmente você está atuando na ACADEMIA/MERCADO, pra fechar, você pode comentar quais são os objetivos do seu trabalho e quais os resultados que você têm encontrado ou que espera encontrar? 
+
+## Parte IV: 
+- Fechamento da entrevista com agradecimentos, divulgação do contato dos entrevistados e pedido de assinatura do canal (máximo 5m).
+
+
+-------------------------------------------------------------------------------
+
+# Convite
+
+Olá fulano, como você está?
+
+Estou entrando em contato para fazer um convite. Não sei se você conhece meu projeto, a Soma dos Quadrados. A ideia do SQ é simplificar a bioestatística e a programação para profissionais da grande área das ciências biológicas. Entre os vários conceitos que estamos desenvolvendo, um deles é um talk show no Youtube. Estamos planejando entrevistar profissionais que utilizam análise de dados e programação com aplicações e implicações biológicas. Antes de gravar o programa, enviamos as perguntas ao entrevistado e fazemos uma reunião momentos antes da gravação para combinar como será o desenvolvimento do programa. A entrevista não é ao vivo e passa por uma edição antes de ser lançada no youtube. Dito isso, entramos em contato para convidá-la a participar de um de nossos programas. Conhecemos o seu trabalho e ficaríamos muito felizes com a sua participação! (...)
+
+
+
