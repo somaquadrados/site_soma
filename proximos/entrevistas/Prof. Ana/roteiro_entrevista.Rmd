@@ -1,12 +1,14 @@
 ---
-title: "Roteiro de entrevista Prof. Ana"
-author: "Tempo máximo dos vídeos: 45m."
-output: html_document
+title: "O que faz uma bioestatística?"
+author: 'Tempo máximo dos vídeos: 45m.'
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
 ---
 
-Tema: O que faz uma bioestatística?
-Entrevistada: Ana Tereza Bittencourt Guimarães
-Host: Marília e Letícia
+## Entrevistada: Ana Tereza Bittencourt Guimarães
+## Host: Marília e Letícia
 
 ## Parte I: Apresentação (máximo 10m)
 - Marília e Leticia se apresentam
@@ -15,10 +17,10 @@ Host: Marília e Letícia
   - "Nós somos o Soma dos Quadrados, um projeto que visa..."
 - Letícia apresenta o projeto de entrevistas do soma
   - "É isso Mari, e hoje nós vamos dar inicio ao nosso programa de entrevista com a nossa querida Profa. Dra. Ana Tereza Bittencourt Guimarães com o tema 'O que faz uma bioestatística?' E para dar inicio a nossa conversa, Prof. Ana, pode se apresentar para nós? Quem é você no mundo bioestatístico?"
-- Prof. Ana se apresenta. 
+- Prof. Ana se apresenta e fala um pouco sobre a formação e trabalho na área da bioestatística. 
 
-## Parte II: Entrevista.
-- Leticia: "Então prof. Dra. Ana, pode nos contar um pouco sobre a sua área de trabalho? O que significa "bioestatística"? (destacar as aplicações e implicações biológicas).
+## Parte II: Entrevista (máximo 30m)
+- Leticia: "Então prof. Dra. Ana, pode nos contar um pouco sobre a sua área de trabalho? O que significa 'bioestatística'? Existe alguma relação entre a bioestatística, a estatística e a ciência de dados?" (destacar as aplicações e implicações biológicas).
 - Marília: "Para os que querem trabalhar nessa área, por onde é necessário começar? Existe alguma formação específica para atuar nessa área ou qualquer profissional pode se especializar nela? (entrevistado pode falar sobre a própria trajetória profissional)."
 - Leticia: "Quais são as análises estatísticas mais comuns na sua rotina de trabalho e quais são as ferramentas mais utilizadas na sua rotina de trabalho?"
 - Marília: "Você pode mostrar algum exemplo de análise para nós? [Pedir para o entrevistado mostrar algum script contendo exemplos de análises de dados sequencialmente interpretando os resultados; o script será postado junto com a entrevista no site www.somaquadrados.com]."
@@ -26,7 +28,7 @@ Host: Marília e Letícia
 
 **Durante a entrevista, outras perguntas podem surgir. Como resultado, realizamos uma reunião previa a entrevista para definir a discussão durante a gravação do vídeo..**
 
-## Parte III: Encerramento 
+## Parte III: Encerramento (máximo 5m)
 - Fechamento da entrevista com agradecimentos, divulgação do contato dos entrevistados e pedido de assinatura do canal (máximo 5m).
 
 
