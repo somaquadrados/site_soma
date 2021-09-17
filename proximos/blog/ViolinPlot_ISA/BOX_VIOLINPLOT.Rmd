@@ -7,7 +7,7 @@ output: html_document
 
 # Introdução
 
-Você já pensou como as cinturas em caixa podem ser informativas? Não? Então venha comigo neste mini-tutorial que eu vou te mostrar como! 😊
+Você já pensou como as cinturas em caixas podem ser informativas? Não? Então venha comigo neste mini-tutorial que eu vou te mostrar como! 😊
 
 Nas sessões [1](#s1) e [2](#s2), mostrarei o que são um *boxplot* e um *violin plot* e discutirei - brevemente 😅 - as vantagens de usar cada um deles. Na [sessão 3](#s3), falo sobre as vantagens de plotar os dois gráficos em conjunto e na [sessão 4](#s4) mostro como cria-los em `r fontawesome::fa("r-project", fill = "steelblue")`.
 
@@ -19,22 +19,15 @@ O boxplot - também conhecido como diagrama de caixa, de quartil ou, meu favorit
 library(tidyverse)
 library(scales)
 
-A <- c(runif(25, 5, 20), 32)
-B <- c(runif(25, 0, 10), 10)
-C <- c(runif(25, 10, 15), 20)
+A <- data.frame("Variável" = rep("A", 26), "Valores" = c(runif(25, 5, 20), 32))
 
-D <- data.frame(A, B, C) %>%
-  pivot_longer(1:3, names_to = "Variável", values_to = "Valores")
-
-D <- D[D$Variável == "A",]
-
-ggplot(D, aes(x = Variável, y = Valores)) + 
+ggplot(A, aes(x = Variável, y = Valores)) + 
   geom_boxplot(width = .5, color = "grey30", fill = "grey95", alpha = .9,
                show.legend = F) + 
   theme_light() + 
   annotate( # adicionar anotação
-  x = 1.1, 
-  y = quantile(A)[5], 
+  x = 1.05, 
+  y = quantile(A[,2])[5], 
   label = "outlier", 
   geom = "text", 
   color = "blue", 
@@ -42,7 +35,7 @@ ggplot(D, aes(x = Variável, y = Valores)) +
   size = 3.5) +
   annotate( # adicionar anotação
   x = 1.1, 
-  y = quantile(A, probs = 0.95), 
+  y = quantile(A[,2], probs = 0.95), 
   label = "limite superior", 
   geom = "text", 
   color = "blue", 
@@ -50,7 +43,7 @@ ggplot(D, aes(x = Variável, y = Valores)) +
   size = 3.5) +
   annotate( # adicionar anotação
   x = 1.28, 
-  y = quantile(A)[4], 
+  y = quantile(A[,2])[4], 
   label = "Q3", 
   geom = "text", 
   color = "blue", 
@@ -58,7 +51,7 @@ ggplot(D, aes(x = Variável, y = Valores)) +
   size = 3.5) +
   annotate( # adicionar anotação
   x = 1.31, 
-  y = quantile(A)[3], 
+  y = quantile(A[,2])[3], 
   label = "Mediana", 
   geom = "text", 
   color = "blue", 
@@ -66,7 +59,7 @@ ggplot(D, aes(x = Variável, y = Valores)) +
   size = 3.5) +
   annotate( # adicionar anotação
   x = 1.31, 
-  y = quantile(A)[2], 
+  y = quantile(A[,2])[2], 
   label = "Q1", 
   geom = "text", 
   color = "blue", 
@@ -74,22 +67,21 @@ ggplot(D, aes(x = Variável, y = Valores)) +
   size = 3.5) +
   annotate( # adicionar anotação
   x = 1.1, 
-  y = quantile(A)[1], 
+  y = quantile(A[,2])[1], 
   label = "limite inferior", 
   geom = "text", 
   color = "blue", 
   family = "Bell MT",
-  size = 3.5)
-  theme(legend.position="none") # retirar a legenda
+  size = 3.5) 
 ```
 
 
 ## Violin plot {#s2}
 
-O violin plot é bastante similar a um box plot, mas com a vantagem de usar um *kernel de densidade simétrico* que se distribui em ambos os lados do "violino"; ou seja, ela também consegue refletir a densidade de probabilidade (como um histograma). A maior vantagem é que ela consegue ser mais informativo que um boxplot, pois mostra todo o conjunto dos dados. Infelizmente, não é um gráfico tão popular, o que pode levar a alguma confusão sobre sua interpretação.
+O violin plot é bastante similar a um box plot, mas com a vantagem de usar um *kernel de densidade simétrico* que se distribui em ambos os lados do "violino"; ou seja, ela também consegue refletir a densidade de probabilidade (como um histograma). A maior do violin plot é que ela consegue ser mais informativo que um boxplot, pois mostra todo o conjunto dos dados. Infelizmente, não é um gráfico tão popular, o que pode levar a alguma confusão sobre sua interpretação.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-ggplot(D, aes(x = Variável, y = Valores, fill = Variável)) + 
+ggplot(A, aes(x = Variável, y = Valores, fill = Variável)) + 
   geom_violin(show.legend = F, alpha = .8, color = "grey30") + 
   theme_light() +
   theme(legend.position="none")
@@ -97,10 +89,10 @@ ggplot(D, aes(x = Variável, y = Valores, fill = Variável)) +
 
 ## Por que usar os dois juntos? {#s3}
 
-O pulo do gato é que você pode plotar o boxplot e o plot do violino no mesmo gráfico. Esse reflexo é especialmente importante se seus dados forem multimodais, pois isso fica evidente no gráfico de violino e não está claro no gráfico de caixa. Outra vantagem é que também evita que você termine com um boxplot, um histograma + estimativa de densidade de kernel para cada variável. Pela própria natureza dos gráficos, também é mais fácil visualizar sua amostra por fatores diferentes.
+O salto do gato é que você pode plotar o boxplot e o plot do violino no mesmo gráfico. Essa sobreposição é especialmente importante se seus dados forem multimodais, pois isso é evidente no gráfico de violino e não claro no gráfico de caixa. Outra vantagem é que também evita que você termine com um boxplot, um histograma + estimativa de densidade de kernel para cada variável. Pela própria natureza dos gráficos, também é mais fácil visualizar sua amostra por fatores diferentes.
 
-```{r}
-ggplot(D, aes(x = Variável, y = Valores, fill = Variável)) + 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(A, aes(x = Variável, y = Valores, fill = Variável)) + 
   geom_violin(show.legend = F, alpha = .6) +
   geom_boxplot(width = .5, fill = "grey95", color = "grey30", alpha = .9,
                show.legend = F) + 
@@ -128,7 +120,7 @@ library(datasets)
 library(ggplot2)
 ```
 
-Aqui, vamos usar dois data sets diferentes: 'plantGrowth' e o 'beavers'.
+Aqui, vamos usar dois data sets diferentes: 'plantGrowth' e o 'InsectSprays'.
 
 ```{r}
 data("PlantGrowth"); data("InsectSprays")
@@ -159,10 +151,10 @@ ggplot(PlantGrowth, aes(x = weight, # no eixo 'x' vai o peso
 
 Como nosso primeiro gráfico não tem uma estética bonita, é possível executar alguns comandos para torná-lo mais agradável e informativo.
 
-O primeiro passo é mudar a largura dos boxplots. Para isso, usaremos o comando `width = 0.3` como parãmetro dentro da chamada do `boxplot()`. Também vamos mudar o tema com a função `theme_light()`. O objetivo é deixar o gráfico mais coeso.
+O primeiro passo é mudar a largura dos boxplots. Para isso, usaremos o comando `width = 0.3` como parâmetro dentro da chamada do `boxplot()`. Também vamos mudar o tema com a função `theme_light()`. O objetivo é deixar o gráfico mais coeso.
 
 ```{r}
-ggplot(PlantGrowth, aes(x=weight, y=group)) + 
+ggplot(PlantGrowth, aes(x = weight, y = group)) + 
   theme_light() + # mudança de tema (estética) do background
   geom_violin() +
   geom_boxplot(width = 0.3) # diminuição das caixas
@@ -171,14 +163,14 @@ ggplot(PlantGrowth, aes(x=weight, y=group)) +
 Em seguida, você pode escolher alterar o ângulo das caixas, colocando-as na vertical. Nesse caso, apenas peça que as coordenadas sejam invertidas usando `coord_flip()`.
 
 ```{r}
-ggplot(PlantGrowth, aes(x=weight, y=group)) + 
+ggplot(PlantGrowth, aes(x = weight, y = group)) + 
   theme_light() +
   geom_violin() +
   geom_boxplot(width = 0.3) +
   coord_flip() # caixas na vertical
 ```
 
-Por fim, vamos colorir os violinos e deixas as caixas com contornos em cinza. Para tal usaremos as funções `aes(fill = group, color = group, alpha = 0.5)` em `geom_violin()` e `color = "grey20"` em `geom_boxplot()`. Também vamos remover a legenda do gráfico, pois a distinção entre grupos já está explicada no eixo x com `theme(legend.position = "none")`.
+Por fim, vamos colorir os violinos e deixas as caixas com contornos em cinza. Para tal usaremos as funções `aes(fill = group, color = group, alpha = 0.5)` em `geom_violin()` e `color = "grey20"` em `geom_boxplot()`. Também vamos remover a legenda do gráfico com `theme(legend.position = "none")`, pois a distinção entre grupos já está explicada no eixo x.
 
 ```{r}
 ggplot(PlantGrowth, aes(x = weight, y = group)) + 
@@ -187,9 +179,9 @@ ggplot(PlantGrowth, aes(x = weight, y = group)) +
                   color = group, # colorir o contorno dos violinos em função dos grupos
                   alpha = 0.5)) + # deixar as cores transparentes (50% de transparência)
   geom_boxplot(width = 0.3, 
-               color = "grey30") + # contorne do boxplot em cinza
+               color = "grey30") + # contorno do boxplot em cinza escuro
   coord_flip() +
-  theme(legend.position="none") # retirar a legenda
+  theme(legend.position = "none") # retirar a legenda
 ```
 
 ## Insect Sprays
