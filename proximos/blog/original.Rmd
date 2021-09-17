@@ -35,15 +35,11 @@ O pulo do gato é que você plotar ambos no mesmo gráfico. Esse reflexo é espe
 Primeiro passo é carregar o pacote do ggplot e o dataset que vamos usar. Aqui, vamos usar dos data sets diferentes: plantGrowth e beavers. PlantGrowth contém duas colunas com o peso e o grupo. 
 
 ```{r}
-
 library(datasets)
 library(ggplot2)
-
 data("PlantGrowth")
 data("InsectSprays")
-
 head(PlantGrowth)
-
 ```
 
 
@@ -61,19 +57,16 @@ Usando ggplot2, você pode plotar dois gráficos diretamente usando apenas "soma
 ggplot(PlantGrowth, aes(x=weight, y=group, color = group)) + 
         geom_violin() +
         geom_boxplot() 
-
 ```
   
   
 O primeiro passo é mudar a largura dos boxplots. Para isso, passamos o width = 0.3 como parãmetro dentro da chamada do boxplot. Também mudados o tema usando theme_light para o gráfico ficar mais coeso. 
   
 ```{r}
-
 ggplot(PlantGrowth, aes(x=weight, y=group, color = group)) + 
   theme_light() +
   geom_violin() +
   geom_boxplot(width=0.3) 
-
 ```
   
 Por último, você pode escolher colocar o gráfico "de pé". Nesse caso, basta pedir para que as coodernadas sejam invertidas usando coord_flip().
@@ -92,14 +85,21 @@ ggplot(PlantGrowth, aes(x=weight, y=group, color = group)) +
 Podemos fazer a mesma coisa usando o dataset InsectSprays.
 
 ```{r}
-
-
-
 ggplot(InsectSprays, aes(x=spray, y=count, color = spray)) + 
   theme_light() +
   geom_violin() +
   geom_boxplot(width=0.05) 
-
-
 ```
   
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

@@ -1,0 +1,32 @@
+---
+title: "Estatística bayesiana"
+author: "Marília Melo Favalesso"
+date: "15/09/2021"
+output: html_document
+---
+
+As bases conceituas da estatística atual foram formuladas entre 1920-1930, como novas fomulações ou como métodos de rechaçar métodos prévios. 
+Na estatística, coexistem dois marcos teóricos com métodos diferentes de análises desde as suas orígens:
+
+- O método frequentista (ou clássico)
+- O método Bayesiano
+
+Ambas possuem o mesmo objeto, mas com filosofias distintas. As principais diferenças têm relação com a visão da probabilidade e com o uso da informação prévida na análise de dados. 
+
+Principais nomes da história estatística:
+
+- Pascal e Fermat (1654): Teóría da probabilidade
+
+- Huygens (1763): Livro sobre probabilidad aplicada a jogos de azar. 
+
+- Bernoulli (1713):  Probabilidade 0/1, lei dos grandes números, noções de probabilidade frequentista e subjetiva, e mostra aplicações em problemas com incerteza de decição. 
+
+- Laplace (1812): Formalização das duas vições de probabilidade, teorema do limite central, mínimos quadrados, probabilidade condicional e etc. 
+
+- Bayes (1763): Teorema da regra de Bayes - Probabilidade de ocorrência de um evento A dado que um evento B ocorreu, o
+$$Pr\left ( A\mid B \right)*Pr\left ( B \right ) = Pr \left(A \mid B \right) * Pr\left (A \right )$$
+
+ $Pr\left ( A\mid B \right)*Pr\left ( B \right ) = Pr \left(efeito \mid hipotesis \right) * Pr\left ( hipotesis \right )$
+
+
+
