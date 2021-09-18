@@ -17,4 +17,5 @@ output: html_document
 | -                                          | Blog         | 🆘 Socorro! Eu não aguento mais desenhar tabelas no word!                            | Isa              | PT     | site          | ◻   |
 | -                                          | Blog         | Muuuuu 🐄!! Vêm conhecer o Cowplot!                                                  | Isa              | PT     | site          | ◻   |
 | -                                          | Blog         | Teses chamativas como notícias de jornais! Como replicar os gráficos que a BBC usa. | Isa              | PT     | site          | ◻   |             | Blog         | R para quem tem pressa                                                               | Isa
-
+| -
+| PT     | site          | ◻   |
