@@ -1,0 +1,24 @@
+---
+title: "cowplot"
+author: "Isabella Bicalho Frazeto"
+date: "9/18/2021"
+output: html_document
+---
+
+
+# Sobre o pacote
+
+Cowplot é pacote que extense a funcionalidade do ggplot. É basicamente um "add-on" que facilita a organização de figuras. Algumas das funcionalidades mais notáveis são os usos de temas, alinhamento e organização de figuras em panéis de multiplas figuras e também funções que facilitam anotação em gráficos. Meu objetivo nesse tutorial não é revisar o pacote extensivamente e sim mostrar as funções que eu mais uso quando eu trabalho com gráficos.
+
+# Paineis
+
+Cowplow tem um função parecida com a que o par(mfrow) tem no R base. Assim, você é capaz de gerar paineis com multiplas figuras em uma figura só.
+
+# Bordas e Grid
+
+#Mudar Background
+
+=
+
+
+        

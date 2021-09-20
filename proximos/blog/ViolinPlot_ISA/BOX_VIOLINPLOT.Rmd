@@ -18,9 +18,7 @@ O boxplot - também conhecido como diagrama de caixa, de quartil ou, meu favorit
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(scales)
-
 A <- data.frame("Variável" = rep("A", 26), "Valores" = c(runif(25, 5, 20), 32))
-
 ggplot(A, aes(x = Variável, y = Valores)) + 
   geom_boxplot(width = .5, color = "grey30", fill = "grey95", alpha = .9,
                show.legend = F) + 
@@ -78,7 +76,7 @@ ggplot(A, aes(x = Variável, y = Valores)) +
 
 ## Violin plot {#s2}
 
-O violin plot é bastante similar a um box plot, mas com a vantagem de usar um *kernel de densidade simétrico* que se distribui em ambos os lados do "violino"; ou seja, ela também consegue refletir a densidade de probabilidade (como um histograma). A maior do violin plot é que ela consegue ser mais informativo que um boxplot, pois mostra todo o conjunto dos dados. Infelizmente, não é um gráfico tão popular, o que pode levar a alguma confusão sobre sua interpretação.
+O violin plot é bastante similar a um box plot, mas com a vantagem de usar um *kernel de densidade simétrico* que se distribui em ambos os lados do "violino"; ou seja, ela também consegue refletir a densidade de probabilidade (como aquela linha que a gente costuma ver em cima do histograma). A maior do violin plot é que ela consegue ser mais informativo que um boxplot, pois mostra todo o conjunto dos dados. Infelizmente, não é um gráfico tão popular, o que pode levar a alguma confusão sobre sua interpretação.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(A, aes(x = Variável, y = Valores, fill = Variável)) + 
@@ -89,7 +87,7 @@ ggplot(A, aes(x = Variável, y = Valores, fill = Variável)) +
 
 ## Por que usar os dois juntos? {#s3}
 
-O salto do gato é que você pode plotar o boxplot e o plot do violino no mesmo gráfico. Essa sobreposição é especialmente importante se seus dados forem multimodais, pois isso é evidente no gráfico de violino e não claro no gráfico de caixa. Outra vantagem é que também evita que você termine com um boxplot, um histograma + estimativa de densidade de kernel para cada variável. Pela própria natureza dos gráficos, também é mais fácil visualizar sua amostra por fatores diferentes.
+O salto do gato é que você pode plotar o boxplot e o plot do violino no mesmo gráfico. Essa sobreposição é especialmente importante se seus dados forem multimodais, pois isso é evidente no gráfico de violino e não no gráfico de caixa. Outra vantagem é que também evita que você termine com um boxplot, um histograma + estimativa de densidade de kernel para cada variável. Pela própria natureza dos gráficos, também é mais fácil visualizar sua amostra por fatores diferentes.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(A, aes(x = Variável, y = Valores, fill = Variável)) + 
@@ -109,7 +107,6 @@ Comece com a instalação dos pacotes **ggplot2** e **datasets** no seu ambiente
 ## Instalar os pacotes
 install.packages("ggplot2")
 install.packages("datasets")
-
 ## Carregar os pacotes
 library(datasets)
 library(ggplot2)

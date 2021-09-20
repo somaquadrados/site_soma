@@ -1,0 +1,280 @@
+---
+title: "R para quem tem pressa"
+author: "Isabella Bicalho Frazeto"
+date: "9/16/2021"
+output: html_document
+---
+
+## R para quem tem pressa (ou R para quem não quer aprender R)
+
+Esse tutorial é para você que precisa aprender R por algum motivo de força maior, não sabe absolutamente nada sobre e precisa de um lugar para começar. O objetivo aqui *não* é te ensinar a programar, ou muito menos te ensinar a fazer analises estatisticas. 
+
+### Objetivo : aprender o básico sobre R, como manipular uma tabela usando dplyr e como plotar um gráfico simples usando ggplot.  (COLOCAR imagem dplyr e ggplot)
+
+## O que você precisa para usar seguir esse tutorial?
+
+Esse tutorial vem acompanhado de Rmarkdown (até agora pense nisso apenas como um documento de texto que você pode usar para executar códigos dentro dele). Como pré-requisitos você só precisa instalar R, Rstudio e um tico de disposição. (COLOCAR LINKS DE COMO INSTALAR OS DOIS).
+
+## Por que R?
+
+R é uma linguagem *open source* (isso é, aqui você não precisa pagar uma licensa para usar ela). O importante é que além das funções que já com quando você instala o R (o que costumamos referir com *R base*), você consegue aumentar a funcionalidade com o uso de pacotes. A gente pode pensar no R como super excel capaz de lidar com problemas ligeiramente mais complicados de uma maneira mais facil.
+
+## Pacotes 
+
+Parte do apelo do R é justamente a flexibilidade de ferramentas diferentes que estão disponiveis em cada pacote. Aqui, vamos usar dois: dplyr e ggplot. Ambos pacotes fazem parte do framework do tidyverse. Tidyverse é muito maior que esses dois pacotes mas talvez eles sejam os mais essenciais para quem está começando. Além disso queria ressaltar outros dois pontos: primeiro, grande parte do apelo comercial do R vem do tidyverse; segundo, aprender dplyr te coloca um passo mais proximo de aprender SQL (que é uma linguagem de banco de dados muito utilisada).
+
+## O básico do R
+
+A primeira coisa que você precisa saber ao usar o R é que minisculas e maiusculas tem valores diferentes. Ou seja 'X' e 'x' não são valores iguais. A segunda coisa que você precisa saber é que você precisa ter uma forma de amazenar dentro da memória do seu computador quais são os valores que você está trabalhando. Como fazer isso, então? Teremos um esquema de "identificador <- valor". Em código no R isso fica:
+
+```{r}
+identificador <- "valor"
+
+```
+
+### Ok, mas quais são os tipos de valores que são autorizados?
+
+        * Valores de verdadeiro ou falso (valores booleanos)
+         
+```{r}
+verdade <- TRUE
+falso <- FALSE
+```
+         
+        
+        * Valores númericos
+        
+```{r}
+x <- 1
+y <- 2
+```
+        
+        * Valores de caracteres (também conhecido de valores string)
+
+```{r}
+meu_nome <- 'Isabella'
+```
+
+        * Vetores: uma grupo de valores do mesmo tipo
+        
+```{r}
+
+vetor <- c("banana", "maça", "uva")
+
+```
+   Note que para criar um vetor nos chamamos uma função nesse caso.
+   
+   
+        
+        * Listas: vários grupos de valores de tipos diferentes
+        
+```{r}
+lista <- list(meu_nome, x, c)
+```
+  Note que lista também tem uma criação especial e que podemos usar os objetos (isso é, o que está sendo reconhecido na memória por aquele identificador. Exemplo: meu_nome é um identificador do objeto "Isabella"¹ )
+  
+  
+  ¹ Objeto tem uma definição na computação mais especifíca. Caso você esteja interessado, eu recomendo checar essa página do wikipédia (LINK DA PÁGINA)
+  
+        * Dataframe : tabelas (como as que a gente tá acostumado no excel)
+Veremos como importar seus dados para o R na segunda parte desse tutorial.
+
+### E se eu não conseguir identificar qual o tipo do meu objeto?
+
+Apesar de parecer uma pergunta sem sentido no momento, não saber qual é o tipo de valor de um objeto é um problema que acontece com alguma frequência. Se isso acontecer, você pode perguntar a seu objeto qual é o valor dele usando o seguinte comando.
+
+```{r}
+typeof(identificador)
+```
+
+
+### Operações 
+
+Uma vez que você tem um objeto salvo, você pode fazer uma serie de operações com ele. As mais simples é que você pode usar o R como uma simples calculadora. Para dois objetos númericos, temos:
+
+```{r}
+x<- 23
+y<- 37
+
+y-x
+x-y
+
+```
+
+
+```{r}
+x*y
+x/y
+```
+
+
+Você também pode comparar valores. Essas operações precisam de alguns simbolos importantes:
+
+     *  & *:* siginfica E 
+     *  | *:* significa ou
+     * == *:* siginfica igual
+     
+   *ATENÇÃO*: igual para comparação sempre será um igual duplo. Um igual único tem o mesmo valor que o "<-" em R.
+   
+     * != *:* diferença
+     * ! *:* negação
+     * >= *:* maior igual
+     * <= *:* menor igual
+     * > *:* maior que
+     * < *:* menor que
+     * ':' *:* sequência 
+     * 
+
+
+```{r}
+w <- 10 <= 10
+k <- FALSE
+w == k
+w != k
+w & !x<y
+w | !x<y
+
+```
+
+Para vetores, temos:
+```{r}
+j <-  c(1:10)
+j 
+j*2
+j*3 - j
+j[2]
+j[2:6]
+j[-1]
+j[-3]
+mean(j)
+is.atomic(j)
+
+```
+
+
+Para listas, temos:
+
+[indice] [[indice]]
+
+```{r}
+t <- list(c(2,5,3),21.3, "k", 37)
+t[3]
+t[[2]] < t[[4]]
+t[[1]][1]
+t[[5]] <- NULL
+t
+is.atomic(t)
+is.recursive(t)
+```
+
+
+## Important dados para o R
+```{r}
+getwd()
+#setwd()
+dados <- read.csv("iris.csv")
+View(dados)
+```
+
+## Instalando pacotes e carregando uma biblioteca
+
+```{r}
+install.packages("tidyverse")
+library(dplyr)
+```
+
+
+## Manipulando dados
+
+identificador$componente
+
+```{r}
+medias <- dados %>%
+        summarise(mean_sepal = mean(Sepal.Length), mean_petal = mean(Petal.Length), n = n())
+medias
+
+```
+
+
+```{r}
+medias_especies <- dados %>%
+  group_by(Species) %>%
+  summarise(mean_sepal = mean(Sepal.Length), mean_petal = mean(Petal.Length), n = n())
+
+medias_especies
+
+```
+
+
+
+```{r}
+
+petal <- select(dados, starts_with("Petal"))
+View(petal)
+```
+
+
+
+```{r}
+width <- select(dados, ends_with("Width"))
+View(width)
+```
+
+
+```{r}
+
+medias_especies_mod <- dados %>%
+  filter(Petal.Width < 1.5) %>%
+  group_by(Species) %>%
+  summarise(mean_sepal = mean(Sepal.Length), mean_petal = mean(Petal.Length), n = n())
+View(medias_especies_mod)
+```
+
+# Salvando seus dados
+
+```{r}
+write.csv(medias_especies, "medias_especies.csv")
+
+```
+
+# Plotando dados
+
+
+```{r}
+install.packages("ggplot2")
+library(ggplot2)
+
+```
+
+
+```{r}
+ggplot(data=dados,aes(x=Sepal.Width, y=Sepal.Length, color = Species)) + geom_point() 
+
+```
+
+
+```{r}
+ggplot(data=dados,aes(x=Sepal.Width, y=Sepal.Length, color = Species)) + geom_point() + theme_minimal()
+
+```
+
+```{r}
+ggplot(data=dados,aes(x=Sepal.Width, y=Sepal.Length, color = Species)) + geom_point() +facet_wrap(~Species) +theme(text = element_text(size=15))
+```
+
+
+
+```{r}
+
+ggplot(data=dados,aes(x=Sepal.Width, y=Sepal.Length, color = Species)) + geom_boxplot() +theme_minimal()+ theme(legend.position="none") +  theme(text = element_text(size=20))
+```
+
+
+
+```{r}
+ggplot(data=dados,aes(x=Sepal.Length)) + geom_histogram() +theme_minimal() +facet_wrap(~Species) + theme(text = element_text(size=20))
+```
+
+
+
+
