@@ -7,25 +7,23 @@ output: html_document
 
 ## R para quem tem pressa (ou R para quem não quer aprender R)
 
-Esse tutorial é para você que precisa aprender R por algum motivo de força maior, não sabe absolutamente nada sobre e precisa de um lugar para começar. O objetivo aqui *não* é te ensinar a programar, ou muito menos te ensinar a fazer analises estatisticas. 
-
-### Objetivo : aprender o básico sobre R, como manipular uma tabela usando dplyr e como plotar um gráfico simples usando ggplot.  (COLOCAR imagem dplyr e ggplot)
+Esse tutorial é para você que precisa aprender R por algum motivo de força maior, não sabe absolutamente nada sobre e precisa de um lugar para começar. O objetivo aqui *não* é te ensinar a programar, ou muito menos te ensinar a fazer analises estatisticas, mas sim te ensinar um pouco sobre R e como manipular uma tabela usando dplyr.
 
 ## O que você precisa para usar seguir esse tutorial?
 
-Esse tutorial vem acompanhado de Rmarkdown (até agora pense nisso apenas como um documento de texto que você pode usar para executar códigos dentro dele). Como pré-requisitos você só precisa instalar R, Rstudio e um tico de disposição. (COLOCAR LINKS DE COMO INSTALAR OS DOIS).
+Esse tutorial vem acompanhado de Rmarkdown (até agora pense nisso apenas como um documento de texto que você pode usar para executar códigos dentro dele). O markdown e tabela que vamos usar está disponível no meu [github](https://github.com/bellabf/r_pressa) ([O que é um github?](https://www.somaquadrados.com/blog/git/github/)). Como pré-requisitos você só precisa [instalar R, Rstudio](https://didatica.tech/como-instalar-a-linguagem-r-e-o-rstudio/) e um tico de disposição. 
 
 ## Por que R?
 
-R é uma linguagem *open source* (isso é, aqui você não precisa pagar uma licensa para usar ela). O importante é que além das funções que já com quando você instala o R (o que costumamos referir com *R base*), você consegue aumentar a funcionalidade com o uso de pacotes. A gente pode pensar no R como super excel capaz de lidar com problemas ligeiramente mais complicados de uma maneira mais facil.
+R é uma linguagem *open source* (isso é, aqui você não precisa pagar uma licença para usar ela). O importante é que além do que já vem com quando você instala o R (o que costumamos referir com *R base*), você consegue aumentar a funcionalidade com o uso de pacotes.Podemos pensar no R como super excel capaz de lidar com problemas ligeiramente mais complicados de uma maneira mais fácil.
 
 ## Pacotes 
 
-Parte do apelo do R é justamente a flexibilidade de ferramentas diferentes que estão disponiveis em cada pacote. Aqui, vamos usar dois: dplyr e ggplot. Ambos pacotes fazem parte do framework do tidyverse. Tidyverse é muito maior que esses dois pacotes mas talvez eles sejam os mais essenciais para quem está começando. Além disso queria ressaltar outros dois pontos: primeiro, grande parte do apelo comercial do R vem do tidyverse; segundo, aprender dplyr te coloca um passo mais proximo de aprender SQL (que é uma linguagem de banco de dados muito utilisada).
+Parte do apelo do R é justamente a flexibilidade de ferramentas diferentes que estão disponíveis em cada pacote. Aqui, vamos usar dois: dplyr e ggplot. Ambos pacotes fazem parte do framework do tidyverse. Tidyverse é muito maior que isso, mas talvez eles sejam os mais essenciais para quem está começando. Além disso queria ressaltar outros dois pontos: primeiro, grande parte do apelo comercial do R vem do tidyverse; segundo, aprender dplyr te coloca um passo mais próximo de aprender SQL (que é uma linguagem de banco de dados muito utilisada).
 
 ## O básico do R
 
-A primeira coisa que você precisa saber ao usar o R é que minisculas e maiusculas tem valores diferentes. Ou seja 'X' e 'x' não são valores iguais. A segunda coisa que você precisa saber é que você precisa ter uma forma de amazenar dentro da memória do seu computador quais são os valores que você está trabalhando. Como fazer isso, então? Teremos um esquema de "identificador <- valor". Em código no R isso fica:
+A primeira coisa que você precisa saber ao usar o R é que minúsculas e maiúsculas tem valores diferentes. Ou seja 'X' e 'x' não são iguais. A segunda coisa que você precisa saber é que você precisa ter uma forma de amazenar dentro da memória do seu computador quais são os valores que você está trabalhando. Como fazer isso, então? Teremos um esquema de "identificador <- valor". Em código no R isso fica:
 
 ```{r}
 identificador <- "valor"
@@ -62,7 +60,9 @@ meu_nome <- 'Isabella'
 vetor <- c("banana", "maça", "uva")
 
 ```
-   Note que para criar um vetor nos chamamos uma função nesse caso.
+   Note que para criar um vetor nos chamamos uma declaração especial que usa uma função chamada c().
+  
+   Funções são conjuntos de intruções que processam uma entrada e te retornam uma saída. Nesse caso demos como entrada os nomes das frutas e recebemos saída um objeto do tipo vetor.
    
    
         
@@ -74,14 +74,14 @@ lista <- list(meu_nome, x, c)
   Note que lista também tem uma criação especial e que podemos usar os objetos (isso é, o que está sendo reconhecido na memória por aquele identificador. Exemplo: meu_nome é um identificador do objeto "Isabella"¹ )
   
   
-  ¹ Objeto tem uma definição na computação mais especifíca. Caso você esteja interessado, eu recomendo checar essa página do wikipédia (LINK DA PÁGINA)
+  ¹ Objeto tem uma definição na computação mais especifíca, mas não precisamos nos importar com isso no momento.
   
         * Dataframe : tabelas (como as que a gente tá acostumado no excel)
 Veremos como importar seus dados para o R na segunda parte desse tutorial.
 
 ### E se eu não conseguir identificar qual o tipo do meu objeto?
 
-Apesar de parecer uma pergunta sem sentido no momento, não saber qual é o tipo de valor de um objeto é um problema que acontece com alguma frequência. Se isso acontecer, você pode perguntar a seu objeto qual é o valor dele usando o seguinte comando.
+Apesar de parecer uma pergunta simples no momento, não saber qual é o tipo de valor de um objeto é um problema que acontece com alguma frequência. Se isso acontecer, você pode perguntar a seu objeto qual é o valor dele usando a função typeof.
 
 ```{r}
 typeof(identificador)
@@ -90,7 +90,7 @@ typeof(identificador)
 
 ### Operações 
 
-Uma vez que você tem um objeto salvo, você pode fazer uma serie de operações com ele. As mais simples é que você pode usar o R como uma simples calculadora. Para dois objetos númericos, temos:
+Uma vez que você tem um objeto salvo, você pode fazer uma série de operações com ele. Começando pelo mais simples, você pode usar o R como uma simples calculadora. Para dois objetos númericos, temos:
 
 ```{r}
 x<- 23
@@ -123,7 +123,7 @@ Você também pode comparar valores. Essas operações precisam de alguns simbol
      * > *:* maior que
      * < *:* menor que
      * ':' *:* sequência 
-     * 
+     
 
 
 ```{r}
@@ -137,6 +137,8 @@ w | !x<y
 ```
 
 Para vetores, temos:
+Observe que em vetores, você pode acessar cada elemento de um vetor chamando justamente a posição dele. O mesmo não é valido quadno você usa o sinal de menos, nesse caso ele remove um elemento do vetor. Um fato interessante sobre vetores é que você pode fazer algumas manipulações em cima de vetores que são mais práticos da vida real. Uma delas com a média (mean(j)). Além disso, observe que multiplicar um vetor v por x (v*x) é equivalente a uma multiplicar cada entrada de v por x.
+
 ```{r}
 j <-  c(1:10)
 j 
@@ -147,36 +149,64 @@ j[2:6]
 j[-1]
 j[-3]
 mean(j)
-is.atomic(j)
 
 ```
 
 
 Para listas, temos:
 
-[indice] [[indice]]
+Observe que listas são acessadas da maneira lista[elemento]. Caso exista uma lista de listas ou uma lista de vetor, você pode usar lista[[elemento]] para te retorna a lista em si. Caso você queira acessar um elemento da lista em si, você busca lista[[elemento]][elemento da lista de dentro].
+
 
 ```{r}
-t <- list(c(2,5,3),21.3, "k", 37)
+t <- list(c(2,5,3), 21.3, "k", 37)
 t[3]
 t[[2]] < t[[4]]
 t[[1]][1]
 t[[5]] <- NULL
 t
-is.atomic(t)
-is.recursive(t)
+
 ```
 
 
-## Important dados para o R
+## Importando dados para o R
+
+Vamos facilitar a vida de todo mundo. Quanto menos esforço você tiver para conseguir importar e manipular o dados no R de início, melhor vai ser a transição para análise de dados .Isto é, quanto menos você tiver que manipular seus dados no começo, mais  agradável vai ser. Para isso, eu recomendo que você adote algumas boas práticas:
+
+    * Evite usar caracteres especiais e espaços no nome de colunas. Exemplo: prefira endereco no lugar de endereço, dia_coleta no lugar de dia coleta.
+    * Não preencha valores que não foram regristrados com zero. 
+    * Salve os dados em .csv, .tsv, .txt. Isso facilita a importação de dados da planilha para o R.
+    * Não coloque comentários ou unidades métricas na tabela. Dica: se você esteja medindo algo centímetros nomeie a coluna comprimento_cm.
+    * Não tenha mais de informação por célula.
+    * Verifique se os nomes de valores categóricos são identificos entre si. Caso isso não ocorra, você vai acabar contando "Peru" e "peru" como coisas diferentes.
+    * Não tenha mais de uma aba por planilha. 
+    * Não tenha cores, sublinhados e afins.
+    
+    
+Nesse tutorial, você não precisa se preocupar porque a tabela que será usada nesse curso, já está no formato correto. Lembrando que você baixar a tabela [aqui](https://github.com/bellabf/r_pressa).   
+
+
+Outro ponto importante é que você copie a tabela que você baixou na mesma pasta que você abriu o seu RStudio. Você pode verificar em qual pasta você está usando o seguinte comando: 
+
+
 ```{r}
 getwd()
-#setwd()
+
+```
+
+
+Tabela e script na mesma pasta, a gente consegui abrir os dados que a gente baixou da tabela iris no R. Essa tabela contém cinco colunas: sepal.length (comprimento sépalas), sepal.width (largura sépalas), petal.length (comprimento sépalas), petal.width (largura pétalas), species (espécies). Todas essas medidas foram realizadas, como o nome sugere, em diferentes tipos de iris. 
+
+
+```{r}
+
 dados <- read.csv("iris.csv")
-View(dados)
+head(dados)
 ```
 
 ## Instalando pacotes e carregando uma biblioteca
+
+Vamos aumentar a funcionalidade do R instalando o tidyverse e carrega-lo usando dplyr. 
 
 ```{r}
 install.packages("tidyverse")
@@ -186,95 +216,79 @@ library(dplyr)
 
 ## Manipulando dados
 
-identificador$componente
+Uma das razões pela qual o dplyr é mais vantajoso em relação a base do R é que você acaba trabalhando de uma maneira mais direta com tabelas no lugares de simples vetores. O dplyr trabalha com uma gramática de manipulação de dados nos quais os verbos ditam determinadas ações. Cada verbo tem a sua função equivalente. Os verbos mais comuns são:
+
+#### MUTATE
+    Adiciona novas varíaveis em função de outras como por exemplo percentagem).
+    
+#### SELECT
+    Seleciona variáveis baseada no nome.
+    
+#### FILTER
+    Seleciona variáveis baseada em valores.
+    
+#### SUMMARIZE
+    Resume variavéis em valores únicos (como média).
+    
+#### ARRANGE
+    Orderna as linhas da tabela.
+
+
+O tidyverse tem mais um símbolo "%>%" ou "|>": o pipe. Ele permite agrupar várias operações que seriam realizadas separadamente em um única operação de maneira mais intuitiva. Todos os comandos que usaremos nesse tutorial serão escritos nesse estilo.
+
+### Tutorial do dplyr
+
+Você pode obter os valores de média para sépalas e pétalas a partir da tabela iris usando o summarise. 
 
 ```{r}
 medias <- dados %>%
-        summarise(mean_sepal = mean(Sepal.Length), mean_petal = mean(Petal.Length), n = n())
+          summarise(mean_sepal = mean(Sepal.Length), 
+                    mean_petal = mean(Petal.Length))
 medias
 
 ```
+
+O problema é que dentro dessa tabela, não existem apenas uma espécie de flor. Para isso, a gente pode combinar o group_by com o summarise. 
+
+```{r}
+medias_especies <- dados %>%
+                    group_by(Species) %>%
+                    summarise(mean_sepal = mean(Sepal.Length), 
+                              mean_petal = mean(Petal.Length))
+
+medias_especies
+
+```
+
+A gente pode modificar o código anterior para temos mais informações como desvio padrão e mediana usando funções auxiliares.
 
 
 ```{r}
 medias_especies <- dados %>%
   group_by(Species) %>%
-  summarise(mean_sepal = mean(Sepal.Length), mean_petal = mean(Petal.Length), n = n())
+  summarise(mean_sepal = mean(Sepal.Length), 
+            mean_petal = mean(Petal.Length), 
+            median_sepal = median(Sepal.Length),
+            median_petal = median(Petal.Length),
+            sd_sepal = sd(Sepal.Length),
+            sd_petal = sd(Petal.Length),
+            n = n())
 
 medias_especies
 
 ```
 
 
+## Salvando seus dados
 
-```{r}
-
-petal <- select(dados, starts_with("Petal"))
-View(petal)
-```
-
-
-
-```{r}
-width <- select(dados, ends_with("Width"))
-View(width)
-```
-
-
-```{r}
-
-medias_especies_mod <- dados %>%
-  filter(Petal.Width < 1.5) %>%
-  group_by(Species) %>%
-  summarise(mean_sepal = mean(Sepal.Length), mean_petal = mean(Petal.Length), n = n())
-View(medias_especies_mod)
-```
-
-# Salvando seus dados
+Por último, você pode exportar a sua tabela medias_especies usando a função *write.csv*.
 
 ```{r}
 write.csv(medias_especies, "medias_especies.csv")
 
 ```
 
-# Plotando dados
 
+### E fim!
 
-```{r}
-install.packages("ggplot2")
-library(ggplot2)
-
-```
-
-
-```{r}
-ggplot(data=dados,aes(x=Sepal.Width, y=Sepal.Length, color = Species)) + geom_point() 
-
-```
-
-
-```{r}
-ggplot(data=dados,aes(x=Sepal.Width, y=Sepal.Length, color = Species)) + geom_point() + theme_minimal()
-
-```
-
-```{r}
-ggplot(data=dados,aes(x=Sepal.Width, y=Sepal.Length, color = Species)) + geom_point() +facet_wrap(~Species) +theme(text = element_text(size=15))
-```
-
-
-
-```{r}
-
-ggplot(data=dados,aes(x=Sepal.Width, y=Sepal.Length, color = Species)) + geom_boxplot() +theme_minimal()+ theme(legend.position="none") +  theme(text = element_text(size=20))
-```
-
-
-
-```{r}
-ggplot(data=dados,aes(x=Sepal.Length)) + geom_histogram() +theme_minimal() +facet_wrap(~Species) + theme(text = element_text(size=20))
-```
-
-
-
-
+Se você chegou aqui, você teve uma primeira experiência em R que eu espero que tenha sido remotamente agradável e que você esteja menos aterroizada de se aventurar em R.
