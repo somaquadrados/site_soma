@@ -5,7 +5,7 @@ layout: single-sidebar
 excerpt: "Você começou a escrever um trabalho com colaboradores e se perdeu em um mar de versões e correções? Se você já passou por isso, quero dizer que existe uma solução linda e GRATUITA (bem, pelo menos para uso pessoal) que mudará sua vida: Git e GitHub!"
 author: Marília Melo Favalesso
 date: '2021-08-17'
-slug: Git/GitHub
+slug: IntroGitHub
 categories: 
   - PT
   - Git
