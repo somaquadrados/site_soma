@@ -114,6 +114,10 @@ pygmentsUseClasses = true  # use class names instead of directly inserting color
        icon      = "youtube" # icon name without the 'fa-'
        icon_pack = "fab"
        url       = "https://www.youtube.com/channel/UC8_OHjnszxRiit92ZJlNH4A"
+    [[params.social]]
+       icon      = "telegram" # icon name without the 'fa-'
+       icon_pack = "fab"
+       url       = "https://t.me/somaquadrados"
        
 
 [taxonomies]

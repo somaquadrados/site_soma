@@ -1,0 +1,135 @@
+---
+title: '{PT} Cinturas em caixas: um tutorial'
+layout: single-sidebar
+excerpt: "Você já pensou como as cinturas em caixas podem ser informativas? Não? Então venha comigo neste mini-tutorial que eu vou te mostrar como! 😊"
+author: Isabella Bicalho Frazeto
+date: '2021-09-28'
+slug: R
+categories: 
+  - Graficos
+tags: 
+  - PT
+  - Graficos
+images: ~
+series: ~
+alt: ''
+featured: yes
+draft: no
+image:
+  focal_point: 'Center'
+  preview_only: no
+lastmod: '2021-09-28'
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="introdução" class="section level1">
+<h1>Introdução</h1>
+<p>Você já pensou como as cinturas em caixas podem ser informativas? Não? Então venha comigo neste mini-tutorial que eu vou te mostrar como! 😊</p>
+<p>Nas sessões <a href="#s1">1</a> e <a href="#s2">2</a>, mostrarei o que são um <em>boxplot</em> e um <em>violin plot</em> e discutirei - brevemente 😅 - as vantagens de usar cada um deles. Na <a href="#s3">sessão 3</a>, falo sobre as vantagens de plotar os dois gráficos em conjunto e na <a href="#s4">sessão 4</a> mostro como cria-los em <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg>.</p>
+<div id="s1" class="section level2">
+<h2>Box plot</h2>
+<p>O boxplot - também conhecido como diagrama de caixa, de quartil ou, meu favorito, gráfico de caixa de bigode <img src="mustache.png" style="width: 5%;"/> - é um gráfico que permite visualizar a distribuição do nosso conjunto de dados. É um gráfico clássico em que a mediana é o centro de uma caixa e o primeiro e o terceiro quartil formam o retângulo. Os “bigodes” da caixa são formados pelo limite inferior e pelo limite superior. Normalmente, os outliers (dados discrepantes) são representados por pequenos pontos no gráfico.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="s2" class="section level2">
+<h2>Violin plot</h2>
+<p>O violin plot é bastante similar a um box plot, mas com a vantagem de usar um <em>kernel de densidade simétrico</em> que se distribui em ambos os lados do “violino”; ou seja, ela também consegue refletir a densidade de probabilidade (como aquela linha que a gente costuma ver em cima do histograma). A maior do violin plot é que ela consegue ser mais informativo que um boxplot, pois mostra todo o conjunto dos dados. Infelizmente, não é um gráfico tão popular, o que pode levar a alguma confusão sobre sua interpretação.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="s3" class="section level2">
+<h2>Por que usar os dois juntos?</h2>
+<p>O salto do gato é que você pode plotar o boxplot e o plot do violino no mesmo gráfico. Essa sobreposição é especialmente importante se seus dados forem multimodais, pois isso é evidente no gráfico de violino e não no gráfico de caixa. Outra vantagem é que também evita que você termine com um boxplot, um histograma + estimativa de densidade de kernel para cada variável. Pela própria natureza dos gráficos, também é mais fácil visualizar sua amostra por fatores diferentes.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="s4" class="section level2">
+<h2>Tutorial</h2>
+<p>Comece com a instalação dos pacotes <strong>ggplot2</strong> e <strong>datasets</strong> no seu ambiente <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg>. Em seguida, carregue os pacotes instalados.</p>
+<pre class="r"><code>## Instalar os pacotes
+install.packages(&quot;ggplot2&quot;)
+install.packages(&quot;datasets&quot;)
+## Carregar os pacotes
+library(datasets)
+library(ggplot2)</code></pre>
+<p>Aqui, vamos usar dois data sets diferentes: ‘plantGrowth’ e o ‘InsectSprays’.</p>
+<pre class="r"><code>data(&quot;PlantGrowth&quot;); data(&quot;InsectSprays&quot;)</code></pre>
+<p>O conjunto de dados PlantGrowth contém os resultados de um experimento que teve como objetivo comparar o crescimento de plantas entre um grupo de controle com dois outros grupos experimentais. A tabela possui duas variáveis: <em>weight</em> (peso) e <em>group</em> (grupo).</p>
+<pre class="r"><code>head(PlantGrowth)</code></pre>
+<pre><code>##   weight group
+## 1   4.17  ctrl
+## 2   5.58  ctrl
+## 3   5.18  ctrl
+## 4   6.11  ctrl
+## 5   4.50  ctrl
+## 6   4.61  ctrl</code></pre>
+<p>Já o dataset InsectSprays é o resultado da contagem de insetos em unidades experimentais agrícolas tratadas com diferentes inseticidas. Possui duas colunas: <em>count</em> (quantidade) e <em>spray</em>.</p>
+<pre class="r"><code>head(InsectSprays)</code></pre>
+<pre><code>##   count spray
+## 1    10     A
+## 2     7     A
+## 3    20     A
+## 4    14     A
+## 5    14     A
+## 6    12     A</code></pre>
+</div>
+<div id="plantgrowth" class="section level2">
+<h2>PlantGrowth</h2>
+<p>Com o ggplot2 é possível plotar dois gráficos “sobrepostos” em uma única figura. Para isso utilizamos o simbolo “soma” (+) que vai “unir” dois objetos geométricos <em>gg</em>. Na sequência vemos o primeiro gráfico criado.</p>
+<pre class="r"><code>ggplot(PlantGrowth, aes(x = weight, # no eixo &#39;x&#39; vai o peso
+                        y = group)) + # no eixo y os &#39;grupo
+        geom_violin() + # plotar o violin plot
+        geom_boxplot()  # plotar o boxplot</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Como nosso primeiro gráfico não tem uma estética bonita, é possível executar alguns comandos para torná-lo mais agradável e informativo.</p>
+<p>O primeiro passo é mudar a largura dos boxplots. Para isso, usaremos o comando <code>width = 0.3</code> como parâmetro dentro da chamada do <code>boxplot()</code>. Também vamos mudar o tema com a função <code>theme_light()</code>. O objetivo é deixar o gráfico mais coeso.</p>
+<pre class="r"><code>ggplot(PlantGrowth, aes(x = weight, y = group)) + 
+  theme_light() + # mudança de tema (estética) do background
+  geom_violin() +
+  geom_boxplot(width = 0.3) # diminuição das caixas</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Em seguida, você pode escolher alterar o ângulo das caixas, colocando-as na vertical. Nesse caso, apenas peça que as coordenadas sejam invertidas usando <code>coord_flip()</code>.</p>
+<pre class="r"><code>ggplot(PlantGrowth, aes(x = weight, y = group)) + 
+  theme_light() +
+  geom_violin() +
+  geom_boxplot(width = 0.3) +
+  coord_flip() # caixas na vertical</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Por fim, vamos colorir os violinos e deixas as caixas com contornos em cinza. Para tal usaremos as funções <code>aes(fill = group, color = group, alpha = 0.5)</code> em <code>geom_violin()</code> e <code>color = "grey20"</code> em <code>geom_boxplot()</code>. Também vamos remover a legenda do gráfico com <code>theme(legend.position = "none")</code>, pois a distinção entre grupos já está explicada no eixo x.</p>
+<pre class="r"><code>ggplot(PlantGrowth, aes(x = weight, y = group)) + 
+  theme_light() +
+  geom_violin(aes(fill = group, # colorir o interior dos violinos em função dos grupos
+                  color = group, # colorir o contorno dos violinos em função dos grupos
+                  alpha = 0.5)) + # deixar as cores transparentes (50% de transparência)
+  geom_boxplot(width = 0.3, 
+               color = &quot;grey30&quot;) + # contorno do boxplot em cinza escuro
+  coord_flip() +
+  theme(legend.position = &quot;none&quot;) # retirar a legenda</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="insect-sprays" class="section level2">
+<h2>Insect Sprays</h2>
+<p>E que tal um segundo exemplo bem simples e charmoso com os dados de InsectSprays?</p>
+<pre class="r"><code>ggplot(InsectSprays, # tabela de dados
+       aes(x = spray, # no eixo &#39;x&#39; os grupos da coluna spray
+           y = count, # no eixo &#39;y&#39; a contagem de insetos
+           color = spray)) + # colorir os gráficos em função de &#39;spray&#39;
+  theme_light() + # mudar o tema do gráfico - cores e estilo do background
+  geom_violin() + # plotar o violino
+  geom_boxplot(width = 0.05) # plotar as caixas mais &#39;finas&#39; que o default</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="fim" class="section level2">
+<h2>FIM!!</h2>
+<p>O que você achou do texto? Queremos saber a sua opinião! ✌️</p>
+<p>Também estamos a disposição para dúvidas! 👇👇</p>
+<p>Você pode deixar um comentário nesta postagem (basta logar pelo GitHub) ou lá no nosso twitter!</p>
+<blockquote class="twitter-tweet">
+<p lang="pt" dir="ltr">
+👉🏾 Ei, você conhece o nosso blog? Veja as nossas postagens em <a href="https://t.co/YDGvDef4PF">https://t.co/YDGvDef4PF</a>!<br><br>——<br><br>👉🏾 Oye, ¿conoces nuestro blog? ¡Vea nuestras publicaciones en <a href="https://t.co/YDGvDef4PF">https://t.co/YDGvDef4PF</a>!
+</p>
+— Soma dos Quadrados (<span class="citation">@somaquadrados</span>) <a href="https://twitter.com/somaquadrados/status/1442970277567160320?ref_src=twsrc%5Etfw">September 28, 2021</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+</div>

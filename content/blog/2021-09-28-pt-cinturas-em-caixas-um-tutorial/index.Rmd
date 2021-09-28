@@ -1,0 +1,222 @@
+---
+title: '{PT} Cinturas em caixas: um tutorial'
+layout: single-sidebar
+excerpt: "Você já pensou como as cinturas em caixas podem ser informativas? Não? Então venha comigo neste mini-tutorial que eu vou te mostrar como! 😊"
+author: Isabella Bicalho Frazeto
+date: '2021-09-28'
+slug: R
+categories: 
+  - Graficos
+tags: 
+  - PT
+  - Graficos
+images: ~
+series: ~
+alt: ''
+featured: yes
+draft: no
+image:
+  focal_point: 'Center'
+  preview_only: no
+lastmod: '2021-09-28'
+---
+
+# Introdução
+
+Você já pensou como as cinturas em caixas podem ser informativas? Não? Então venha comigo neste mini-tutorial que eu vou te mostrar como! 😊
+
+Nas sessões [1](#s1) e [2](#s2), mostrarei o que são um *boxplot* e um *violin plot* e discutirei - brevemente 😅 - as vantagens de usar cada um deles. Na [sessão 3](#s3), falo sobre as vantagens de plotar os dois gráficos em conjunto e na [sessão 4](#s4) mostro como cria-los em `r fontawesome::fa("r-project", fill = "steelblue")`.
+
+## Box plot {#s1}
+
+O boxplot - também conhecido como diagrama de caixa, de quartil ou, meu favorito, gráfico de caixa de bigode <img src="mustache.png" style="width: 5%;"/> - é um gráfico que permite visualizar a distribuição do nosso conjunto de dados. É um gráfico clássico em que a mediana é o centro de uma caixa e o primeiro e o terceiro quartil formam o retângulo. Os "bigodes" da caixa são formados pelo limite inferior e pelo limite superior. Normalmente, os outliers (dados discrepantes) são representados por pequenos pontos no gráfico.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(scales)
+A <- data.frame("Variável" = rep("A", 26), "Valores" = c(runif(25, 5, 20), 32))
+ggplot(A, aes(x = Variável, y = Valores)) + 
+  geom_boxplot(width = .5, color = "grey30", fill = "grey95", alpha = .9,
+               show.legend = F) + 
+  theme_light() + 
+  annotate( # adicionar anotação
+  x = 1.05, 
+  y = quantile(A[,2])[5], 
+  label = "outlier", 
+  geom = "text", 
+  color = "blue", 
+  family = "Bell MT",
+  size = 4) +
+  annotate( # adicionar anotação
+  x = 1.1, 
+  y = quantile(A[,2], probs = 0.95), 
+  label = "limite superior", 
+  geom = "text", 
+  color = "blue", 
+  family = "Bell MT",
+  size = 4) +
+  annotate( # adicionar anotação
+  x = 1.28, 
+  y = quantile(A[,2])[4], 
+  label = "Q3", 
+  geom = "text", 
+  color = "blue", 
+  family = "Bell MT",
+  size = 4) +
+  annotate( # adicionar anotação
+  x = 1.31, 
+  y = quantile(A[,2])[3], 
+  label = "Mediana", 
+  geom = "text", 
+  color = "blue", 
+  family = "Bell MT",
+  size = 4) +
+  annotate( # adicionar anotação
+  x = 1.31, 
+  y = quantile(A[,2])[2], 
+  label = "Q1", 
+  geom = "text", 
+  color = "blue", 
+  family = "Bell MT",
+  size = 4) +
+  annotate( # adicionar anotação
+  x = 1.1, 
+  y = quantile(A[,2])[1], 
+  label = "limite inferior", 
+  geom = "text", 
+  color = "blue", 
+  family = "Bell MT",
+  size = 4) 
+```
+
+
+## Violin plot {#s2}
+
+O violin plot é bastante similar a um box plot, mas com a vantagem de usar um *kernel de densidade simétrico* que se distribui em ambos os lados do "violino"; ou seja, ela também consegue refletir a densidade de probabilidade (como aquela linha que a gente costuma ver em cima do histograma). A maior do violin plot é que ela consegue ser mais informativo que um boxplot, pois mostra todo o conjunto dos dados. Infelizmente, não é um gráfico tão popular, o que pode levar a alguma confusão sobre sua interpretação.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(A, aes(x = Variável, y = Valores, fill = Variável)) + 
+  geom_violin(show.legend = F, alpha = .8, color = "grey30") + 
+  theme_light() +
+  theme(legend.position="none")
+```
+
+## Por que usar os dois juntos? {#s3}
+
+O salto do gato é que você pode plotar o boxplot e o plot do violino no mesmo gráfico. Essa sobreposição é especialmente importante se seus dados forem multimodais, pois isso é evidente no gráfico de violino e não no gráfico de caixa. Outra vantagem é que também evita que você termine com um boxplot, um histograma + estimativa de densidade de kernel para cada variável. Pela própria natureza dos gráficos, também é mais fácil visualizar sua amostra por fatores diferentes.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(A, aes(x = Variável, y = Valores, fill = Variável)) + 
+  geom_violin(show.legend = F, alpha = .6) +
+  geom_boxplot(width = .5, fill = "grey95", color = "grey30", alpha = .9,
+               show.legend = F) + 
+  theme_light() +
+  theme(legend.position="none") # retirar a legenda
+```
+
+
+## Tutorial {#s4}
+
+Comece com a instalação dos pacotes **ggplot2** e **datasets** no seu ambiente `r fontawesome::fa("r-project", fill = "steelblue")`. Em seguida, carregue os pacotes instalados.
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+## Instalar os pacotes
+install.packages("ggplot2")
+install.packages("datasets")
+## Carregar os pacotes
+library(datasets)
+library(ggplot2)
+```
+
+```{r include=FALSE}
+library(datasets)
+library(ggplot2)
+```
+
+Aqui, vamos usar dois data sets diferentes: 'plantGrowth' e o 'InsectSprays'.
+
+```{r}
+data("PlantGrowth"); data("InsectSprays")
+```
+
+O conjunto de dados PlantGrowth contém os resultados de um experimento que teve como objetivo comparar o crescimento de plantas entre um grupo de controle com dois outros grupos experimentais. A tabela possui duas variáveis: *weight* (peso) e *group* (grupo).
+
+```{r}
+head(PlantGrowth)
+```
+
+Já o dataset InsectSprays é o resultado da contagem de insetos em unidades experimentais agrícolas tratadas com diferentes inseticidas. Possui duas colunas: *count* (quantidade) e *spray*.
+
+```{r}
+head(InsectSprays)
+```
+
+## PlantGrowth
+
+Com o ggplot2 é possível plotar dois gráficos "sobrepostos" em uma única figura. Para isso utilizamos o simbolo "soma" (+) que vai "unir" dois objetos geométricos *gg*. Na sequência vemos o primeiro gráfico criado.
+
+```{r}
+ggplot(PlantGrowth, aes(x = weight, # no eixo 'x' vai o peso
+                        y = group)) + # no eixo y os 'grupo
+        geom_violin() + # plotar o violin plot
+        geom_boxplot()  # plotar o boxplot
+```
+
+Como nosso primeiro gráfico não tem uma estética bonita, é possível executar alguns comandos para torná-lo mais agradável e informativo.
+
+O primeiro passo é mudar a largura dos boxplots. Para isso, usaremos o comando `width = 0.3` como parâmetro dentro da chamada do `boxplot()`. Também vamos mudar o tema com a função `theme_light()`. O objetivo é deixar o gráfico mais coeso.
+
+```{r}
+ggplot(PlantGrowth, aes(x = weight, y = group)) + 
+  theme_light() + # mudança de tema (estética) do background
+  geom_violin() +
+  geom_boxplot(width = 0.3) # diminuição das caixas
+```
+
+Em seguida, você pode escolher alterar o ângulo das caixas, colocando-as na vertical. Nesse caso, apenas peça que as coordenadas sejam invertidas usando `coord_flip()`.
+
+```{r}
+ggplot(PlantGrowth, aes(x = weight, y = group)) + 
+  theme_light() +
+  geom_violin() +
+  geom_boxplot(width = 0.3) +
+  coord_flip() # caixas na vertical
+```
+
+Por fim, vamos colorir os violinos e deixas as caixas com contornos em cinza. Para tal usaremos as funções `aes(fill = group, color = group, alpha = 0.5)` em `geom_violin()` e `color = "grey20"` em `geom_boxplot()`. Também vamos remover a legenda do gráfico com `theme(legend.position = "none")`, pois a distinção entre grupos já está explicada no eixo x.
+
+```{r}
+ggplot(PlantGrowth, aes(x = weight, y = group)) + 
+  theme_light() +
+  geom_violin(aes(fill = group, # colorir o interior dos violinos em função dos grupos
+                  color = group, # colorir o contorno dos violinos em função dos grupos
+                  alpha = 0.5)) + # deixar as cores transparentes (50% de transparência)
+  geom_boxplot(width = 0.3, 
+               color = "grey30") + # contorno do boxplot em cinza escuro
+  coord_flip() +
+  theme(legend.position = "none") # retirar a legenda
+```
+
+## Insect Sprays
+
+E que tal um segundo exemplo bem simples e charmoso com os dados de InsectSprays?
+
+```{r}
+ggplot(InsectSprays, # tabela de dados
+       aes(x = spray, # no eixo 'x' os grupos da coluna spray
+           y = count, # no eixo 'y' a contagem de insetos
+           color = spray)) + # colorir os gráficos em função de 'spray'
+  theme_light() + # mudar o tema do gráfico - cores e estilo do background
+  geom_violin() + # plotar o violino
+  geom_boxplot(width = 0.05) # plotar as caixas mais 'finas' que o default
+```
+
+## FIM!!
+
+O que você achou do texto? Queremos saber a sua opinião! ✌️
+
+Também estamos a disposição para dúvidas! 👇👇
+
+Você pode deixar um comentário nesta postagem (basta logar pelo GitHub) ou lá no nosso twitter!
+
+<blockquote class="twitter-tweet"><p lang="pt" dir="ltr">👉🏾 Ei, você conhece o nosso blog? Veja as nossas postagens em <a href="https://t.co/YDGvDef4PF">https://t.co/YDGvDef4PF</a>!<br><br>------<br><br>👉🏾 Oye, ¿conoces nuestro blog? ¡Vea nuestras publicaciones en <a href="https://t.co/YDGvDef4PF">https://t.co/YDGvDef4PF</a>!</p>&mdash; Soma dos Quadrados (@somaquadrados) <a href="https://twitter.com/somaquadrados/status/1442970277567160320?ref_src=twsrc%5Etfw">September 28, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
