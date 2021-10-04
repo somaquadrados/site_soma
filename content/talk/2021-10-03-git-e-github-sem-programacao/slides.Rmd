@@ -1,0 +1,796 @@
+---
+title: "Git e GitHub sem programação"
+subtitle: <img src="figs/github_desktop.png" style="width:20%;"/> 
+author: 
+  - "Marília Melo Favalesso"
+  - "GECD | Soma dos quadrados"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+# Marília Melo Favalesso 
+
+Ecoepidemiologista e entusiasta da ciência de dados/bioestatística
+
+**Projetos**
+- [GECD](https://github.com/gecdfoz/GECD)
+- [Soma dos Quadrados](https://www.somaquadrados.com/)
+
+**Contatos**
+- `r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#000000")` [mariliabioufpr@gmail.com](mariliabioufpr@gmail.com)
+- `r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#000000")` [www.mmfava.com](www.mmfava.com)
+- `r icons::icon_style(icons::fontawesome("twitter"), fill = "#000000")` [Twitter: @mmfbee](https://twitter.com/mmfbee)
+- `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")` [Github: mmfava](https://github.com/mmfava)
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide1.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide2.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide3.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide4.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide5.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide6.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide7.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide8.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide9.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide10.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide11.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide12.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide13.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+
+.center[
+<img src="figs/Slide14.JPG" style="width:95%;"/>
+]
+
+---
+<br>
+
+.center[
+<img src="figs/Slide20.JPG" style="width:90%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide17.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide18.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+<br>
+.center[
+<img src="figs/Slide19.JPG" style="width:80%;"/>
+]
+
+---
+<br>
+
+.center[
+<img src="figs/Slide21.JPG" style="width:90%;"/>
+]
+
+---
+<br>
+
+.center[
+<img src="figs/Slide22.JPG" style="width:90%;"/>
+]
+
+---
+<br>
+
+.center[
+<img src="figs/novo1.png" style="width:90%;"/>
+]
+
+---
+<br>
+
+.center[
+<img src="figs/Slide24.JPG" style="width:90%;"/>
+]
+
+---
+<br>
+
+.center[
+<img src="figs/Slide25.JPG" style="width:90%;"/>
+]
+
+---
+<br>
+
+.center[
+<img src="figs/Slide26.JPG" style="width:90%;"/>
+]
+
+---
+<br>
+<br>
+<br>
+
+.center[
+<img src="figs/maomassa.png" style="width:65%;"/>
+]
+
+---
+## Pré-requisitos `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")` 
+
+-   Instalar o [GitHub desktop](https://desktop.github.com/)
+
+.center[
+<img src="figs/nova3.png" style="width:85%;"/>
+]
+
+---
+## Pré-requisitos  `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")` 
+
+.center[
+<img src="figs/nova6.png" style="width:80%;"/>
+
+❤️
+]
+
+---
+## Pré-requisitos  `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")` 
+.center[
+
+<div class="background" style="width: 1000px; height: 445px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 10px;">
+
+<img src="figs/nova7.png" style="width:100%;"/>
+
+😓
+]
+
+---
+## Pré-requisitos  `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")` 
+-   Fazer uma conta no [GitHub](https://github.com/). 
+  - Se você é estudande, pode usar o seu e-mail institucional para obter alguns beneficios com o [GitHub Student Developer Pack](https://education.github.com/pack).
+  
+.center[
+<img src="figs/nova4.png" style="width:80%;"/>
+]
+
+---
+## Pré-requisitos  `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")` 
+
+-   Fazer uma conta no [GitHub](https://github.com/). 
+  - Se você é estudande, pode usar o seu e-mail institucional para obter alguns beneficios com o [GitHub Student Developer Pack](https://education.github.com/pack).
+  
+.center[
+<img src="figs/nova5.png" style="width:80%;"/>
+]
+
+---
+## Pré-requisitos  `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")` 
+.center[
+
+<button type="submit">File</button> > <button type="submit">Options...</button> > <button type="submit">Accounts</button>
+
+<div class="background" style="width: 1000px; height: 450px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 10px;">
+
+
+<img src="figs/novo8.png" style="width:80%;"/>
+]
+
+---
+## Pré-requisitos `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<div class="background" style="width: 1000px; height: 420px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+<img src="figs/novo9.png" style="width:90%;"/>
+]
+
+---
+## Pré-requisitos  `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")` 
+.center[
+<div class="background" style="width: 1000px; height: 430px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+<img src="figs/novo10.png" style="width:90%;"/>
+
+Pronto! 😋 
+]
+
+---
+class: center
+
+<br>
+
+<img src="https://i.pinimg.com/originals/61/2b/8c/612b8c27f15c63c08052d8de2c1bb15b.gif">
+
+**Tudo pronto para começarmos a trabalhar com o Git e o GitHub**
+
+---
+## Criar um repositório
+
+<br>
+
+.center[
+<img src="figs/novo26.png" style="width:73%;"/>
+]
+
+---
+## Criar um repositório (local) `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+
+<div class="background" style="width: 1000px; height: 420px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+<img src="figs/novo12.png" style="width:90%;"/> <br>
+
+**Prestar bastante atenção no "endereço" que você vai salvar o repositório!** <br>
+**Cuidado para não repetir nomes**
+
+]
+
+---
+## Criar um repositório (local) `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo13.png" style="width:85%;"/>
+]
+
+---
+## Criar um repositório (local) `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo14.png" style="width:70%;"/>
+]
+
+---
+## Criar um repositório (local) 
+
+### README.md {`r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`}
+
+.center[
+<img src="figs/novo29.png" style="width:85%;"/>
+]
+
+---
+## Criar um repositório (local) 
+
+### Para editar o texto do README.md: `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")` → `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+- Descrição realizada em **Markdown**
+
+.center[
+<img src="figs/novo15.png" style="width:70%;"/>
+]
+
+  - Uma linguagem de *marcação simples*, **não** de programação.
+  
+  - Textos com caracteres não alfabéticos (**#**, **\**, **\***, **!**, **[]** e **()**), que são usados para configurar *títulos*, *listas*, *itálico*, *negrito* e inserir *imagens*. 
+  
+  - Creado originalmente por [John Gruber](https://en.wikipedia.org/wiki/John_Gruber) y [Aaron Swartz](https://pt.wikipedia.org/wiki/Aaron_Swartz).
+
+---
+## Criar um repositório 
+
+### Para editar o texto do README.md: `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")` → `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+.center[
+<img src="figs/23-markdown.png" style="width:90%;"/>
+]
+
+> *Parágrafo 1 `<br>` Parágrafo 2* **=**
+
+> Parágrafo 1 <br> Parágrafo 2
+
+---
+## Criar um repositório 
+
+### Para editar o texto do README.md: `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")` → `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+.center[
+<img src="figs/24-markdown.png" style="width:70%;"/>
+]
+
+---
+## Criar um repositório 
+
+### Para editar o texto do README.md: `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")` → `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+.center[
+<img src="figs/markdown1.gif" style="width:65%;"/>
+
+**Não esqueça de salvar!**
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Git já identificou as mudanças feitas! 
+
+.center[
+<img src="figs/novo16.png" style="width:70%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Git já identificou as mudanças feitas!
+
+.center[
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+<img src="figs/novo17.png" style="width:95%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Git já identificou as mudanças feitas!
+<br>
+
+.center[
+<img src="figs/novo17.2.png" style="width:75%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Git já identificou as mudanças feitas!
+
+.center[
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+<img src="figs/novo18.png" style="width:100%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Git já identificou as mudanças feitas!
+<br>
+
+.center[
+<img src="figs/novo19.png" style="width:90%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### *Commitar* as nossas mudanças (local)
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+.center[
+<img src="figs/novo20.png" style="width:90%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### *Commitar* as nossas mudanças (local)
+
+.center[
+<img src="figs/novo21.png" style="width:40%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### *Commitar* as nossas mudanças (local)
+
+.center[
+<img src="figs/novo22.png" style="width:75%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Ver o *commit* no histórico 
+
+.center[
+<img src="figs/novo23.png" style="width:75%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Ver o *commit* no histórico 
+<br>
+
+.center[
+<img src="figs/novo24.png" style="width:85%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Ver o *commit* no histórico 
+<br>
+
+.center[
+<img src="figs/novo25.png" style="width:85%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Ver o *commit* no histórico 
+<br>
+
+.center[
+<img src="figs/novo30.png" style="width:85%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+### Envie o repositório local para o remoto: `PUSH`
+<br>
+
+.center[
+<img src="figs/novo27.png" style="width:85%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Envie o repositório local para o remoto: `PUSH`
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+.center[
+<img src="figs/novo31.png" style="width:100%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Envie o repositório local para o remoto: `PUSH`
+
+.center[
+<img src="figs/novo32.png" style="width:50%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### Envie o repositório local para o remoto: `PUSH`
+
+.center[
+<img src="figs/novo33.png" style="width:50%;"/>
+]
+
+---
+## Criar um repositório `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+### Envie o repositório local para o remoto: `PUSH`
+
+.center[
+<img src="figs/novo34.png" style="width:85%;"/>
+]
+
+---
+## Adicionar novo conteúdo ao meu repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo35.png" style="width:80%;"/>
+]
+
+---
+## Adicionar novo conteúdo ao meu repositório `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+<br>
+
+.center[
+<img src="figs/novo36.png" style="width:91%;"/>
+]
+
+---
+## Adicionar novo conteúdo ao meu repositório `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+<br>
+
+.center[
+<img src="figs/novo37.png" style="width:95%;"/>
+]
+
+---
+## Baixar um projeto para o meu repositório local
+
+<br>
+
+.center[
+<img src="figs/novo38.png" style="width:91%;"/>
+]
+
+---
+## Baixar um projeto para o meu repositório local
+
+<br>
+
+.center[
+<img src="figs/novo39.png" style="width:82%;"/>
+]
+
+---
+## Baixar um projeto para o meu repositório local `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+.center[
+<img src="figs/novo40.png" style="width:90%;"/>
+]
+
+---
+## Baixar um projeto para o meu repositório local `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### `git CLONE`
+
+.center[
+<img src="figs/novo41.png" style="width:68%;"/>
+]
+
+---
+## Baixar um projeto para o meu repositório local `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+<br>
+
+.center[
+<img src="figs/novo42.png" style="width:85%;"/>
+]
+
+---
+## Baixar um projeto para o meu repositório local `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo43.png" style="width:83%;"/>
+]
+
+---
+## Envie a colaboração feita para o projeto remoto
+<br>
+
+.center[
+<img src="figs/novo46.png" style="width:95%;"/>
+]
+
+---
+## Envie a colaboração feita para o projeto remoto `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo44.png" style="width:100%;"/>
+]
+
+---
+## Envie a colaboração feita para o projeto remoto
+
+.center[
+<img src="figs/novo47.png" style="width:90%;"/>
+]
+
+---
+## Envie a colaboração feita para o projeto remoto `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo45.png" style="width:85%;"/>
+]
+
+---
+## Envie a colaboração feita para o projeto remoto `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+### `Pull request`
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+.center[
+<img src="figs/novo48.png" style="width:83%;"/>
+]
+
+---
+## Envie a colaboração feita para o projeto remoto `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+### `Pull request`
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+.center[
+<img src="figs/novo49.png" style="width:95%;"/>
+]
+
+---
+## Envie a colaboração feita para o projeto remoto `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+### `Pull request` 
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+.center[
+<img src="figs/novo49.png" style="width:95%;"/>
+]
+
+---
+## Envie a colaboração feita para o projeto remoto `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+### `Pull request` 
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+.center[
+<img src="figs/novo50.png" style="width:95%;"/>]
+
+---
+## Envie a colaboração feita para o projeto remoto `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+### `Pull request` 
+
+<div class="background" style="width: 1000px; height: 400px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+.center[
+<img src="figs/novo51.png" style="width:95%;"/>]
+
+---
+## Envie a colaboração feita para o projeto remoto `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")`
+
+.center[
+<img src="figs/novo52.png" style="width:40%;"/>]
+
+---
+## Colaborações de terceiro em meu projeto `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo53.png" style="width:100%;"/>]
+
+---
+## Colaborações de terceiro em meu projeto `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo54.png" style="width:90%;"/>]
+
+---
+## Colaborações de terceiro em meu projeto `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo55.png" style="width:100%;"/>]
+
+---
+## Colaborações de terceiro em meu projeto `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo56.png" style="width:90%;"/>]
+
+---
+## Colaborações de terceiro em meu projeto `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo57.png" style="width:80%;"/>]
+
+---
+## Agora é só continuar trabalhando! `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<div class="background" style="width: 1000px; height: 420px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+<img src="figs/novo58.png" style="width:80%;"/>]
+
+---
+## Agora é só continuar trabalhando! `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<div class="background" style="width: 1000px; height: 420px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 30px;">
+
+<img src="figs/novo59.png" style="width:80%;"/>]
+
+---
+## Agora é só continuar trabalhando! `r icons::icon_style(icons::fontawesome("git-square"), fill = "#000000")`
+
+.center[
+<img src="figs/novo60.png" style="width:80%;"/>]
+
+---
+class: center, middle
+
+<img src="figs/novo61.png" style="width:80%;"/>
+
+## 💙💚💛 Obrigada 🧡💜🖤
+
+
+

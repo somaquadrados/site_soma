@@ -1,0 +1,36 @@
+---
+title: "Git e GitHub sem programação"
+date: 2021-10-03T21:00:00
+date_end: 2021-09-27T17:00:00
+categories:
+  - git
+  - github
+  - curso
+tags:
+  - git
+  - github
+  - curso
+summary: Curso curto para você que está começando a programar e ainda não está controlando as versões de seus projetos. Chega mais e vem conhecer o GitHub desktop!
+slug: 2021-10-03-2ahacktobfoz
+draft: no
+event: 2ª Hacktoberfest GDG Foz do Iguaçu e GECD
+event_url: https://www.youtube.com/watch?v=SPy09HfHYh0
+location: Virtual
+abstract: |
+all_day: no
+publishDate: "`r Sys.Date()`"
+featured: yes
+links:
+- icon: youtube
+  icon_pack: fab
+  name: videos
+  url: https://www.youtube.com/watch?v=SPy09HfHYh0
+---
+
+## Slides
+
+```{r echo=FALSE}
+knitr::include_url('slides.html')
+```
+
+[Download em PDF](slides.pdf)
