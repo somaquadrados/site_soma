@@ -10,7 +10,8 @@ tags:
   - git
   - github
   - curso
-summary: Curso curto para você que está começando a programar e ainda não está controlando as versões de seus projetos. Chega mais e vem conhecer o GitHub desktop!
+summary: Você sabe o que é o Git? E o GitHub? Você já tentou aprender a "versionar" com o Git, mas achou difícil por causa das dezenas de comandos? Se a sua resposta é SIM, te convidamos para conhecer o GitHub desktop 
+😍  Aprenda a versionar seus projetos sem digitar uma linha de código! 😉
 slug: 2021-10-03-2ahacktobfoz
 draft: no
 event: 2ª Hacktoberfest GDG Foz do Iguaçu e GECD

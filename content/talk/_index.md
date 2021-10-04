@@ -6,8 +6,6 @@ description: |
   ## 2021
   - **Outubro/Octubre**:  
   <br>
-    ▶  Curso: **Introdução ao Git e GitHub** → 02/10, [Hackotberfest de Foz do Iguaçu](https://www.youtube.com/watch?v=SPy09HfHYh0). \
-  <br>
     ▶ Curso: **Introducción al R** → 18/10 al 23/10, [Pré V Jornadas Paraguayas de Mastozoología - JPM](http://asociacionmastozoologiapy.weebly.com/v-jornadas-paraguayas-de-mastozoologiacutea.html?fbclid=IwAR0kzgwhT_airNecUNjKCELy8GHRuJdU9vZNQIjP_nOjc_m5MYJDUQoEqdU). 
     
     <br>
