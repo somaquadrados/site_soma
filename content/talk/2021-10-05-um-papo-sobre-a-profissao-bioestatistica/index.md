@@ -2,13 +2,11 @@
 title: Um papo sobre a profissão "bioestatística"
 date: '2021-10-05'
 categories:
-  - git
-  - github
-  - curso
+  - Entrevista
+  - Bioestatística
 tags:
-  - git
-  - github
-  - curso
+  - Entrevista
+  - Bioestatística
 summary: "Conversamos com a Profa. Dra. Ana T. B. Guimarães sobre o papel do profissional bioestatístico na academia e no mercado. Vem ouvir esse papo :D"
 slug: 2021-10-05-entrevistadraanatbfuimaraes
 draft: no

@@ -12,7 +12,7 @@ editor_options:
 
 O **Cowplot** [🐄](https://emojipedia.org/cow/) é um pacote que foi
 projetado para ser um *add-on* do `ggplot`. As características mais
-notáveis são temas, alinhamento, organização de figuras em vários
+notáveis são os temas, o alinhamento, a organização de figuras em vários
 painéis gráficos e funções que facilitam a anotação de plotagens ou
 mesmo mesclar nossos gráficos com outras imagens. Meu objetivo neste
 tutorial não é usar o pacote extensivamente, mas sim mostrar a você as
@@ -43,9 +43,9 @@ acabo utilizando-o em outros tipos de projetos pela facilidade de
 lembrar os temas que desejo. Por exemplo, quando preciso de um gráfico
 mais *clean,* eu uso a função *theme_half_open(),* que tem um design
 simples, sem *background* e um estilo de eixo semiaberto (duas linhas no
-eixo do quadrantes inferiores esquerdos). Em seguida, vou usar esse tema
-para criar um gráfico *scatter plot* entre as variáveis "*Total.Fat*" e
-"*Calories*".
+eixo do quadrantes inferiores esquerdos). Em seguida, vou aplicar esse
+tema em um gráfico *scatter plot* entre as variáveis "*Total.Fat*" e
+"*Calories*":
 
 ```{r}
 ggplot(menu, aes(x = Calories, 
@@ -63,8 +63,8 @@ informações sobre essa função, execute o código: `?theme_half_open()`.
 
 *background_grid* também é uma das minhas funções preferidas porque, bem
 😅, é a função da qual me lembro quando quero colocar um plano de fundo
-(*background* 👌). Vamos executar um exemplo de com dois gráficos de
-dispersão:
+(*background* 👌) no meu gráfico. Vamos executar dois exemplos com essa
+função:
 
 ```{r}
 ## Gordura total vs. caloria
@@ -86,11 +86,11 @@ g_protein
 ```
 
 Outro tema que eu costumo usar com frequência é o *theme_minimal*. De
-novo, o pacote me ganha pela usabilidade porque ele possui "duas
-variantes": *theme_minimal_hgrid*, que adiciona linhas na horizontal, e
-o *theme_minimal_vgrid*, que adiciona linhas na vertical. Por último,
-outro *add-on* que considero muito prático é o *panel_border,* que
-adicionar bordas ao panéis.
+novo, o pacote me ganha pela usabilidade, logo que este tema possui
+"duas variantes": *theme_minimal_hgrid*, que adiciona linhas na
+horizontal, e o *theme_minimal_vgrid*, que adiciona linhas na vertical.
+Por último, outro *add-on* que considero muito prático é o
+*panel_border,* que adicionar bordas ao panéis.
 
 ```{r fig.height=10, fig.width=8, message=FALSE, warning=FALSE}
 # Histograma para os dados de gordura total
@@ -120,12 +120,14 @@ hist_protein
 
 # Painéis
 
-Por último, cowplot tem um função semelhante ao `par(mfrow)` do
+Por último, o cowplot tem um função semelhante ao `par(mfrow)` do
 `r fontawesome::fa("r-project", fill = "steelblue")` base. A partir
 dela, você é capaz de gerar painéis com vários gráficos em uma única
-figura. Vamos fazer três panéis: O primeiro para combinar os dois
-gráficos de dispersão (p_1), o segundo para combinar os dois gráficos de
-histograma (p_2) e o terceiro vai combinar o I e II. (p_3)
+figura.
+
+Vamos fazer três panéis: O primeiro para combinar os dois gráficos de
+dispersão (p_1), o segundo para combinar os dois gráficos de histograma
+(p_2) e o terceiro vai combinar o p_1 e o p_2 (p_3).
 
 ## Painel I
 
@@ -139,7 +141,7 @@ plot_grid(g_fat, g_protein, labels = c("A", "B"), label_size = 12)
 Obviamente, o painel não é muito bom, pois os dois gráficos compartilham
 a mesma legenda (🤕). A solução então é a seguinde:
 
-1\. Fazer um gráfico apenas com os gráficos e sem nenhuma legenda
+1\. Fazer uma figura apenas com os gráficos e sem nenhuma legenda
 (*prow*).
 
 ```{r message=FALSE, warning=FALSE}
@@ -176,14 +178,14 @@ p1
 Vamos repetir os mesmo passos realizados no [Painel I], agora com os
 histogramas:
 
-```{r fig.height=9, fig.width=12}
+```{r fig.height=10, fig.width=15, message=FALSE, warning=FALSE}
 
 ## Unir os gráficos
 prow2 <- plot_grid(
-  hist_fat + theme(legend.position="none"), 
+  hist_fat + theme(legend.position="none"),
   hist_protein + theme(legend.position="none"),
   align = 'vh',
-  labels = c("A", "B"),
+  labels = c("C", "D"),
   hjust = -1,
   nrow = 1, 
   label_size = 12
@@ -191,43 +193,47 @@ prow2 <- plot_grid(
 
 ## Criar um objeto para a legenda
 legend2 <- get_legend(
-  hist_protein + theme()
+  hist_protein + theme(legend.position = c(0, 0.55))
 )
 
 ## Criar o gráfico
-p2 <- plot_grid(prow2, legend2)
+p2 <- plot_grid(prow2, legend2, nrow = 1)
 p2
 ```
 
 ## Painel III
 
-Finalmente, o último painel; nele incluiremos os quatro gráficos
-criados, no entanto, precisamos ter apenas uma legenda.
+Finalmente, o último painel 🤙! Nele incluiremos os quatro gráficos
+criados, no entanto, precisamos ter apenas uma legenda. Para tal,
+usaremos somente as combinações de gráficos sem legenda (*prow* e
+*prow2*) e a legenda criada para combinação com os histogramas
+(*legend2*). Faremos uma pequena edição na legenda 2 para ajeitar
 
-```{r fig.height=9, fig.width=12}
-plot_grid(prow, prow2, nrow = 2) %>%
-  plot_grid(legend2, align = "hv", axis = "l", nrow = 1)
-
+```{r fig.height=8, fig.width=10}
+plot_grid(prow, legend2, prow2, nrow = 2)
 ```
 
-Para finalizar, precisamos arrumar as proporções do gráficos. Para isso
-vamos utilizar as funções `rel_heights = c(t1, t2))` e
+Para finalizar, precisamos arrumar as proporções dos gráficos no painel.
+Para isso, vamos utilizar as funções `rel_heights = c(t1, t2))` e
 `rel_widths = c(t1, t2)`, que alteram a altura e a largura,
-respectivamente. Dentro colocamos o tamanho que vamos querer para cada
-figura na ordem em que elas são inclusas na função.
+respectivamente. Os argumentos da função correspondem ao tamanho que
+queremos para cada figura. Os tamanhos devem ser inseridos na ordem em
+que são incluídas os gráficos na função `plot_grid()`.
 
 ```{r fig.height=9, fig.width=12}
-p3 <- plot_grid(prow, prow2, nrow = 2, 
-                rel_heights = c(6, 12), 
-                rel_widths = c(2, 2)) %>%
-  plot_grid(legend2, align = "v", axis = "l", nrow = 1,
-             rel_heights = c(3, 0.8), rel_widths = c(2, 0.5)
-            )
+p3 <- plot_grid(prow, legend2, prow2, nrow = 2, 
+                rel_heights = c(8, 20, 6), 
+                rel_widths = c(3, 3, 2)) 
 p3
 ```
 
-E fim 🥳! Agora você pode fazer os seus próprios painéis usando cowplot.
-E ai, quais figuras lndas você tá pensando em criar com esse pacote?
+**E fim 🥳!**
+
+![](colector.gif)
+
+Agora você pode fazer os seus próprios painéis usando cowplot.
+
+E ai, quais figuras lindas você tá pensando em criar com esse pacote?
 Conte para nós!
 
 \
