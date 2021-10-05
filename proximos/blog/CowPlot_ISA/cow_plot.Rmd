@@ -3,141 +3,146 @@ title: "cowplot"
 author: "Isabella Bicalho Frazeto"
 date: "9/18/2021"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
-
 
 # Sobre o pacote
 
-Cowplot é pacote que foi projetado para ser um add-on a funcionalidade do ggplot. Algumas das funcionalidades mais notáveis são os usos de temas, alinhamento e organização de figuras em panéis de multiplos gráficos e funções que facilitam a anotação. Meu objetivo nesse tutorial não é usar o pacote extensivamente, mas sim mostrar as funções que eu mais uso quando eu trabalho com gráficos.
-
+O **Cowplot** [🐄](https://emojipedia.org/cow/) é um pacote que foi
+projetado para ser um *add-on* do `ggplot`. As características mais
+notáveis são temas, alinhamento, organização de figuras em vários
+painéis gráficos e funções que facilitam a anotação de plotagens ou
+mesmo mesclar nossos gráficos com outras imagens. Meu objetivo neste
+tutorial não é usar o pacote extensivamente, mas sim mostrar a você as
+funções que eu mais uso ao trabalhar com gráficos.
 
 # Dados
 
-Nesse tutorial vamos usar a tabela nutriciona do McDonald's. 
+Neste tutorial, usaremos a [Tabela Nutricional do
+McDonald's](menu.csv)*.*
 
-```{r}
-
-library(ggplot2)
+```{r message=FALSE, warning=FALSE}
+## Pacotes ----
+library(ggplot2) 
+library(cowplot) #<<
 library(dplyr)
-library(cowplot)
 
+## Dados ----
 menu <- read.csv("menu.csv")
 
+## Visualizar a tabela ----
 glimpse(menu)
-
-
 ```
 
+# Temas e *background_grid*
 
-# Temas e background_grid
-
-Nessa parte vamos criar quatro gráficos:
-  1. Gráfico de dispersão de calorias x gordura total (g_fat)
-  2. Gráfico de dispersão de calorias x proteína (g_protein)
-  3. Histograma de gordura total por categoria do menu (hist_fat)
-  4. Histograma de gordura total por categoria do menu  (hist_protein)
-  
-## Temas
-
-Apesar de ter conhecido cowplot pelo seu uso em painéis, eu acabo sempre o utilizando pela facilidade de lembrar dos temas que eu quero. O tema *theme_half_open* cria um tema simples sem background meio aberto com duas linhas no eixo do quadrantes esquerdo inferior.
+Apesar de ter conhecido o cowplot pela aplicabilidade em painéis, sempre
+acabo utilizando-o em outros tipos de projetos pela facilidade de
+lembrar os temas que desejo. Por exemplo, quando preciso de um gráfico
+mais *clean,* eu uso a função *theme_half_open(),* que tem um design
+simples, sem *background* e um estilo de eixo semiaberto (duas linhas no
+eixo do quadrantes inferiores esquerdos). Em seguida, vou usar esse tema
+para criar um gráfico *scatter plot* entre as variáveis "*Total.Fat*" e
+"*Calories*".
 
 ```{r}
-ggplot(menu, aes(x=Calories, y=Total.Fat, color = Category)) + 
-            geom_point() +
-            theme_half_open() 
+ggplot(menu, aes(x = Calories, 
+                 y = Total.Fat, 
+                 color = Category)) + 
+            geom_point() + 
+            theme_half_open() ## < tema do cowplot
 ```
 
+Veja que, com a ajuda do cowplot, rapidamente tivemos um gráfico
+produzido com um tema *clean* e que está pronto para ser publicado! O
+mais legal é que o tema ainda tem a opção de alterar o tamanho do texto
+no título, no corpo do gráfico e assim por diante. Para obter mais
+informações sobre essa função, execute o código: `?theme_half_open()`.
 
-Se você também estava se perguntando o que é o pontinho verde no quadrante superior com mais 1500 calorias, aqui está sua respota:
-
-```{r}
-menu %>% 
-  filter(Calories > 1500) %>%
-  pull(Item)
-```
-Um balde de Chicken Mcnuggets.
-
-
-## Background Grid
-
-*background_grid* também é uma das minhas funções preferidas porque, bom, é a função que eu consigo lembrar quando quero colocar um background de fundo. 
+*background_grid* também é uma das minhas funções preferidas porque, bem
+😅, é a função da qual me lembro quando quero colocar um plano de fundo
+(*background* 👌). Vamos executar um exemplo de com dois gráficos de
+dispersão:
 
 ```{r}
-
-#total.fat
+## Gordura total vs. caloria
 g_fat <- ggplot(menu, aes(x=Calories, y=Total.Fat, color = Category)) + 
             geom_point() +
             theme_half_open() +
-            background_grid()
+            background_grid() # <<
 
 g_fat
 
-
-#Protein
-g_protein <- ggplot(menu, aes(x=Calories, y=Protein, color = Category)) + 
+## Proteína vs. caloria
+g_protein <- ggplot(menu, aes(x = Calories, y = Protein, color = Category)) + 
               geom_point() +
               theme_half_open() +
-              background_grid()
+              background_grid() # <<
 
 
 g_protein
-
 ```
 
+Outro tema que eu costumo usar com frequência é o *theme_minimal*. De
+novo, o pacote me ganha pela usabilidade porque ele possui "duas
+variantes": *theme_minimal_hgrid*, que adiciona linhas na horizontal, e
+o *theme_minimal_vgrid*, que adiciona linhas na vertical. Por último,
+outro *add-on* que considero muito prático é o *panel_border,* que
+adicionar bordas ao panéis.
 
-## Mais temas
-
-Outro tema que eu costumo usar com frequência é *theme_minimal*. De novo, o pacote me ganha pela usabilidade porque ele possui "duas variantes" *theme_minimal_hgrid*, que adiciona linhas na horizontal, e *theme_minimal_vgrid*, que adiciona linhas na vertical. Por último, outro add-on que eu acho muito prático é o *panel_border* que adicionar bordas ao panéis. 
-
-```{r}
-
-#total.fat histogram
-hist_fat <- ggplot(menu, aes(x=Total.Fat)) + 
+```{r fig.height=10, fig.width=8, message=FALSE, warning=FALSE}
+# Histograma para os dados de gordura total
+## Com o theme_minimal_hgrid
+hist_fat <- ggplot(menu, aes(x = Total.Fat, fill = Category)) + 
               geom_histogram() +
-              facet_grid(vars(Category)) +
-              theme_minimal_hgrid() +
-              panel_border(color='black') +
-              theme(strip.text.y  = element_text(angle = 0)) 
-  
+              facet_grid(vars(Category),  labeller = as_labeller(NULL)) +
+              theme_minimal_hgrid() + #<<
+              panel_border(color='black') + #<<,
+              theme(strip.text.y  = element_blank()) 
 
 hist_fat
 
-#protein histogram
-hist_protein <- ggplot(menu, aes(x=Protein)) + 
+
+# Histograma para os dados de proteína
+## Com o theme_minimal_vgrid
+hist_protein <- ggplot(menu, aes(x = Protein, fill = Category)) + 
                   geom_histogram() +
                   facet_grid(vars(Category)) +
-                  theme_minimal_hgrid() +
-                  panel_border(color='black') +
-                  theme(strip.text.y  = element_text(angle = 0)) 
+                  theme_minimal_vgrid() + #<<
+                  panel_border(color='black') + #<<
+                  theme(strip.text.y  = element_blank()) 
 
 hist_protein
 
 ```
 
-
 # Painéis
 
-Por último, cowplow tem um função parecida com a que o par(mfrow) tem no R base. Assim, você é capaz de gerar painéis com multiplas figuras em uma figura só. Vamos fazer três panéis:
-    I. O primeiro para combinar os dois gráficos de dispersão (p_1)
-    II. O segundo para combinar os dois gráficos de histograma (p_2)
-    II. O terceiro vai combinar o I e II. (p_3)
-    
-    
+Por último, cowplot tem um função semelhante ao `par(mfrow)` do
+`r fontawesome::fa("r-project", fill = "steelblue")` base. A partir
+dela, você é capaz de gerar painéis com vários gráficos em uma única
+figura. Vamos fazer três panéis: O primeiro para combinar os dois
+gráficos de dispersão (p_1), o segundo para combinar os dois gráficos de
+histograma (p_2) e o terceiro vai combinar o I e II. (p_3)
+
 ## Painel I
 
-Primeiro observe que se simplesmente usarmos a função plot_grid sem levar em conta a legenda, ela ficaria assim.
-```{r}
+Primeiro, observe que se usarmos apenas a função `plot_grid()` sem levar
+a legenda em consideração, ela ficará assim:
+
+```{r fig.height=4, fig.width=8}
 plot_grid(g_fat, g_protein, labels = c("A", "B"), label_size = 12)
 ```
 
-Obviamente isso não é muito agradável uma vez ambos os gráficos compartilham a mesma legenda. A solução então é a seguinde:
-    1. Fazer um gráfico que com apenas os plots sem nenhuma legenda (*prow*).
-    2. Extrair a legenda usando *get_legend* (também do cowplot).
-    3. Combinar num novo grid prow e a legenda.
+Obviamente, o painel não é muito bom, pois os dois gráficos compartilham
+a mesma legenda (🤕). A solução então é a seguinde:
 
+1\. Fazer um gráfico apenas com os gráficos e sem nenhuma legenda
+(*prow*).
 
-
-```{r}
+```{r message=FALSE, warning=FALSE}
 prow <- plot_grid(
   g_fat + theme(legend.position="none"),
   g_protein + theme(legend.position="none"),
@@ -147,44 +152,82 @@ prow <- plot_grid(
   nrow = 1, 
   label_size = 12
 )
+```
 
+2\. Extrair a legenda usando *get_legend* (também do cowplot).
 
+```{r}
 legend <- get_legend(
-  g_protein + theme(legend.box.margin = margin(0, 0, 0, 12))
+  g_protein + theme()
 )
 
+```
 
-p1 <- plot_grid(prow, legend, rel_widths = c(3, .3))
+3\. Combinar num novo grid *prow* e a legenda.
+
+```{r fig.height=6, fig.width=10}
+p1 <- plot_grid(prow, legend)
 p1
 
 ```
 
 ## Painel II
 
-No segundo painel, eu decidi manter duas legendas porque ele é um painel um pouco mais denso de digerir.
+Vamos repetir os mesmo passos realizados no [Painel I], agora com os
+histogramas:
 
-```{r}
-p2 <- plot_grid(hist_fat, hist_protein, labels = c('C', 'D'), label_size = 12)
+```{r fig.height=9, fig.width=12}
+
+## Unir os gráficos
+prow2 <- plot_grid(
+  hist_fat + theme(legend.position="none"), 
+  hist_protein + theme(legend.position="none"),
+  align = 'vh',
+  labels = c("A", "B"),
+  hjust = -1,
+  nrow = 1, 
+  label_size = 12
+)
+
+## Criar um objeto para a legenda
+legend2 <- get_legend(
+  hist_protein + theme()
+)
+
+## Criar o gráfico
+p2 <- plot_grid(prow2, legend2)
 p2
 ```
 
+## Painel III
 
-## Painel III 
+Finalmente, o último painel; nele incluiremos os quatro gráficos
+criados, no entanto, precisamos ter apenas uma legenda.
 
-Finalmente, o último painel.
-
-```{r}
-plot_grid(p1, p2, nrow=2)
+```{r fig.height=9, fig.width=12}
+plot_grid(prow, prow2, nrow = 2) %>%
+  plot_grid(legend2, align = "hv", axis = "l", nrow = 1)
 
 ```
 
-Finalmente arrumando as proporções relativas de altura.
+Para finalizar, precisamos arrumar as proporções do gráficos. Para isso
+vamos utilizar as funções `rel_heights = c(t1, t2))` e
+`rel_widths = c(t1, t2)`, que alteram a altura e a largura,
+respectivamente. Dentro colocamos o tamanho que vamos querer para cada
+figura na ordem em que elas são inclusas na função.
 
-```{r}
-p3 <- plot_grid(p1, p2, nrow=2, rel_heights = c(0.4, 0.8))
+```{r fig.height=9, fig.width=12}
+p3 <- plot_grid(prow, prow2, nrow = 2, 
+                rel_heights = c(6, 12), 
+                rel_widths = c(2, 2)) %>%
+  plot_grid(legend2, align = "v", axis = "l", nrow = 1,
+             rel_heights = c(3, 0.8), rel_widths = c(2, 0.5)
+            )
 p3
-
 ```
 
+E fim 🥳! Agora você pode fazer os seus próprios painéis usando cowplot.
+E ai, quais figuras lndas você tá pensando em criar com esse pacote?
+Conte para nós!
 
-E fim, agora você pode fazer painéis usando cowplot.
+\
