@@ -1,5 +1,5 @@
 ---
-title: Um papo sobre a profissao bioestatistica
+title: Um papo sobre a profissão "bioestatística"
 date: '2021-10-05'
 categories:
   - git
