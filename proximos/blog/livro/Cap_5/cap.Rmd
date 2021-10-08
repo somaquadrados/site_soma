@@ -1,0 +1,26 @@
+---
+title: Distribuição amostral das médias/Distribución muestral de medias
+author: ''
+date: '2021-10-08'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+excerpt: ''
+images: ~
+series: ~
+layout: single
+alt: ''
+---
+
+# Introdução
+
+# Distribuição amostral das médias (DAM)
+## Características da distribuição amostral (DAM)
+
+# Significância estatística
+## Positivo e negativo ao uso 
+
+# Valores críticos mais utilizados em Z
+
+

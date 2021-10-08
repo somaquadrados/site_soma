@@ -1,0 +1,27 @@
+---
+title: Testes de hipótese/Pruebas de hipótesis 
+author: ''
+date: '2021-10-08'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+excerpt: ''
+images: ~
+series: ~
+layout: single
+alt: ''
+---
+
+# Hipótese cientifica vs. Hipótese estatística
+
+## Tipos de hipóteses estatística 
+
+## Verificação das hipóteses
+
+## Raciocinio do teste
+
+# Testes bilaterais e unilaterais
+
+# Erro do tipo I e do tipo II
+

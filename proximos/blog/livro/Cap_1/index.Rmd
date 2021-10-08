@@ -1,0 +1,38 @@
+---
+title: Organizando dados quantitativos/Organización de datos cuantitativos
+author: ''
+date: '2021-10-08'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+excerpt: ''
+images: ~
+series: ~
+layout: single
+alt: ''
+---
+
+PT
+# O que são dados quantitativos?
+
+# Tabela de agrupamento simples e por intervalo de classe 
+
+# Distribuição de frequências
+
+## Gráfico histograma
+
+## Relação da frequência relativa e probabilidade
+
+------------------------------------------
+
+ES
+# ¿Qué son los datos cuantitativos?
+
+# Tabla de agrupación simple y por rango de clases
+
+# Distribución de frecuencia
+
+## Gráfico de histograma
+
+## Relación de frecuencia relativa y probabilidad

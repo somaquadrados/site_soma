@@ -1,0 +1,40 @@
+---
+title: Medidas de dispersão e de variabilidade/Medidas de dispersión y variabilidad 
+author: ''
+date: '2021-10-08'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+excerpt: ''
+images: ~
+series: ~
+layout: single
+alt: ''
+---
+
+# Introdução
+
+# Amplitude de variação
+
+# Variância
+
+# Desvio-padrão
+
+# Coeficiente de variação 
+
+# Amplitude entre quartis
+
+------------------------------
+
+# Introducción
+
+# Rango de variación
+
+# Varianza
+
+# Desviacion estandar
+
+# Coeficiente de variación
+
+# Rango entre cuartiles

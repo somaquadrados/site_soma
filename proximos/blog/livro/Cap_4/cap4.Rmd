@@ -1,0 +1,30 @@
+---
+title: Distribuição normal e de Gauss/Distribución normal y gaussiana
+author: ''
+date: '2021-10-08'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+excerpt: ''
+images: ~
+series: ~
+layout: single
+alt: ''
+---
+
+
+# Introdução
+
+# Aplicações e implicações da curva de normalidade
+
+# Propriedades da curva normal
+
+# Curva normal padronizada
+
+# Parâmetros da curva normal 
+
+# Transformação de uma variável X em Z
+
+# Interpretação de Z
+

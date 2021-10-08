@@ -1,0 +1,37 @@
+---
+title: Medidas de tendência central ou de posição/Medidas de posición o tendencia central
+author: ''
+date: '2021-10-08'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+excerpt: ''
+images: ~
+series: ~
+layout: single
+alt: ''
+---
+
+PT
+
+# Introdução
+
+# Média aritmética
+
+# Mediana
+
+# Moda
+
+
+-----------------------------------
+
+ES 
+
+# Introducción
+
+# Media aritmética
+
+# Mediana
+
+# Moda
