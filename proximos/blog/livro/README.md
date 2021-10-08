@@ -25,3 +25,12 @@ output: html_document
 | Amostras/Muestras 	|  	|  	|  	|  	|
 | Análise da variância/Análisis de varianza 	|  	|  	|  	|  	|
 | Testes não-paramétrics/Pruebas no paramétricas 	|  	|  	|  	|  	|
+
+
+## Para cada um dos tópicos é necessário/Para cada uno de los temas es necesario: <br>
+ 
+- Discuta a teoria de forma concisa, sem ser prolixo, porém, considerando tudo o que é necessário para aplicar a análise. Lembre-se de comentar sobre as limitações./ Discuta la teoría de manera concisa, sin ser prolijo, pero considerando todo lo que se necesita para aplicar el análisis. Recuerde comentar sobre las limitaciones.
+ 
+- Inclua um exercício prático em R. Descreva as funções e comandos./Incluya un ejercicio práctico en R. Describa las funciones y comandos.
+ 
+
