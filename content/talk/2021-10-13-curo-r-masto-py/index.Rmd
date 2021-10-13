@@ -87,9 +87,9 @@ Bióloga (UFPR - Brasil), Magíster en Conservación y Manejo de Recursos Natura
 
 [https://youtu.be/avI8KI9rpII](https://youtu.be/avI8KI9rpII)
 
-3. Instalar R: [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/)
+4. Instalar R: [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/)
 
-4. Instalar RStudio: [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
+5. Instalar RStudio: [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
 
 *¿No puede instalar los programas a tiempo o ha tenido algún problema con la instalación? ¡Posibilidad de utilizar la el *RStudio cloud*!: [https://rstudio.cloud/](https://rstudio.cloud/ ) 
 
