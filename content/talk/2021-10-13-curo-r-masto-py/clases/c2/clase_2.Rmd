@@ -1,0 +1,1280 @@
+---
+title: "Programación con R"
+subtitle: "Clase 2"
+author: 
+  - "<img src = 'https://github.com/Soma-dos-Quadrados/ArtesSoma/blob/main/simbolo_smfundo4.png?raw=true' width = '25%'>"
+  - "Marília Melo Favalesso"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+---
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## Archivos
+
+- [`clase_2.R`](clase_2.R)
+- [`datos.csv`](datos.csv)
+- [`datos.txt`](datos.txt)
+- [`datos.xlsx`](datos.xlsx)
+- [`tidy_ej.xlsx`](tidy_ej.xlsx)
+
+## Contenido de hoy
+
+.pull-left[
+- [¿Cómo armar mi tabla de datos?](#tabla)
+- [Tidyverse](#tidyverse)
+- [Importar datos a R](#importar)
+]
+
+.pull-right[
+- [Operador pipe (`%>%`)](#pipe)
+- [tidyr](#tidyr)
+- [dplyr](#dplyr)
+]
+
+<!--
+Para realizar los ejercicios de esta clase, descargue los archivos que están disponibles en el sitio web de 
+nuestro curso, clase 2.
+
+El enlace para acceder al site estará en la descripción de este vídeo.
+-->
+---
+name: tabla
+class: middle, center
+
+# ¿Cómo armar mi tabla de datos?
+
+---
+## ¿Cómo armar mi tabla de datos?
+
+<br>
+.center[<img src="figs/17-tabla.png" style="width: 80%;">]
+
+---
+## ¿Cómo armar mi tabla de datos?
+
+<br>
+.center[<img src="figs/18-tabla2.png" style="width: 80%;">]
+
+---
+## ¿Cómo armar mi tabla de datos?
+
+### Resumen
+
+Características principales de un conjunto de datos ordenado:
+
+- cada variable es una columna
+- cada observación es una linea
+- cada valor está en una celda diferente
+
+.center[<img src="figs/30-tidyverse.png" style="width: 100%;">]
+
+---
+## ¿Cómo armar mi tabla de datos?
+
+.pull-left[
+<br>
+.center[<img src="figs/19-tabla3.png" style="width: 100%;">]
+]
+
+.pull-right[
+**Descripción de datos:**
+
+- Utilice las hojas de datos de su editor (ex. excel) para almacenar información sobre su tabla.
+
+- En la primera hoja (hoja 1) dejamos nuestra tabla y en las demás (normalmente la hoja 2, pero si es necesario usamos otras) incluimos información sobre nuestra tabla, como a qué se refieren los datos, descripción de cada variable, alguna observación importante y alguna fecha de edición de esta tabla.
+]
+
+---
+name: tidyverse
+class: middle, center
+
+# Tidyverse
+### <https://www.tidyverse.org/>
+
+---
+## Tidyverse
+
+> El tidyverse es una colección obstinada de 📦 **R** diseñados para la ciencia de datos. Todos los paquetes comparten una filosofía de diseño, una gramática y estructuras de datos subyacentes.
+
+.center[<img src="figs/24-tidyverse.png" style="width: 40%;">]
+
+- Instale el tidyverse completo con:
+```{r eval=FALSE, include=TRUE}
+install.packages("tidyverse")
+```
+
+---
+## Tidyverse
+
+.center[<img src="figs/25-tidyverse.png" style="width: 100%;">]
+
+---
+## Tidyverse
+
+### Tidyverse es una colección de 📦 R 
+
+- [readr](https://readr.tidyverse.org/) - importación de datos
+
+- [tibble](https://tibble.tidyverse.org/) - formato de `data.frame` mejorado
+
+- [tidyr](https://tidyr.tidyverse.org/), [dplyr](https://dplyr.tidyverse.org/)  - manipulación de datos 
+</mark> 
+
+- [ggplot2](https://ggplot2.tidyverse.org/) - visualizando de datos
+
+- [purrr](https://purrr.tidyverse.org/) - programación avanzada
+
+- [forcats](https://forcats.tidyverse.org/) - trabajando con factores
+
+- [stringr](https://stringr.tidyverse.org/) - trabajando con cadena de caracteres
+
+---
+## Tidyverse
+
+### Tidyverse es una colección de 📦 R 
+
+- <mark>[readr](https://readr.tidyverse.org/) - importación de datos
+
+- <mark>[tibble](https://tibble.tidyverse.org/) - formato de `data.frame` mejorado
+
+- <mark>[tidyr](https://tidyr.tidyverse.org/), [dplyr](https://dplyr.tidyverse.org/)  - manipulación de datos
+
+- <mark>[ggplot2](https://ggplot2.tidyverse.org/) - visualizando de datos
+
+- [purrr](https://purrr.tidyverse.org/) - programación avanzada
+
+- [forcats](https://forcats.tidyverse.org/) - trabajando con factores
+
+- [stringr](https://stringr.tidyverse.org/) - trabajando con cadena de caracteres
+
+---
+## Tidyverse
+
+### Flujo de trabajo en ciencia de datos, con **Tidyverse**
+
+.center[<img src="figs/26-tidyverse.png" style="width: 80%;">]
+
+---
+## Tidyverse
+
+El creador de **Tidyverse** es Hadley Wickham y hoy en día muchas personas han contribuido a su expansión.
+
+.center[<img src="figs/27-hadley.jpg" style="width: 55%;">
+
+`r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#000000")` <http://hadley.nz/> <br>
+ `r icons::icon_style(icons::fontawesome("twitter"), fill = "#000000")` [@hadleywickham](https://twitter.com/hadleywickham)
+]
+---
+## Tidyverse
+
+### R for Data Science
+
+.pull-left[
+.center[
+<img src="figs/28-tidyverse.png" style="width: 55%;">
+]
+]
+.center[
+<br>
+
+"This book will teach you how to do data science with **R**: You’ll learn how to get your data into **R**, get it into the most useful structure, transform it, visualise it and model it. In this book, you will find a practicum of skills for data science. Just as a chemist learns how to clean test tubes and stock a lab, you’ll learn how to clean data and draw plots—and many other things besides. (...)"
+
+<https://r4ds.had.co.nz/>
+]
+
+---
+## Tidyverse
+
+Instale y cargue el paquete **Tidyverse** en su computadora.
+
+```{r eval=FALSE, include=TRUE}
+install.packages("tidyverse")
+```
+
+<img src="figs/29-tidyverse.jpg" style="width: 35%;">
+
+---
+name: importar
+class: middle, center
+
+# Importar datos a R
+
+---
+## Importar datos a R
+
+> Para su alivio, **no es necesario producir su tabla en R** (como lo hemos hecho hasta ahora). Es posible construir la tabla en Excel y luego importar los datos (de HD a nuestra memoria RAM).
+
+<br>
+.center[<img src="figs/21-happy.gif" style="width: 50%;">]
+<br>
+
+> La función de importación dependerá del formato en el que se guardó nuestra tabla (.txt, .csv, .xls, .xlsx).
+
+---
+## Importar datos a R
+
+### Working directory
+
+- Recuerde que el directorio de trabajo es una 📁 donde **R** lee y guarda archivos.
+
+- Deberá decirle a R dónde están los archivos en los que va a trabajar.
+
+```{r eval=FALSE, include=TRUE}
+# Aquí incluirá la dirección donde están sus archivos en su computadora.
+setwd("C:/Users/mmfav/introduccionalR/clase_2/data")
+```
+
+- Deje todos los archivos guardados en esta misma carpeta, esto facilitará su trabajo.
+
+- Tenga en cuenta que la dirección aquí se indica con barras invertidas (`/`), a diferencia de lo que usan algunos sistemas operativos (`\`). Por ejemplo:
+  - `r icons::icon_style(icons::fontawesome("windows"), fill = "#000000")`: `C:\Users\mmfav\introduccionalR\clase_2\data`
+  - `r icons::icon_style(icons::fontawesome("r-project"), fill = "#000000")`: `C:/Users/mmfav/introduccionalR/clase_2/data`
+
+---
+## Importar datos a R
+
+.pull-left[.center[<img src="figs/31-readr.png" style="width: 50%;">
+
+El 📦 **tidyverse** `readr` se usa para importar archivos de texto, como *.txt* o *.csv* a **R**. 
+
+`reader` transforma archivos de texto en **tibbles**.]]
+
+.pull-right[
+- `read_csv()`; `read_csv2`: para archivos separados por comas. 
+- `read_tsv()`: para archivos separados por tabulaciones.
+- `read_delim()`: para archivos separados por un delimitador genérico. El argumento delim `=` indica qué carácter separa cada columna del archivo de texto.
+- `read_table()`: para archivos de texto tabulares con columnas separadas por espacios.
+- `read_fwf()`: para archivos compactos que deben tener el ancho de cada columna especificado.
+- `read_log()`: para archivos de registro estándar.
+]
+
+---
+## Importar datos a R
+
+.pull-left[.center[<img src="figs/31-readr.png" style="width: 50%;">
+
+El 📦 **tidyverse** `readr` se usa para importar archivos de texto, como *.txt* o *.csv* a **R**. 
+
+`reader` transforma archivos de texto en **tibbles**.]]
+
+.pull-right[
+- <mark>`read_csv()`; `read_csv2`: para archivos separados por comas.</mark>  
+- `read_tsv()`: para archivos separados por tabulaciones.
+-  <mark>`read_delim()`: para archivos separados por un delimitador genérico. El argumento delim `=` indica qué carácter separa cada columna del archivo de texto.</mark> 
+- `read_table()`: para archivos de texto tabulares con columnas separadas por espacios.
+- `read_fwf()`: para archivos compactos que deben tener el ancho de cada columna especificado.
+- `read_log()`: para archivos de registro estándar.
+]
+
+---
+## Importar datos a R
+
+### readr: `.csv`
+
+- Como ejemplo, usaremos la base de datos que proporcionamos en el repositorio ([datos.csv](datos.csv)).
+
+- La función para leer los datos es: `read_csv2(file = "archivo.csv")`.
+
+```{r}
+datos_csv <- read_csv2(file = "datos.csv", show_col_types = FALSE)
+```
+
+<!--- El mensaje devuelto por la función indica qué clase se asignó a cada columna. Tenga en cuenta que el argumento file = representa la ruta al archivo. Si el archivo que se va a leer no está en el directorio de trabajo de su sesión, debe especificar la ruta al archivo. -->
+
+---
+## Importar datos a R
+
+### readr: `.txt`
+
+- Como ejemplo, usaremos la base de datos que proporcionamos en el repositorio ([datos.txt](datos.txt)).
+
+- La función para leer los datos es: `read_delim(file = "archivo.txt", delim = "\t")`.
+
+```{r}
+datos_txt <- read_delim(file = "datos.txt", delim = "\t")
+```
+
+---
+## Importar datos a R
+
+### Exportar datos (`write_ `)
+
+- Para la mayoría de las funciones `read_`, existe una función `write_` correspondiente. 
+
+- Estas funciones sirven para guardar bases en un formato de archivo específico. 
+
+- Debe especificar el objeto a exportar y el nombre del archivo con la extensión.
+
+```{r eval=FALSE, include=TRUE}
+# archivo .csv
+write.csv2(x = objeto, path = "nombre_tabla.csv")
+
+# como un .txt
+write_delim(x = objeto, path = "nombre_tabla.txt", delim = "\t")
+```
+
+---
+## Importar datos a R
+
+.pull-left[
+¿Qué pasa si mis datos se guardan como un archivo **excel**?
+
+.center[<img src="figs/32-readxl.png" style="width: 50%;">
+
+El 📦 `readxl` se usa para importar archivos de excel, como *.xslx* o *.xls* a **R**. 
+
+]]
+
+.pull-right[
+- Instalar:
+```{r eval=FALSE, include=TRUE}
+install.packages("readxl")
+```
+
+- Cargar el paquete:
+```{r}
+library(readxl)
+```
+
+- Para abrir nuestro [archivo de repositorio (datos.xlsx)](datos.xlsx): `read_xlsx("archivo.xlsx")`
+
+- `readxl` transforma archivos de excel en **tibbles**.
+
+---
+
+- **<mark> <font color = "red"> ¡¡No es parte del tidyverse !! </font></mark> **
+
+---
+
+]
+
+---
+## Importar datos a R
+
+### readxl: **.xlsx**
+
+**Ejemplo:**
+
+```{r}
+datos_xlsx <- read_xlsx("datos.xlsx")
+datos_xlsx
+```
+
+---
+## Importar datos a R
+
+.pull-left[.center[
+
+<img src="figs/33-tibble.png" style="width: 60%;">
+
+Un **tibble**, o `tbl_df`, es una reinvención moderna del `data.frame`, manteniendo el tiempo que ha demostrado ser efectivo y descartando lo que no lo es. 
+
+
+]]
+
+.pull-right[
+<br>
+
+---
+
+- Es un formato requerido para usar funciones **tidyverse**.
+
+- Las variables pueden ser de tipo *numérico (int, dbl)*, *carácter (chr)*, *lógicas (lgl)* y *factor (fctr)*
+
+---
+
+- Convertir:
+
+> `data.frame` en `tibble`: 
+```{r eval=FALSE, include=TRUE}
+as_tibble(data)
+```
+
+---
+
+]
+
+---
+name: pipe
+class: middle, center
+
+# Operador pipe (`%>%`)
+
+---
+## Operador pipe (`%>%`)
+
+.pull-left[.center[
+<img src="figs/34-magrittr.png" style="width: 60%;">
+
+El 📦 `magrittr` ofrece un perador que hace que su código sea más legible: el pipe (`%>%`).
+]
+]
+
+.pull-right[
+La idea del operador pipe (`%>%`) es bastante simple: use el valor resultante de la expresión de la izquierda como primer argumento de la función de la derecha.
+
+**Por ejemplo**:
+
+```{r}
+# suma el vector y luego obtén la √ (sqrt):
+x <- 1:10
+```
+```{r}
+# Sin el pipe:
+sqrt(sum(x)) 
+```
+```{r}
+# Con el pipe:
+x %>% sum() %>% sqrt()
+```
+]
+
+---
+## Operador pipe (`%>%`)
+
+<img src="figs/45-yoda.png" style="width: 15%;"> **"Más intuitivo hacerlo un poco"**
+
+.pull-left[
+- **SIN** el pipe:
+```{r eval=FALSE, include=TRUE}
+piensas(
+  que(
+    orden(
+      la(
+        en(
+          codar()
+          )
+        )
+      )
+    )
+  )
+```
+]
+
+.pull-right[
+- **CON** el pipe:
+```{r eval=FALSE, include=TRUE}
+codar() %>%
+  en() %>%
+  la() %>%
+  orden() %>%
+  que() %>%
+  piensas()
+```
+
+---
+**!!** El código no solo es más pequeño, es más intuitivo, la lectura se vuelve mucho más fácil **!!**
+
+---
+]
+
+---
+name: tidyr
+class: middle, center
+
+# tidyr
+
+---
+## tidyr 
+
+.pull-left[.center[
+<img src="figs/35-tidyr.png" style="width: 60%;">
+
+El objetivo del 📦 `tidyr` es ayudarte a crear datos ordenados.
+]
+]
+
+.pull-right[
+Los datos ordenados son datos donde:
+- Cada columna es variable.
+- Cada fila es una observación.
+- Cada celda es un valor único.
+
+---
+
+Tidyr data describe una forma estándar de almacenar datos que se utiliza siempre que sea posible en **tidyverse**. 
+
+Si se asegura de que sus datos estén ordenados, pasará menos tiempo luchando con las herramientas y más tiempo trabajando en su análisis.
+
+---
+]
+
+---
+## tidyr 
+
+- Estas son sus principales funciones:
+
+  - `separate()`: separar los caracteres en varias columnas
+  - `unite()`: unir datos de varias columnas en una
+  - `drop_na()`: eliminar líneas con NA
+  - `replace_na()`: reemplazar valores NA
+  - `pivot_wider()`: pasa valores de filas a columnas
+  - `pivot_longer()`: pasa valores de columnas a filas
+<br>
+
+<br>
+
+<br>
+
+---------
+> Para ver todas las funciones del paquete, consulte la *cheatsheets*: <https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf>
+
+---------
+
+---
+## tidyr 
+
+### **separate()**
+
+.pull-left[
+- Muchas veces, una sola variable de columna capturará múltiples variables, o incluso partes de una variable que simplemente no le importa.
+
+.center[
+<img src="figs/36-separate.png" style="width: 90%;">
+]
+]
+
+.pull-right[
+- La función `separate()` separa dos o más variables que están concatenadas en la misma columna.
+
+-----
+
+- La sintaxis de la función es:
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+datos %>%
+  separate(
+    col = columna_vieja,
+    into = c("nueva_columna_1", "nueva_columna_2"),
+    sep = c("_") # cómo se separan las variables en la columna (ej. ".", "_")
+  )
+```
+]
+
+---
+## tidyr 
+
+### **separate()**
+
+**Por ejemplo**, dividamos la columna "localidad" de la tabla "datos_xlsx" en "ciudad" y "provincia".
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+datos_xlsx %>%
+  separate(
+    col = localidad, # la columna vieja
+    into = c("ciudad", "provincia"), # las nuevas columnas
+    sep = c(" - ") # modo de separación
+  ) %>% head()
+```
+
+
+.pull-left[
+**Antes**
+```{r echo=FALSE}
+datos_xlsx %>% kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>%
+  kableExtra::column_spec(2, bold = T, background = "#FFCC33") %>% 
+  kableExtra::scroll_box(width = "100%", height = "160px")
+```
+]
+
+.pull-right[
+**Despues**
+```{r echo=FALSE}
+datos_xlsx %>%
+  separate(
+    col = localidad, # la columna vieja
+    into = c("ciudad", "provincia"), # las nuevas columnas
+    sep = c(" - ") # modo de separación
+  ) %>% 
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>%
+  kableExtra::column_spec(2:3, bold = T, background = "#FFCC33") %>% 
+  kableExtra::scroll_box(width = "100%", height = "160px")
+```
+]
+
+---
+## tidyr 
+
+### **unite()**
+
+.pull-left[
+- La operación `unite()` es lo opuesto a `separate()`. 
+
+.center[
+<img src="figs/37-united.png" style="width: 90%;">
+]
+
+- La función `unite()` une dos variables que están en columnas diferentes.
+
+]
+
+.pull-right[
+- Toma dos columnas (variables) y las convierte en una. Se usa ampliamente para ensamblar informes finales o tablas para análisis visual. 
+
+-----
+
+- La sintaxis de la función es:
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+datos %>%
+  unite(
+    col = nueva_columna, columnas_para_juntar,
+    sep = c("_") # cómo se separan las variables en la columna (ej. ".", "_")
+  )
+```
+
+]
+
+---
+## tidyr 
+
+### **unite()**
+
+**Por ejemplo**, unamos las columnas "zona" y "año".
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  unite(
+    col = "zona_ano", "zona", "ano",
+    sep = "_"
+  )
+```
+
+.pull-left[
+**Antes**
+```{r echo=FALSE}
+datos_xlsx %>% kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>%
+  kableExtra::column_spec(3:4, bold = T, background = "#FFCC33") %>% 
+  kableExtra::scroll_box(width = "100%", height = "180px")
+```
+]
+
+.pull-right[
+**Despues**
+```{r echo=FALSE}
+datos_xlsx %>%
+  unite(
+    col = "zona_ano", "zona", "ano",
+    sep = "_"
+  ) %>% 
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>%
+  kableExtra::column_spec(3, bold = T, background = "#FFCC33") %>%
+  kableExtra::scroll_box(width = "100%", height = "180px")
+```
+]
+
+---
+## tidyr 
+
+### **replace_na()** y **drop_na()**
+
+.pull-left[
+Cuando tenemos datos faltantes en nuestra tabla (NA), podemos reemplazar NA con nuevos valores con la función `replace_na()`,... 
+
+```{r eval=FALSE, include=TRUE}
+replace_na(
+  list(columna_X = valor)
+)
+```
+
+...o podemos eliminar las filas con valores faltantes con `drop_na()`.
+
+```{r eval=FALSE, include=TRUE}
+drop_na(
+  columna
+)
+```
+
+]
+
+.pull-right[
+.center[
+<img src="figs/40-NA.png" style="width: 100%;">
+]
+]
+
+---
+## tidyr 
+
+### **replace_na()**
+
+**Por ejemplo**, podemos reemplazar las filas con el valor faltante en la columna "var_respuesta" por cero (lineas 1, 6 y 20)...
+
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  replace_na(list(var_respuesta = 0))
+```
+
+.pull-left[
+**Antes**
+```{r echo=FALSE}
+datos_xlsx %>% kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>%
+  kableExtra::column_spec(5, background = "#FFCC33") %>% 
+  kableExtra::row_spec(c(1,6,20), bold = T) %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+]
+
+.pull-right[
+**Después**
+```{r echo=FALSE}
+datos_xlsx %>%
+  replace_na(list(var_respuesta = 0)) %>% 
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>%
+  kableExtra::column_spec(5, background = "#FFCC33") %>% 
+  kableExtra::row_spec(c(1,6,20), bold = T) %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+]
+
+---
+## tidyr 
+
+### **drop_na()** 
+
+...o podemos eliminar las líneas que tiene valores NA.
+
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  drop_na(var_respuesta)
+```
+
+.pull-left[
+**Antes**
+```{r echo=FALSE}
+datos_xlsx %>% kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>%
+  kableExtra::column_spec(5, background = "#FFCC33") %>% 
+  kableExtra::row_spec(c(2), background = "#FFCC33") %>%
+  kableExtra::scroll_box(width = "100%", height = "220px")
+```
+]
+
+.pull-right[
+**Después**
+```{r echo=FALSE}
+datos_xlsx %>%
+  drop_na(var_respuesta) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>%
+  kableExtra::column_spec(5, background = "#FFCC33") %>% 
+  kableExtra::row_spec(c(1), bold = T, background = "#FFCC33") %>%
+  kableExtra::scroll_box(width = "100%", height = "220px")
+```
+]
+---
+## tidyr 
+
+.pull-left[### **pivot_longer()**
+
+- "Alarga" los datos, aumentando el número de filas y disminuyendo el número de columnas.
+
+.center[
+<img src="figs/38-piv_longer.png" style="width: 60%;">
+]
+```{r eval=FALSE, include=TRUE}
+pivot_longer(
+  cols = Columnas_para_pivotar,
+  names_to = "nombre_nova_columna",
+  values_to = "nombre_col_values"
+  )
+```
+]
+
+.pull-right[### **pivot_wider()**
+
+- Pasa los datos de columnas para filas, aumentando el número de columnas.
+
+.center[
+<img src="figs/39-piv_wider.png" style="width: 62%;">
+]
+```{r eval=FALSE, include=TRUE}
+  pivot_wider(
+    names_from = columna_nombres, 
+    values_from = columna_valores
+    ) 
+```
+]
+
+---
+## tidyr 
+
+### **pivot_longer()**
+
+.pull-left[
+**Por ejemplo**, pasemos los años de la tabla "datos_csv" de las columnas a las filas. Los valores los almacenaremos en una columna llamada 'value'.
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+datos_csv
+```
+
+
+```{r echo=FALSE}
+datos_csv %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+]
+
+.pull-right[
+```{r eval=FALSE, include=TRUE}
+datos_csv %>%
+  pivot_longer(
+    cols = c('2001', '2002', '2003'),
+    names_to = "año",
+    values_to = "value"
+  )
+```
+
+```{r echo=FALSE}
+datos_csv %>%
+  pivot_longer(
+    cols = c('2001', '2002', '2003'),
+    names_to = "año",
+    values_to = "value"
+  ) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>% 
+  kableExtra::scroll_box(width = "100%", height = "230px")
+```
+]
+
+---
+## tidyr 
+
+### **pivot_wider()**
+
+¿Qué pasa si quiero revertir la tabla a su formato original?
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+datos_csv2 <- datos_csv %>%
+  pivot_longer(
+    cols = c('2001', '2002', '2003'),
+    names_to = "año",
+    values_to = "value"
+  ) 
+```
+
+```{r eval=FALSE, include=TRUE}
+datos_csv2 %>%
+  pivot_wider(
+    names_from = año,
+    values_from = value
+  )
+```
+
+```{r echo=FALSE}
+datos_csv2 %>%
+  pivot_wider(
+    names_from = año,
+    values_from = value
+  ) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+---
+name: dplyr
+class: middle, center
+
+# dplyr 
+
+---
+## dplyr 
+
+.pull-left[
+<img src="figs/41-dplyr.png" style="width: 60%;">
+
+El 📦 `dplyr` es lo paquete más útil para realizar la transformación de datos, combinando simplicidad y eficiencia de una manera elegante.
+]
+
+.pull-right[
+- Los scripts **R** que hacen un uso inteligente de los verbos `dplyr` y las facilidades del operador `pipe` tienden a ser más legibles y organizados sin perder velocidad de ejecución.
+
+---
+
+- Las principales funciones de `dplyr` son:
+
+  - `select()`: seleccionar columnas
+  - `arrange()`: ordenar la base de datos
+  - `filter()`: filtrar las lineas
+  - `mutate()`: crear/modificar columnas
+  - `group_by()`: agrupar la base de datos
+  - `summarise()`: resume la base
+  - `relocate()`: reordenar columnas
+  - `left_join()`, `right_join()` y `full_join()`: juntar ≠ bases de datos. 
+]
+
+---
+## dplyr 
+
+### **select()**
+
+- Usamos para seleccionar columnas.
+
+- Los argumentos son los nombres de las columnas que desea seleccionar.
+
+```{r eval=FALSE, include=TRUE}
+datos %>%
+  select(nombre_col, nombre_col2)
+```
+
+- Para eliminar columnas de la base, agregue un "menos" (`-`) antes de la selección.
+
+```{r eval=FALSE, include=TRUE}
+datos %>%
+  select(-nombre_col, -nombre_col2)
+```
+
+- También disponemos de otras funciones auxiliares:
+  - `starts_with()`: para columnas que comienzan con texto estándar
+  - `ends_with()`: para columnas que terminan con texto estándar
+  - `contiene()`: para columnas que contienen texto estándar
+---
+## dplyr 
+
+### **select()**
+
+Seleccionemos las columnas "localidad" y "año" de la tabla "datos_xlsx".
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+datos_xlsx %>%
+  select(localidad, ano)
+```
+
+
+```{r echo=FALSE}
+datos_xlsx %>%
+  select(localidad, ano) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>% 
+  kableExtra::scroll_box(width = "100%", height = "300px")
+```
+
+---
+## dplyr 
+
+### **select()**
+
+Seleccione todos los datos excepto "ID" y "temperatura".
+
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  select(-ID, -temperatura)
+```
+
+
+```{r echo=FALSE}
+datos_xlsx %>%
+  select(-ID, -temperatura) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>% 
+  kableExtra::scroll_box(width = "100%", height = "300px")
+```
+
+---
+## dplyr 
+
+### **arrange()**
+
+- Para ordenar líneas. 
+
+- Los argumentos son las columnas por las que queremos ordenar las filas.
+
+```{r eval=FALSE, include=TRUE}
+datos %>% 
+  arrange(columna_x)
+```
+
+- También podemos ordenar en orden descendente usando la función `desc()`
+
+```{r eval=FALSE, include=TRUE}
+datos %>% 
+  arrange(desc(columna_x))
+```
+
+- ¡Y ordena más de una columna al mismo tiempo!
+
+```{r eval=FALSE, include=TRUE}
+datos %>% 
+  arrange(columna_y, desc(columna_x))
+```
+
+---
+## dplyr 
+
+### **arrange()**
+
+- En el siguiente ejemplo, ordenamos las líneas base en orden ascendente de "response_var".
+
+.pull-left[
+**Antes**
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>% 
+  select(ano, var_respuesta)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+datos_xlsx %>% 
+  select(ano, var_respuesta) %>%
+  kableExtra::kbl() %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>% 
+  kableExtra::scroll_box(width = "100%", height = "255px")
+```
+]
+
+.pull-right[
+**Después**
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  select(ano, var_respuesta) %>%
+  arrange(ano, desc(var_respuesta))
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+datos_xlsx %>%
+  select(ano, var_respuesta) %>%
+  arrange(ano, desc(var_respuesta)) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>% 
+  kableExtra::scroll_box(width = "100%", height = "230px")
+```
+]
+
+---
+## dplyr 
+
+### **filter()**
+
+- Para filtrar valores de una columna base, usamos la función `filter()`.
+
+```{r eval=FALSE, include=TRUE}
+datos %>% 
+  filter(columna < value)
+```
+
+- Por ejemplo, podemos seleccionar datos con una "var_respuesta" superior a 50.
+
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  filter(var_respuesta > 50)
+```
+
+```{r echo=FALSE}
+datos_xlsx %>%
+  filter(var_respuesta > 50) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16)
+```
+
+---
+## dplyr 
+
+### **filter()**
+
+- También podemos usar el filtro con caracteres.
+
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  filter(zona %in% "urbano")
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+datos_xlsx %>%
+  filter(zona %in% "urbano") %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16)
+```
+
+---
+## dplyr 
+
+### **mutate()**
+
+- Para modificar una columna existente o crear una nueva. 
+
+- Aplicaremos una función.
+
+- La regla es que el resultado de la operación devuelve un vector con una longitud igual al número de filas en la base.
+
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  mutate(columna = columna + función)
+```
+
+- También puede crear/modificar tantas columnas como desee dentro de la misma mutación.
+
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  mutate(columna = columna+función, nueva_columna = columna/valor)
+```
+
+---
+## dplyr 
+
+### **mutate()**
+
+- Por ejemplo, digamos que descubrió un error en su tabla. Agregaste uno individuo más en la columna "var_respuesta" y ahora necesitas quitar ese valor.
+
+```{r eval=FALSE, include=TRUE}
+datos_xlsx %>%
+  mutate(var_respuesta = var_respuesta - 1)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+datos_xlsx %>%
+  mutate(var_respuesta = var_respuesta - 1) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"), font_size = 16) %>% 
+  kableExtra::scroll_box(width = "100%", height = "270px")
+```
+
+---
+## dplyr 
+
+### **summarize()**
+
+- Es la técnica de resumir un conjunto de datos utilizando alguna métrica de interés. 
+
+- Media, mediana, varianza, frecuencia, proporción, por ejemplo, son tipos de resumen que aportan información diferente sobre una variable.
+
+```{r eval=FALSE, include=TRUE}
+datos %>%
+  summarize(función(columna))
+```
+
+- No vamos a explorar esta función aquí, ya que tendremos una clase solo sobre estadística descriptiva en **R**.
+
+```{r}
+datos_xlsx %>%
+  summarize(media = mean(temperatura), na.rm = TRUE)
+```
+
+---
+## dplyr 
+
+### **relocate()**
+
+- Para reubicar columnas.
+
+- De forma predeterminada, coloca una o más columnas al comienzo de la base.
+
+```{r eval=FALSE, include=TRUE}
+# Coloque las columnas 5 y 4 al principio de la tabla.
+datos %>%
+  relocate(columna5, columna4)
+```
+
+- Podemos usar los argumentos `.after =` y `.before =` para realizar cambios más complejos.
+
+```{r eval=FALSE, include=TRUE}
+# Poner la columna 2 después de la columna 4
+datos %>%
+  relocate(columna2, .after = columna4)
+```
+
+```{r eval=FALSE, include=TRUE}
+# Poner la columna 2 antes de la columna 4
+datos %>%
+  relocate(columna2, .before = columna4)
+```
+
+---
+## dplyr 
+
+### **rename()**
+
+- Cambia los nombres de variables individuales (columnas) usando la sintaxis `nuevo_nombre = viejo_nombre`.
+
+```{r eval=FALSE, include=TRUE}
+datos %>%
+  rename(columna_x = columna.x)
+```
+
+- Por ejemplo, vamos cambiar el nombre de la columna "localidad" por "municipalidad".
+
+.pull-left[
+**Antes**
+```{r}
+datos_xlsx %>%
+  names()
+```
+]
+
+.pull-right[
+**Después**
+```{r}
+datos_xlsx %>%
+  rename(municipalidad = localidad) %>%
+  names()
+```
+]
+
+---
+## dplyr 
+
+### **left_join()**, **right_join()** y **full_join()**
+
+- Lo usamos para unir dos tablas en una.
+
+```{r eval=FALSE, include=TRUE}
+# Une la tabla 'datos' a la tabla 'datos2' por 'columna_x'
+
+# Mantiene los elementos de la tabla 'datos' y excluye elementos adicionales de 'datos2'.
+datos %>%
+  left_join(datos2, 
+            by = "columna_x")
+
+# Mantiene los elementos de la tabla 'datos2' y excluye elementos adicionales de 'datos'.
+datos %>%
+  right_join(datos2, 
+            by = "columna_x")
+
+# Mantiene los valores de las dos tablas.
+datos %>%
+  full_join(datos2, by = "columna_x")
+
+```
+
+---
+class: clear, center
+
+## ¡¡Fin de clase!!
+
+.center[<img src="figs/43-fim.jpg" style="width: 80%;">]
+---
+class: middle
+
+<br>
+
+<br> 
+
+<br> 
+
+### Soma dos quadrados
+
+- `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")` [Soma-Dos-Quadrados/introduccionalR](https://github.com/Soma-dos-Quadrados/introduccionalR)
+- `r icons::icon_style(icons::fontawesome("youtube"), fill = "#000000")` [/somaquadrados](https://www.youtube.com/channel/UC8_OHjnszxRiit92ZJlNH4A)
+- `r icons::icon_style(icons::fontawesome("twitch"), fill = "#000000")` [/somadosquadrados](https://www.twitch.tv/somaquadrados)
+- `r icons::icon_style(icons::fontawesome("twitter"), fill = "#000000")` [@somadosquadrados](https://twitter.com/somaquadrados)
+
+
+### Marília Melo Favalesso 
+
+- `r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#000000")` [mariliabioufpr@gmail.com](mariliabioufpr@gmail.com)
+- `r icons::icon_style(icons::fontawesome("globe-americas", style = "solid"), fill = "#000000")` [www.mmfava.com](www.mmfava.com)
+- `r icons::icon_style(icons::fontawesome("github"), fill = "#000000")` [ /mmfava](https://github.com/mmfava)
+
