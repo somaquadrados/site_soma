@@ -1,5 +1,5 @@
 ---
-title: 'Introducción al análisis de datos mastozoológicos con R'
+title: 'Introducción al análisis de datos biológicos con R'
 date: 2021-10-18T18:00:00
 date_end: 2021-10-22T21:00:00
 categories:
@@ -9,8 +9,8 @@ tags:
   - R
   - curso
   - análisis de datos
-subtitle: Este es un curso en programación R para análisis de datos mastozoológicos.
-summary: Este es un curso de programación en R para análisis de datos mastozoológicos. Se realiza de forma virtual sincrónicas con la entrega de un trabajo final.
+subtitle: Este es un curso en programación R para análisis de datos biológicos.
+summary: Este es un curso de programación en R para análisis de datos biológicos. Se realiza de forma virtual sincrónicas con la entrega de un trabajo final.
 slug: 2021-10-18-intror-asopyamasto
 draft: no
 event: V Jornadas Paraguayas de Mastozoología
@@ -70,6 +70,9 @@ Bióloga (UFPR - Brasil), Magíster en Conservación y Manejo de Recursos Natura
 
 `r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#000000")`[mariliabioufpr@gmail.com](mariliabioufpr@gmail.com)
 
+# Link de la reunión
+Les dejamos aquí el link de la reunión que será el mismo a utilizar durante toda la semana:  [https://us02web.zoom.us/j/86944112348](https://us02web.zoom.us/j/86944112348 )       
+
 
 -------------------------------------------------------------------------------
 
@@ -128,14 +131,14 @@ Bióloga (UFPR - Brasil), Magíster en Conservación y Manejo de Recursos Natura
 ### Parte I:
 
 ### Slides
-[Download en PDF - Teorica](clases/c3/clase_3_Teoria.pdf)
+[Download en PDF - Teorica](clases/c3/Clase31a.pdf)
 
-[Download en PDF - Practica](clases/c3/Ejercicios.pdf)
+[Download en PDF - Practica](clases/c3/Clase31b.pdf)
 
 ### Script
-[Script Clase 3.1 - Teorica](clases/c3/Ejercicios_teoria.R)
+[Script Clase 3.1 - Teorica](clases/c3/Script31a.R)
 
-[Script Clase 3.1 - Practica](clases/c3/Ejercicios_practiva.R)
+[Script Clase 3.1 - Practica](clases/c3/Script31b.R)
 
 ### Archivos
 [Ejercicio_7](clases/c3/Ejercicio_7.csv)
@@ -148,9 +151,15 @@ Bióloga (UFPR - Brasil), Magíster en Conservación y Manejo de Recursos Natura
 
 ### Slides
 
+[Download en PDF 3.2 - Teorica](Clase32.pdf)
+
+[Download en PPTX 3.2 - Teorica](Clase32.pptx)
+
 ### Script
+[Script Clase 3.2 - Teorica](clases/c3/Script32.R)
 
 ### Archivos
+[Cuicas](clases/c3/tablasfrecuenciasDani.csv)
 
 ## Clase 4 (jueves - 21/10/2021)
 
@@ -163,5 +172,5 @@ Bióloga (UFPR - Brasil), Magíster en Conservación y Manejo de Recursos Natura
 ## Trabajo final (viernes - 22/10/2021)
 
 ### Script
+[Script Clase 3.2 - Teorica](clases/tf/TF.R)
 
-### Archivos
