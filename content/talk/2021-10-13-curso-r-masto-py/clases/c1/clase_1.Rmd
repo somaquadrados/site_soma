@@ -56,17 +56,6 @@ Esta información me ayudó a no tener miedo de programar. Aprender un lenguaje 
 
 ---
 ## Introducción
-### En nuestras diapositivas
-
-<br>
-.center[<img src="figs/38-rstudio.png" style="width: 70%;">]
-
-<!--
-También quiero aclararle lo siguiente, en caso de duda: Las áreas grises en las diapositivas corresponden a los códigos R. Debajo de esta área, después de los símbolos "hash", veremos la salida de este código.
--->
-
----
-## Introducción
 
 .center[<img src="figs/39-atv.gif" style="width: 85%;">
 
@@ -79,6 +68,16 @@ El script de esta clase está disponible en el sitio web del curso (lo dejaré e
 Todo lo que les voy a mostrar se describe en este script.
 -->
 
+---
+## Introducción
+### En nuestras diapositivas
+
+<br>
+.center[<img src="figs/38-rstudio.png" style="width: 70%;">]
+
+<!--
+También quiero aclararle lo siguiente, en caso de duda: Las áreas grises en las diapositivas corresponden a los códigos R. Debajo de esta área, después de los símbolos "hash", veremos la salida de este código.
+-->
 ---
 ## Introducción
 
@@ -169,22 +168,30 @@ También podemos utilizar el "igual" como símbolo de asignación, pero como esc
 
 Podemos almacenar el valor de un objeto `k` dentro de un objeto `w`:
 
+.pull-left[
 ```{r}
 k <- 10
+k
+```
+]
+
+.pull-right[
+```{r}
 w <- k
 w
 ```
 
+]
 Podemos usar objetos para realizar operaciones matemáticas...
 
 ```{r}
-k + w / 2
+(k + w) / 2
 ```
 
 ... y podemos asignar esta operación matemática a un nuevo objeto.
 
 ```{r}
-j <- k + w / 2
+j <- (k + w) / 2
 j
 ```
 
@@ -245,7 +252,19 @@ Es como si hubiera sustituido un valor por otro ... En este caso, el último val
 6. La **R** distingue entre mayúsculas y minúsculas, por lo que:
 
   > obj ≠ Obj ≠ OBJ
-  
+
+.pull-left[
+```{r}
+obj <- 2; obj
+```
+]
+
+.pull-right[
+```{r}
+OBJ <- 3; OBJ
+```
+]
+
 <!--
 Existen algunas reglas para nombrar objetos en R.
 
@@ -422,9 +441,21 @@ com <- 1.5 + 2i
 ### Conversión 
 
 - Es posible intentar forzar a un objeto a tener una clase específica:
+
+.pull-left[
 ```{r}
-a <- 1
+a <- 1; a
 ```
+]
+
+.pull-right[
+```{r}
+class(a)
+```
+
+]
+
+---------------------------------------------
 
 .pull-left[
 ```{r eval=TRUE, message=FALSE, warning=FALSE, include=TRUE}
@@ -668,7 +699,8 @@ vr
 Construir un array en **R**: `array()`.
 
 ```{r}
-vc <- 1:8 # datos
+vc <- 1:8; vc # datos
+
 ar <- array(data = vc, dim = c(2, 2, 2)) # array
 ar
 ```
@@ -779,8 +811,8 @@ dtf
 crea una **lista** en r: `list()`.
 
 ```{r}
-lis <- list(rbind(c(3,6), c(4,5)), 
-            sample(1:100, 5), 
+lis <- list(vr,  
+            temperatura,
             factor(c("a", "a", "b", "c")))
 lis
 ```
@@ -1008,11 +1040,11 @@ ma[-2:-3, -c(1,5)]
 - También podemos usar el nombre de las filas y columnas para manejar los datos: `[nombre_linea, nombre_columna]`.
 
 ```{r}
-rownames(ma) = paste("nomlin", 1:5, sep = "_") # nombre en las lineas
-colnames(ma) = paste("nomcol", 1:5, sep = "_") # nombre en las columnas
+rownames(ma) <- c("l1", "l2", "l3", "l4", "l5") # nombre en las lineas
+colnames(ma) <- c("c1", "c2", "c3", "c4", "c5") # nombre en las columnas
 ma # la tabla
 
-ma["nomlin_2", "nomcol_3"] # selecciona linea 2 y columna 3
+ma["l1", "c2"] # selecciona linea 2 y columna 3
 ```
 
 ---
@@ -1028,9 +1060,9 @@ ma["nomlin_2", "nomcol_3"] # selecciona linea 2 y columna 3
 mb <- data.frame(ma)
 class(mb)
 
-mb$nomcol_1 # columna 1
+mb$c1 # columna 1
 
-mb$nomcol_2 # columna 2
+mb$c2 # columna 2
 ```
 
 ---
@@ -1279,11 +1311,11 @@ ma[ma != 5]
 
 .pull-left[
 ```{r}
-a <- 1:4
-b <- c("A", "B", "C", "D")
-c <- c(T, T, F, F)
+edad <- c(20, 25, 30, 45)
+sexo <- c("F", "F", "M", "M")
+enfermedad <- c(T, T, F, F)
 
-datos <- data.frame(a, b, c)
+datos <- data.frame(edad, sexo, enfermedad)
 datos
 ```
 .center[<img src="figs/13-cond_dataf.png" style="width: 100%;">]
@@ -1292,36 +1324,14 @@ datos
 
 .pull-right[
 ```{r}
-datos[datos$a != 2,] 
+datos[datos$edad <= 30,] 
 
-datos[datos$b > "B",] 
+datos[datos$sexo == "F",] 
 
-datos[datos$c == T,] 
+datos[datos$enfermedad == T,] 
 
 ```
 ]
-
----
-## Manejo de datos
-
-### Seleccionar elementos por condición (**character**)
-
-- Todo lo que hemos hecho hasta ahora se puede hacer con characters.
-
-```{r}
-l <- c("A", "B", "C", "d")
-```
-
-
-```{r}
-l < "C"
-
-l == "B"
-
-l[l > "B"]
-
-l[l != "d"]
-```
 
 ---
 name: funciones
@@ -1398,15 +1408,11 @@ Los argumentos de las funciónes también tienen **nombre**, que pueden o no ser
 
 ```{r}
 rep(x = c(1, 3), 
-    times = 2,
-    length.out = NA, 
-    each = 1) 
+    times = 2) 
 ```
 
 - **x**: valores que se repetirán.
 - **times**: Un vector de valor entero que da el número (no negativo) de veces que se repite cada elemento si tiene una longitud (x), o que se repite todo el vector si tiene una longitud 1.
-- **lenght.out**: La longitud deseada del vector de salida.
-- **each**: Cada elemento de x se repite cada vez.
 
 ---
 ## Funciones
@@ -1580,29 +1586,6 @@ help("sum")
 
 ---
 ## Paquetes
-### Help! (ayuda)
-- *Description*: Una declaración sobre el propósito de la función.
-
-- *Usage*: Muestra cómo debemos usar la función (parámetros y argumentos).
-
-- *Arguments*: Explica lo que significa cada uno de los argumentos de la función.
-
-- *Details*: Explica algunos detalles sobre el uso y la aplicación de la función.
-
-- *Value*: La salida de la función (o resultados).
-
-- *Note*: Notas de función.
-
-- *Authors*: Los autores de la función.
-
-- *References*: Las referencias utilizadas para desarrollar la función/método.
-
-- *See also*: Otras funciones relacionadas que se pueden consultar en R help.
-
-- *Examples*: Ejemplos de cómo utilizar la función
-
----
-## Paquetes
 
 ###  ¿Cómo citar la **R**?
 
@@ -1627,6 +1610,21 @@ class: middle, center
 
 <img src="figs/33-fim.jpg" style="width: 70%;">
 
+---
+## Si tenemos tiempo 🕗
+
+### Resuelve los siguientes ejercicios
+
+1. Cree un vector que contenga tres especies de mamíferos y guárdelo en un objeto.
+
+2. Cree una matriz de datos con valores aleatorios entre 0 y 100 (tip: `sample()`). La matriz debe contener 3 filas y 4 columnas.
+
+3. Nombra las líneas de tu matriz con el vector que creaste en el **ejercicio 1**. Las columnas deben contener el nombre de las estaciones.
+
+
+4. Transforme su matriz en un data frame. 
+
+5. ¿Qué especie fue más abundante en primavera? ¿Y cuál fue el menos abundante en invierno?
 
 ---
 class: middle

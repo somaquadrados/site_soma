@@ -200,18 +200,25 @@ class(ee) # interpretado como integer
 
 # • Es posible intentar forzar a un vector a tener una clase específica:
 a <- 1
+a
 class(a) 
 
+as.character(a)
+
 a1 <- as.character(a)
+a1
 class(a1) # como un character
 
 a2 <- as.integer(a)
+a2
 class(a2) # como un entero
 
 a3 <- as.numeric(a)
+a3
 class(a3) # como un doble
 
 a4 <- as.logical(a)
+a4
 class(a4) # como un booleano
 
 # --
