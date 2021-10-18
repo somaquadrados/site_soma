@@ -60,6 +60,8 @@ Bióloga (UADER - Argentina), estudiante de la especialización en Biología de 
 
 <img src="fotos/JT.png" style="width: 20%;" />
 
+Biólogo por la Universidad Nacional de Asunción (UNA). Doctor en Ciencias Naturales por la Universidad Nacional de la Plata (UNLP). Actualmente es Investigador asociado al Instituto de Investigación Biológica del Paraguay (IIBP) y consultor en relevamientos de mamíferos. Trabaja con el Lenguaje R desde 2017, aplicando esta herramienta en tareas de limpieza de datos, elaboración de gráficos y análisis con datos de morfometría geométrica.
+
 `r icons::icon_style(icons::fontawesome("envelope", style = "solid"), fill = "#000000")`[juliomystorres@gmail.com ](juliomystorres@gmail.com)
 
 ## Marília Melo Favalesso
