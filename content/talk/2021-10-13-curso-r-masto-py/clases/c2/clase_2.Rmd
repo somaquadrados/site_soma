@@ -196,6 +196,7 @@ Instale y cargue el paquete **Tidyverse** en su computadora.
 
 ```{r eval=FALSE, include=TRUE}
 install.packages("tidyverse")
+library(tidyverse)
 ```
 
 <img src="figs/29-tidyverse.jpg" style="width: 35%;">
@@ -283,10 +284,22 @@ El 📦 **tidyverse** `readr` se usa para importar archivos de texto, como *.txt
 - La función para leer los datos es: `read_csv2(file = "archivo.csv")`.
 
 ```{r}
-datos_csv <- read_csv2(file = "datos.csv", show_col_types = FALSE)
+datos_csv <- read_csv2(file = "datos.csv")
 ```
 
 <!--- El mensaje devuelto por la función indica qué clase se asignó a cada columna. Tenga en cuenta que el argumento file = representa la ruta al archivo. Si el archivo que se va a leer no está en el directorio de trabajo de su sesión, debe especificar la ruta al archivo. -->
+---
+## Importar datos a R
+
+### readr: `.csv`
+
+- Como ejemplo, usaremos la base de datos que proporcionamos en el repositorio ([datos.csv](datos.csv)).
+
+- La función para leer los datos es: `read_csv2(file = "archivo.csv")`.
+
+```{r}
+datos_csv
+```
 
 ---
 ## Importar datos a R
@@ -299,6 +312,29 @@ datos_csv <- read_csv2(file = "datos.csv", show_col_types = FALSE)
 
 ```{r}
 datos_txt <- read_delim(file = "datos.txt", delim = "\t")
+```
+
+---
+## Importar datos a R
+
+### readr: `.txt`
+
+> "delim = " es un carácter único utilizado para separar campos dentro de un registro.
+<br>
+
+.center[<img src="figs/46tab.png" style="width: 80%;">]
+
+---
+## Importar datos a R
+
+### readr: `.txt`
+
+- Como ejemplo, usaremos la base de datos que proporcionamos en el repositorio ([datos.txt](datos.txt)).
+
+- La función para leer los datos es: `read_delim(file = "archivo.txt", delim = "\t")`.
+
+```{r}
+datos_txt 
 ```
 
 ---
@@ -320,6 +356,24 @@ write.csv2(x = objeto, path = "nombre_tabla.csv")
 write_delim(x = objeto, path = "nombre_tabla.txt", delim = "\t")
 ```
 
+---
+## Importar datos a R
+
+### Exportar datos (`write_ `)
+
+- Para la mayoría de las funciones `read_`, existe una función `write_` correspondiente. 
+
+- Estas funciones sirven para guardar bases en un formato de archivo específico. 
+
+- Debe especificar el objeto a exportar y el nombre del archivo con la extensión.
+
+```{r eval=FALSE, include=TRUE}
+# archivo .csv
+write.csv2(x = datos_csv, path = "nombre_tabla.csv")
+
+# como un .txt
+write_delim(x = datos_txt, path = "nombre_tabla.txt", delim = "\t")
+```
 ---
 ## Importar datos a R
 
@@ -364,9 +418,18 @@ library(readxl)
 
 ```{r}
 datos_xlsx <- read_xlsx("datos.xlsx")
-datos_xlsx
 ```
 
+---
+## Importar datos a R
+
+### readxl: **.xlsx**
+
+**Ejemplo:**
+
+```{r}
+datos_xlsx
+```
 ---
 ## Importar datos a R
 
@@ -570,7 +633,7 @@ datos_xlsx %>%
     col = localidad, # la columna vieja
     into = c("ciudad", "provincia"), # las nuevas columnas
     sep = c(" - ") # modo de separación
-  ) %>% head()
+  ) 
 ```
 
 
@@ -1040,7 +1103,7 @@ datos_xlsx %>%
 ```{r eval=FALSE, include=TRUE}
 datos_xlsx %>%
   select(ano, var_respuesta) %>%
-  arrange(ano, desc(var_respuesta))
+  arrange(ano, desc(var_respuesta)) #<<
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}

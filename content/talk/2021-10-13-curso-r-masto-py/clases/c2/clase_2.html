@@ -205,6 +205,7 @@ Instale y cargue el paquete **Tidyverse** en su computadora.
 
 ```r
 install.packages("tidyverse")
+library(tidyverse)
 ```
 
 &lt;img src="figs/29-tidyverse.jpg" style="width: 35%;"&gt;
@@ -294,14 +295,53 @@ El 📦 **tidyverse** `readr` se usa para importar archivos de texto, como *.txt
 
 
 ```r
-datos_csv &lt;- read_csv2(file = "datos.csv", show_col_types = FALSE)
+datos_csv &lt;- read_csv2(file = "datos.csv")
 ```
 
 ```
 ## i Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
 ```
 
+```
+## Rows: 3 Columns: 5
+```
+
+```
+## -- Column specification ------------------------------------------------------------------------
+## Delimiter: ";"
+## chr (1): localidad
+## dbl (4): ID, 2001, 2002, 2003
+```
+
+```
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
 &lt;!--- El mensaje devuelto por la función indica qué clase se asignó a cada columna. Tenga en cuenta que el argumento file = representa la ruta al archivo. Si el archivo que se va a leer no está en el directorio de trabajo de su sesión, debe especificar la ruta al archivo. --&gt;
+---
+## Importar datos a R
+
+### readr: `.csv`
+
+- Como ejemplo, usaremos la base de datos que proporcionamos en el repositorio ([datos.csv](datos.csv)).
+
+- La función para leer los datos es: `read_csv2(file = "archivo.csv")`.
+
+
+```r
+datos_csv
+```
+
+```
+## # A tibble: 3 x 5
+##      ID localidad `2001` `2002` `2003`
+##   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     1 Agricola      10     12     15
+## 2     2 PNI           20     22     25
+## 3     3 Urbano        15     12     10
+```
 
 ---
 ## Importar datos a R
@@ -322,7 +362,7 @@ datos_txt &lt;- read_delim(file = "datos.txt", delim = "\t")
 ```
 
 ```
-## -- Column specification --------------------------------------------------------------------------------------
+## -- Column specification ------------------------------------------------------------------------
 ## Delimiter: "\t"
 ## chr (2): localidad, variable
 ## dbl (2): ID, value
@@ -332,6 +372,42 @@ datos_txt &lt;- read_delim(file = "datos.txt", delim = "\t")
 ## 
 ## i Use `spec()` to retrieve the full column specification for this data.
 ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+---
+## Importar datos a R
+
+### readr: `.txt`
+
+&gt; "delim = " es un carácter único utilizado para separar campos dentro de un registro.
+&lt;br&gt;
+
+.center[&lt;img src="figs/46tab.png" style="width: 80%;"&gt;]
+
+---
+## Importar datos a R
+
+### readr: `.txt`
+
+- Como ejemplo, usaremos la base de datos que proporcionamos en el repositorio ([datos.txt](datos.txt)).
+
+- La función para leer los datos es: `read_delim(file = "archivo.txt", delim = "\t")`.
+
+
+```r
+datos_txt 
+```
+
+```
+## # A tibble: 6 x 4
+##      ID localidad variable    value
+##   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;
+## 1     1 Agricola  temperatura    25
+## 2     1 Agricola  pluviosidad    10
+## 3     2 PNI       pluviosidad    23
+## 4     2 PNI       temperatura    22
+## 5     3 Urbano    temperatura    30
+## 6     3 Urbano    pluviosidad    30
 ```
 
 ---
@@ -357,6 +433,25 @@ write_delim(x = objeto, path = "nombre_tabla.txt", delim = "\t")
 ---
 ## Importar datos a R
 
+### Exportar datos (`write_ `)
+
+- Para la mayoría de las funciones `read_`, existe una función `write_` correspondiente. 
+
+- Estas funciones sirven para guardar bases en un formato de archivo específico. 
+
+- Debe especificar el objeto a exportar y el nombre del archivo con la extensión.
+
+
+```r
+# archivo .csv
+write.csv2(x = datos_csv, path = "nombre_tabla.csv")
+
+# como un .txt
+write_delim(x = datos_txt, path = "nombre_tabla.txt", delim = "\t")
+```
+---
+## Importar datos a R
+
 .pull-left[
 ¿Qué pasa si mis datos se guardan como un archivo **excel**?
 
@@ -377,10 +472,6 @@ install.packages("readxl")
 
 ```r
 library(readxl)
-```
-
-```
-## Warning: package 'readxl' was built under R version 4.1.1
 ```
 
 - Para abrir nuestro [archivo de repositorio (datos.xlsx)](datos.xlsx): `read_xlsx("archivo.xlsx")`
@@ -405,6 +496,17 @@ library(readxl)
 
 ```r
 datos_xlsx &lt;- read_xlsx("datos.xlsx")
+```
+
+---
+## Importar datos a R
+
+### readxl: **.xlsx**
+
+**Ejemplo:**
+
+
+```r
 datos_xlsx
 ```
 
@@ -424,7 +526,6 @@ datos_xlsx
 ## 10    10 Puerto Liberdad - Misiones  2001 bosque              52        21  
 ## # ... with 14 more rows
 ```
-
 ---
 ## Importar datos a R
 
@@ -644,7 +745,7 @@ datos_xlsx %&gt;%
     col = localidad, # la columna vieja
     into = c("ciudad", "provincia"), # las nuevas columnas
     sep = c(" - ") # modo de separación
-  ) %&gt;% head()
+  ) 
 ```
 
 
@@ -3139,7 +3240,7 @@ datos_xlsx %&gt;%
 ```r
 datos_xlsx %&gt;%
   select(ano, var_respuesta) %&gt;%
-  arrange(ano, desc(var_respuesta))
+* arrange(ano, desc(var_respuesta))
 ```
 
 &lt;div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:230px; overflow-x: scroll; width:100%; "&gt;&lt;table class="table table-striped table-hover" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
@@ -3742,7 +3843,8 @@ datos_xlsx %&gt;%
 ```
 
 ```
-## [1] "ID"            "localidad"     "ano"           "zona"          "var_respuesta" "temperatura"
+## [1] "ID"            "localidad"     "ano"           "zona"          "var_respuesta"
+## [6] "temperatura"
 ```
 ]
 
@@ -3756,7 +3858,8 @@ datos_xlsx %&gt;%
 ```
 
 ```
-## [1] "ID"            "municipalidad" "ano"           "zona"          "var_respuesta" "temperatura"
+## [1] "ID"            "municipalidad" "ano"           "zona"          "var_respuesta"
+## [6] "temperatura"
 ```
 ]
 

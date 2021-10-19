@@ -106,8 +106,7 @@ setwd("C:/Users/mmfav/introduccionalR/clase_2/data")
 # - Como ejemplo, usaremos la base de datos que proporcionamos en el repositorio
 #   `datos.csv`.
 # - La función para leer los datos es: `read_csv2(file = "archivo.csv")`.
-datos_csv <- read_csv2(file = "datos.csv", # archivo en formato .csv
-                       show_col_types = FALSE)
+datos_csv <- read_csv2(file = "datos.csv")
 datos_csv
 
 # !!
