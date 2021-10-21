@@ -153,9 +153,9 @@ Les dejamos aquí el link de la reunión que será el mismo a utilizar durante t
 
 ### Slides
 
-[Download en PDF 3.2 - Teorica](Clase32.pdf)
+[Download en PDF 3.2 - Teorica](clases/c3/Clase32.pdf)
 
-[Download en PPTX 3.2 - Teorica](Clase32.pptx)
+[Download en PPTX 3.2 - Teorica](clases/c3/Clase32.pptx)
 
 ### Script
 [Script Clase 3.2 - Teorica](clases/c3/Script32.R)
