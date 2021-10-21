@@ -18,6 +18,13 @@
 #
 # ---------------------------------------------------------------------------- #
 
+setwd("C:/Users/mmfav/OneDrive/GitHub/soma quadrados/site_soma/content/talk/2021-10-13-curso-r-masto-py/clases/c2")
+getwd()
+
+library(readxl)
+datos <- read_excel("datos.xlsx")
+View(datos)
+
 # ¿Cómo armar mi tabla de datos? --------------------------------------------- #
 
 # Características principales de un conjunto de datos ordenado:
@@ -133,7 +140,7 @@ datos_txt
 #   extensión.
 
 # archivo .csv
-write.csv2(x = objeto, path = "nombre_tabla.csv")
+write_csv2(x = objeto, path = "nombre_tabla.csv")
 
 # como un .txt
 write_delim(x = objeto, path = "nombre_tabla.txt", delim = "\t")
@@ -147,7 +154,7 @@ write_delim(x = objeto, path = "nombre_tabla.txt", delim = "\t")
 install.packages("readxl")
 
 # - Cargar el paquete:
-  library(readxl)
+library(readxl)
 
 # - `readxl` transforma archivos de excel en **tibbles**.
 # - Para abrir nuestro archivo (datos.xlsx): `read_xlsx("archivo.xlsx")`

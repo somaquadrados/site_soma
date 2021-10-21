@@ -203,8 +203,6 @@ a <- 1
 a
 class(a) 
 
-as.character(a)
-
 a1 <- as.character(a)
 a1
 class(a1) # como un character
@@ -277,8 +275,12 @@ class(bb)
 # • El factor representa medidas de una variable cualitativa, 
 #   que puede ser nominal u ordinal.
 
-estacion <- c("verano", "verano", "primavera", "primavera", 
+estacion <- c("verano", "Verano", "primavera", "primavera", 
               "primavera", "otono", "invierno",  "invierno")
+
+estacion
+
+as.factor(estacion)
 
 temporada <- factor(x = estacion, 
                     levels = c("verano", "primavera", "otono", "invierno"))
@@ -335,7 +337,10 @@ letras2
 # Puede construir matrices en R por combinación de dos vectores: 
 # rbind() y cbind().
 v1 <- c(1, 2, 3)
-v2 <- c(4, 5, 6)
+v2 <- c("a", "b", "c")
+
+v1
+v2
 
 # • Combinar vectores por línea - rbind().
 vr <- rbind(v1, v2)
@@ -346,6 +351,7 @@ vr
 # • Combinar vectores por columna - cbind().
 vr <- cbind(v1, v2)
 vr
+
 # Combinamos los vectores horizontalmente, 
 # uno al lado del otro.
 
@@ -403,7 +409,7 @@ area; mes; presencia; temperatura
 # Unamos los vetores en un dataframe. 
 # Observe que cada vector se convierte en una columna.
 dtf <- data.frame(area, mes, presencia, temperatura)
-dtf
+dtf # crtl + enter
 
 # ---- 
 
@@ -417,6 +423,7 @@ dtf
 #   > Muchas funciones que usamos para analizar datos en R tienen listas como salida
 
 # --
+list(dtf, area, mes)
 
 ## crea una lista en r: list().
 lis <- list(rbind(c(3,6), c(4,5)), 
@@ -490,6 +497,8 @@ ma[c(1,5), 3:5] # seleccione las lineas 1 y 5 y las columnas entre 3 - 5
 ma[-2, -2] # menos la fila dos y la columna dos
 ma[-2:-3, -c(1,5)] # menos las lineas 2 hasta 3 y las columnas 1 y 5
 
+mb <- ma[-2, -2] 
+mb
 
 # !!
 # - También podemos usar el nombre de las filas y columnas para manejar los 
@@ -619,7 +628,7 @@ datos <- data.frame(a, b, c)
 datos
 
 # $ + seleccion por condición
-datos[datos$a != 2,] 
+datos[datos$a >= max(datos$a),] 
 datos[datos$b > "B",] 
 datos[datos$c == T,] 
 
@@ -756,7 +765,7 @@ update.packages(ask = FALSE)
 ## •• Help! (ayuda) ••
 
 # El "help" de R es muy útil cuando necesitamos ayuda para comprender una función.
-help("sum")
+help("rep")
 # es necesario encerrar el nombre de 
 # la función entre comillas.
 ?sum
@@ -770,6 +779,35 @@ citation("ggplot2") # Como citar los paquetes
 # ------------------------ •• Fin de clase •• -------------------------------- #
 
 
+## Resuelve los siguientes ejercicios
 
+## 1. Cree un vector que contenga tres especies de mamíferos y guárdelo en un objeto.
+mamiferos <- c("Panthera onca", "Leopardus pardalis", "Priodontes maximus", "Puma concolor")
+
+# 2. Cree una matriz de datos con valores aleatorios entre 0 y 100 (tip: sample()). 
+#    La matriz debe contener 4 filas y 4 columnas.
+abund <- sample(0:100, 4*4, replace = FALSE)
+
+ma <- matrix(data = abund, nrow = 4, ncol = 4, byrow = TRUE)
+
+# 3. Nombra las líneas de tu matriz con el vector que creaste en el ejercicio 1. 
+#    Las columnas deben contener el nombre de las estaciones.
+rownames(ma) <- mamiferos
+rownames(ma)
+ma
+
+colnames(ma) <- c("verano", "prim", "otono", "invierno")
+ma
+
+colnames(ma)
+
+# 1. Transforme su matriz en un data frame.
+mb <- data.frame(ma)
+mb
+
+# 2. ¿Qué especie fue más abundante en primavera? ¿Y cuál fue el menos abundante en invierno?
+mb$sp <- mamiferos
+
+mb[mb$prim < 10, "sp"]
 
 

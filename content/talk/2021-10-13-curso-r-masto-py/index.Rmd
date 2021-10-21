@@ -161,7 +161,7 @@ Les dejamos aquí el link de la reunión que será el mismo a utilizar durante t
 [Script Clase 3.2 - Teorica](clases/c3/Script32.R)
 
 ### Archivos
-[Cuicas](clases/c3/tablasfrecuenciasDani.csv)
+[Frecuencias](clases/c3/tablasfrecuenciasDani.csv)
 
 ## Clase 4 (jueves - 21/10/2021)
 
