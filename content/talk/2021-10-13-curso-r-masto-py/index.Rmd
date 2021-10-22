@@ -100,6 +100,8 @@ Les dejamos aquí el link de la reunión que será el mismo a utilizar durante t
 
 ## Clase 1 (lunes - 18/10/2021)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ked98wm2vaY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### Slides
 [Download en PDF](clases/c1/clase_1.pdf)
 
@@ -109,6 +111,8 @@ Les dejamos aquí el link de la reunión que será el mismo a utilizar durante t
 [Script Clase 1](clases/c1/clase_1.R)
 
 ## Clase 2 (martes - 19/10/2021)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dA62tbWyluc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Slides
 [Download en PDF](clases/c2/clase_2.pdf)
@@ -129,6 +133,8 @@ Les dejamos aquí el link de la reunión que será el mismo a utilizar durante t
 
 
 ## Clase 3 (miércoles - 20/10/2021)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EEObxIABMaI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Parte I:
 
@@ -165,14 +171,12 @@ Les dejamos aquí el link de la reunión que será el mismo a utilizar durante t
 
 ## Clase 4 (jueves - 21/10/2021)
 
-### Slides
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xAc1xiM6XI8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Script
-
-### Archivos
 
 ## Trabajo final (viernes - 22/10/2021)
 
 ### Script
-[Script Clase 3.2 - Teorica](clases/tf/TF.R)
+[Trabajo final](clases/tf/TF.R)
 
