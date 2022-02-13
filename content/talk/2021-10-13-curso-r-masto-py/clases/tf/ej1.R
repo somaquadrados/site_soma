@@ -171,7 +171,11 @@ ggplot(atrop, aes(x = parque, y = N, color = estacion)) +
 
 # 6. Calcule la frecuencia de animales atropelladas cerca de áreas con y 
 #    sin vegetación.
-
+atrop %>% 
+  group_by(estacion) %>% 
+  summarise(sum(N)) %>% 
+  ggplot(aes(x = estacion, y = `sum(N)`)) + 
+  geom_bar(stat="identity", fill="steelblue")
 ## --------------------------------------------------------------------------- #
 
 # Ejercicio 3 --
@@ -236,6 +240,14 @@ f.abs.cria <- table(data$anim_cria)
 f.abs.cria
 prop.table(f.abs.cria)
 
+data %>%
+  summarise(table(basura), 
+            table(anim_estima), 
+            table(anim_cria)) %>%
+  mutate(id = c(0,1)) %>%
+  relocate(id) %>%
+  rename("id", "basura", "anim_estima", "anim_cria")
+
 # 5. Calcule la covarianza de las variables de vegetacion
 cov(data$cob_arborea, data$cob_herbacea)
 cor.test(data$cob_arborea, data$cob_herbacea)
@@ -243,7 +255,6 @@ cor.test(data$cob_arborea, data$cob_herbacea)
 # 6. Grafique la abundancia de roedores comensales y silvestres detectada para 
 #    cada estacion. 
 
-library(ggplot2)
 s1 <- ggplot(data) + 
   geom_bar(aes(x=estacion, y=silvestres, fill= estacion), stat = "identity", width=0.2)+ 
   scale_y_continuous(breaks = c(0,40,80,120,160,200,240,280,320) ,limits=c(0,320))+
@@ -252,6 +263,8 @@ s1 <- ggplot(data) +
   xlab("Estación del año")+
   ggtitle("Roedores periurbanos")+
   theme( plot.title=element_text(hjust=0.5, vjust=0.5,family='', face='bold', colour='black', size=12), legend.position = "none")
+s1
+
 
 
 s2 <- ggplot(data) + 

@@ -1,0 +1,235 @@
+---
+title: '{PT} Cowplot!'
+layout: single-sidebar
+excerpt: "O Cowplot 🐄 é um pacote que foi projetado para ser um add-on do ggplot. As características mais notáveis são os temas, o alinhamento, a organização de figuras em vários painéis gráficos e funções que facilitam a anotação de plotagens ou mesmo mesclar nossos gráficos com outras imagens. Meu objetivo neste tutorial não é usar o pacote extensivamente, mas sim mostrar a você as funções que eu mais uso ao trabalhar com gráficos."
+author: Isabella Bicalho Frazeto
+date: '2022-02-13'
+slug: Cowplot
+categories: 
+  - Graficos
+tags: 
+  - PT
+  - Graficos
+images: ~
+series: ~
+alt: ''
+featured: yes
+draft: no
+image:
+  focal_point: 'Center'
+  preview_only: no
+lastmod: '2022-02-13'
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="sobre-o-pacote" class="section level1">
+<h1>Sobre o pacote</h1>
+<p>O <strong>Cowplot</strong> <a href="https://emojipedia.org/cow/">🐄</a> é um pacote que foi
+projetado para ser um <em>add-on</em> do <code>ggplot</code>. As características mais
+notáveis são os temas, o alinhamento, a organização de figuras em vários
+painéis gráficos e funções que facilitam a anotação de plotagens ou
+mesmo mesclar nossos gráficos com outras imagens. Meu objetivo neste
+tutorial não é usar o pacote extensivamente, mas sim mostrar a você as
+funções que eu mais uso ao trabalhar com gráficos.</p>
+</div>
+<div id="dados" class="section level1">
+<h1>Dados</h1>
+<p>Neste tutorial, usaremos a <a href="menu.csv">Tabela Nutricional do
+McDonald’s</a><em>.</em></p>
+<pre class="r"><code>## Pacotes ----
+library(ggplot2) 
+library(cowplot) #&lt;&lt;
+library(dplyr)
+
+## Dados ----
+menu &lt;- read.csv(&quot;menu.csv&quot;)
+
+## Visualizar a tabela ----
+glimpse(menu)</code></pre>
+<pre><code>## Rows: 260
+## Columns: 24
+## $ Category                      &lt;chr&gt; &quot;Breakfast&quot;, &quot;Breakfast&quot;, &quot;Breakfast&quot;, &quot;~
+## $ Item                          &lt;chr&gt; &quot;Egg McMuffin&quot;, &quot;Egg White Delight&quot;, &quot;Sa~
+## $ Serving.Size                  &lt;chr&gt; &quot;4.8 oz (136 g)&quot;, &quot;4.8 oz (135 g)&quot;, &quot;3.9~
+## $ Calories                      &lt;int&gt; 300, 250, 370, 450, 400, 430, 460, 520, ~
+## $ Calories.from.Fat             &lt;int&gt; 120, 70, 200, 250, 210, 210, 230, 270, 1~
+## $ Total.Fat                     &lt;dbl&gt; 13, 8, 23, 28, 23, 23, 26, 30, 20, 25, 2~
+## $ Total.Fat....Daily.Value.     &lt;int&gt; 20, 12, 35, 43, 35, 36, 40, 47, 32, 38, ~
+## $ Saturated.Fat                 &lt;dbl&gt; 5, 3, 8, 10, 8, 9, 13, 14, 11, 12, 12, 1~
+## $ Saturated.Fat....Daily.Value. &lt;int&gt; 25, 15, 42, 52, 42, 46, 65, 68, 56, 59, ~
+## $ Trans.Fat                     &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, ~
+## $ Cholesterol                   &lt;int&gt; 260, 25, 45, 285, 50, 300, 250, 250, 35,~
+## $ Cholesterol....Daily.Value.   &lt;int&gt; 87, 8, 15, 95, 16, 100, 83, 83, 11, 11, ~
+## $ Sodium                        &lt;int&gt; 750, 770, 780, 860, 880, 960, 1300, 1410~
+## $ Sodium....Daily.Value.        &lt;int&gt; 31, 32, 33, 36, 37, 40, 54, 59, 54, 59, ~
+## $ Carbohydrates                 &lt;int&gt; 31, 30, 29, 30, 30, 31, 38, 43, 36, 42, ~
+## $ Carbohydrates....Daily.Value. &lt;int&gt; 10, 10, 10, 10, 10, 10, 13, 14, 12, 14, ~
+## $ Dietary.Fiber                 &lt;int&gt; 4, 4, 4, 4, 4, 4, 2, 3, 2, 3, 2, 3, 2, 3~
+## $ Dietary.Fiber....Daily.Value. &lt;int&gt; 17, 17, 17, 17, 17, 18, 7, 12, 7, 12, 6,~
+## $ Sugars                        &lt;int&gt; 3, 3, 2, 2, 2, 3, 3, 4, 3, 4, 2, 3, 2, 3~
+## $ Protein                       &lt;int&gt; 17, 18, 14, 21, 21, 26, 19, 19, 20, 20, ~
+## $ Vitamin.A....Daily.Value.     &lt;int&gt; 10, 6, 8, 15, 6, 15, 10, 15, 2, 6, 0, 4,~
+## $ Vitamin.C....Daily.Value.     &lt;int&gt; 0, 0, 0, 0, 0, 2, 8, 8, 8, 8, 0, 0, 0, 0~
+## $ Calcium....Daily.Value.       &lt;int&gt; 25, 25, 25, 30, 25, 30, 15, 20, 15, 15, ~
+## $ Iron....Daily.Value.          &lt;int&gt; 15, 8, 10, 15, 10, 20, 15, 20, 10, 15, 1~</code></pre>
+</div>
+<div id="temas-e-background_grid" class="section level1">
+<h1>Temas e <em>background_grid</em></h1>
+<p>Apesar de ter conhecido o cowplot pela aplicabilidade em painéis, sempre
+acabo utilizando-o em outros tipos de projetos pela facilidade de
+lembrar os temas que desejo. Por exemplo, quando preciso de um gráfico
+mais <em>clean,</em> eu uso a função <em>theme_half_open(),</em> que tem um design
+simples, sem <em>background</em> e um estilo de eixo semiaberto (duas linhas no
+eixo do quadrantes inferiores esquerdos). Em seguida, vou aplicar esse
+tema em um gráfico <em>scatter plot</em> entre as variáveis “<em>Total.Fat</em>” e
+“<em>Calories</em>”:</p>
+<pre class="r"><code>ggplot(menu, aes(x = Calories, 
+                 y = Total.Fat, 
+                 color = Category)) + 
+            geom_point() + 
+            theme_half_open() ## &lt; tema do cowplot</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Veja que, com a ajuda do cowplot, rapidamente tivemos um gráfico
+produzido com um tema <em>clean</em> e que está pronto para ser publicado! O
+mais legal é que o tema ainda tem a opção de alterar o tamanho do texto
+no título, no corpo do gráfico e assim por diante. Para obter mais
+informações sobre essa função, execute o código: <code>?theme_half_open()</code>.</p>
+<p><em>background_grid</em> também é uma das minhas funções preferidas porque, bem
+😅, é a função da qual me lembro quando quero colocar um plano de fundo
+(<em>background</em> 👌) no meu gráfico. Vamos executar dois exemplos com essa
+função:</p>
+<pre class="r"><code>## Gordura total vs. caloria
+g_fat &lt;- ggplot(menu, aes(x=Calories, y=Total.Fat, color = Category)) + 
+            geom_point() +
+            theme_half_open() +
+            background_grid() # &lt;&lt;
+
+g_fat</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>## Proteína vs. caloria
+g_protein &lt;- ggplot(menu, aes(x = Calories, y = Protein, color = Category)) + 
+              geom_point() +
+              theme_half_open() +
+              background_grid() # &lt;&lt;
+
+
+g_protein</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p>Outro tema que eu costumo usar com frequência é o <em>theme_minimal</em>. De
+novo, o pacote me ganha pela usabilidade, logo que este tema possui
+“duas variantes”: <em>theme_minimal_hgrid</em>, que adiciona linhas na
+horizontal, e o <em>theme_minimal_vgrid</em>, que adiciona linhas na vertical.
+Por último, outro <em>add-on</em> que considero muito prático é o
+<em>panel_border,</em> que adicionar bordas ao panéis.</p>
+<pre class="r"><code># Histograma para os dados de gordura total
+## Com o theme_minimal_hgrid
+hist_fat &lt;- ggplot(menu, aes(x = Total.Fat, fill = Category)) + 
+              geom_histogram() +
+              facet_grid(vars(Category),  labeller = as_labeller(NULL)) +
+              theme_minimal_hgrid() + #&lt;&lt;
+              panel_border(color=&#39;black&#39;) + #&lt;&lt;,
+              theme(strip.text.y  = element_blank()) 
+
+hist_fat</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
+<pre class="r"><code># Histograma para os dados de proteína
+## Com o theme_minimal_vgrid
+hist_protein &lt;- ggplot(menu, aes(x = Protein, fill = Category)) + 
+                  geom_histogram() +
+                  facet_grid(vars(Category)) +
+                  theme_minimal_vgrid() + #&lt;&lt;
+                  panel_border(color=&#39;black&#39;) + #&lt;&lt;
+                  theme(strip.text.y  = element_blank()) 
+
+hist_protein</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-2.png" width="768" /></p>
+</div>
+<div id="painéis" class="section level1">
+<h1>Painéis</h1>
+<p>Por último, o cowplot tem um função semelhante ao <code>par(mfrow)</code> do
+<svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> base. A partir
+dela, você é capaz de gerar painéis com vários gráficos em uma única
+figura.</p>
+<p>Vamos fazer três panéis: O primeiro para combinar os dois gráficos de
+dispersão (p_1), o segundo para combinar os dois gráficos de histograma
+(p_2) e o terceiro vai combinar o p_1 e o p_2 (p_3).</p>
+<div id="painel-i" class="section level2">
+<h2>Painel I</h2>
+<p>Primeiro, observe que se usarmos apenas a função <code>plot_grid()</code> sem levar
+a legenda em consideração, ela ficará assim:</p>
+<pre class="r"><code>plot_grid(g_fat, g_protein, labels = c(&quot;A&quot;, &quot;B&quot;), label_size = 12)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+<p>Obviamente, o painel não é muito bom, pois os dois gráficos compartilham
+a mesma legenda (🤕). A solução então é a seguinde:</p>
+<p>1. Fazer uma figura apenas com os gráficos e sem nenhuma legenda
+(<em>prow</em>).</p>
+<pre class="r"><code>prow &lt;- plot_grid(
+  g_fat + theme(legend.position=&quot;none&quot;),
+  g_protein + theme(legend.position=&quot;none&quot;),
+  align = &#39;vh&#39;,
+  labels = c(&quot;A&quot;, &quot;B&quot;),
+  hjust = -1,
+  nrow = 1, 
+  label_size = 12
+)</code></pre>
+<p>2. Extrair a legenda usando <em>get_legend</em> (também do cowplot).</p>
+<pre class="r"><code>legend &lt;- get_legend(
+  g_protein + theme()
+)</code></pre>
+<p>3. Combinar num novo grid <em>prow</em> e a legenda.</p>
+<pre class="r"><code>p1 &lt;- plot_grid(prow, legend)
+p1</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+</div>
+<div id="painel-ii" class="section level2">
+<h2>Painel II</h2>
+<p>Vamos repetir os mesmo passos realizados no <a href="#painel-i">Painel I</a>, agora com os
+histogramas:</p>
+<pre class="r"><code>## Unir os gráficos
+prow2 &lt;- plot_grid(
+  hist_fat + theme(legend.position=&quot;none&quot;),
+  hist_protein + theme(legend.position=&quot;none&quot;),
+  align = &#39;vh&#39;,
+  labels = c(&quot;C&quot;, &quot;D&quot;),
+  hjust = -1,
+  nrow = 1, 
+  label_size = 12
+)
+
+## Criar um objeto para a legenda
+legend2 &lt;- get_legend(
+  hist_protein + theme(legend.position = c(0, 0.55))
+)
+
+## Criar o gráfico
+p2 &lt;- plot_grid(prow2, legend2, nrow = 1)
+p2</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="1440" /></p>
+</div>
+<div id="painel-iii" class="section level2">
+<h2>Painel III</h2>
+<p>Finalmente, o último painel 🤙! Nele incluiremos os quatro gráficos
+criados, no entanto, precisamos ter apenas uma legenda. Para tal,
+usaremos somente as combinações de gráficos sem legenda (<em>prow</em> e
+<em>prow2</em>) e a legenda criada para combinação com os histogramas
+(<em>legend2</em>). Faremos uma pequena edição na legenda 2 para ajeitar</p>
+<pre class="r"><code>plot_grid(prow, legend2, prow2, nrow = 2)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
+<p>Para finalizar, precisamos arrumar as proporções dos gráficos no painel.
+Para isso, vamos utilizar as funções <code>rel_heights = c(t1, t2))</code> e
+<code>rel_widths = c(t1, t2)</code>, que alteram a altura e a largura,
+respectivamente. Os argumentos da função correspondem ao tamanho que
+queremos para cada figura. Os tamanhos devem ser inseridos na ordem em
+que são incluídas os gráficos na função <code>plot_grid()</code>.</p>
+<pre class="r"><code>p3 &lt;- plot_grid(prow, legend2, prow2, nrow = 2, 
+                rel_heights = c(8, 20, 6), 
+                rel_widths = c(3, 3, 2)) 
+p3</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="1152" /></p>
+<p><strong>E fim 🥳!</strong></p>
+<p><img src="colector.gif" /></p>
+<p><small> Revisão por Marília Melo Favalesso</small>.</p>
+</div>
+</div>

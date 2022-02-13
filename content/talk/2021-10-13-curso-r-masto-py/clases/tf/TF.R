@@ -12,7 +12,7 @@ library(tidyverse)
 
 ## --------------------------------------------------------------------------- #
 
-# Ejercicio 1 --
+# Ejercicio 1 
 # Los inventarios de biodiversidad contienen información importante sobre la 
 # riqueza de especies, la estructura y composición de la comunidad y son el 
 # primer paso para desarrollar cualquier estrategia de conservación y mitigación.
