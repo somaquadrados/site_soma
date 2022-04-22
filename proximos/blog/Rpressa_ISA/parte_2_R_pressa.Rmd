@@ -1,0 +1,94 @@
+---
+title: "parte_2"
+author: "Isabella Bicalho Frazeto"
+date: "4/9/2022"
+output: html_document
+---
+
+# Objetivo
+
+Na primeira parte desse [tutorial](link), você aprendeu o básico sobre R e como manipular uma tabela usando dplyr. Nessa segunda parte, quero apresentar para você, algumas funções que são úteis e que eu gostaria de ter descoberto quando eu comecei R.
+
+# Primeiros passos
+
+Precisamos re-importar a tabela de dados.
+
+```{r setup, include=FALSE}
+
+dados <- read.csv("iris.csv")
+
+```
+
+
+# Dando uma espiadinha
+
+### Base R
+
+Uma vez que você tem seus dados, é bacana dar uma espiadinha neles sem necessáriamente abrir eles. Da outra vez a gente usou head() para te mostrar as *primeiras* cinco linhas.
+
+```{r}
+head(dados)
+```
+
+Também podemos usar tail para ver as *últimas* linhas da tabela.
+
+```{r}
+tail(dados)
+```
+E por último, podemos um *resumo* da tabela com:
+
+```{r}
+summary(dados)
+```
+
+
+Esse formato nem sempre é o mais intuitivo. Por isso podemos usar a função glimpse para dar uma espiadinha na tabela.
+
+```{r}
+dplyr::glimpse(dados)
+
+```
+A ideia principal dessa função é usar de uma maneira similar ao print() em outras linguagens (e se você não sabe o que é isso, não precisa se preocupar agora). No lado esquerdo da tela, você tem o nome das colunas <tipo de variável>  valores da tabela.
+
+Note que podemos chamar glimpse a partir do dplyr sem carregar a biblioteca inteira usando o comando na estrutura:
+  * pacote::funcao
+  
+# skimr
+
+O *skimr* é um pacote que te dá uma overview dos resultados de uma tabela.
+
+
+```{r}
+library(skimr)
+skim(dados)
+
+```
+
+
+Note que ele te dá:
+  1. Um resumo do nome, número de linhas e colunas
+  2. A frequência de cada tipo de coluna
+  3. Se essa tabela possui um grupo
+  4. Para cada tipo de variável: nome, quantidade de valores faltantes, taxa de completa, se a tabela é ordenada e número de valores únicos.
+  
+Eu, particulamente, gosto bastante do histograma ao lados dos valores númericos.
+  
+Se você não estiver interessados em todos os dados. Você pode seleciona-los com o yank que cria uma partição dos seus dados.
+
+```{r}
+dados %>%
+  skim %>%
+  yank("numeric")
+```
+
+
+# Resumo
+
+Aqui vai um resumo do que vimos nesse tutorial:
+
+    * head : a cabeça da tabela
+    * tail : a cauda da tabela 
+    * summary : o resumo da tabela 
+    * dplyr::glimpse : nome <tipo> valores
+    * skimr::skim : overview dos dados com detalhes sobre frequência de valores e valores faltantes
+
