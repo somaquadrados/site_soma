@@ -5,11 +5,13 @@ date: "28/03/2021"
 output: html_document
 ---
 
-# R para quem tem pressa (ou R para quem não quer aprender R)
+# R para quem tem pressa: Parte I
+
+## (ou R para quem não quer aprender R)
 
 ![](run_forest.gif)
 
-Esse tutorial é para você que precisa aprender **R** por algum motivo de força maior, não sabe absolutamente nada sobre e precisa de um lugar para começar. O objetivo aqui *não* é te ensinar a programar, muito menos te ensinar a fazer análises estatísticas, mas sim te ensinar um pouco sobre R e como manipular uma tabela usando dplyr.
+Esse tutorial é para você que precisa aprender **R** por algum motivo de força maior, não sabe absolutamente nada sobre e precisa de um lugar para começar. O objetivo aqui *não* é te ensinar a programar, muito menos te ensinar a fazer análises estatísticas, mas sim te ensinar um pouco sobre o **✨R base✨**.
 
 ## O que você precisa para seguir esse tutorial?
 
@@ -17,24 +19,9 @@ Esse tutorial vem acompanhado de Rmarkdown (um "editor de texto" que possibilita
 
 ## Por que R?
 
-R é uma linguagem *open-source* (= você não precisa pagar uma licença para usá-la). O importante é que, além do que vem com a instalação do R (o que costumamos chamar de *R base*), existe a possibilidade de aumentar a usabilidade da linguagem com o uso de *pacotes*¹. Podemos pensar no R como um super Excel (💪) capaz de lidar com problemas ligeiramente mais complicados de uma maneira mais eficiente.
+R é uma linguagem *open-source* (= você não precisa pagar uma licença para usá-la). FALAR SOBRE IMPORTÂNCIA DO R BASE E DEIXAR A PARTE DOS PACOTES PRA PARTE II.
 
-<small>
-
-> ¹Um pacote R (📦) é uma convenção para organizar e padronizar a distribuição de **funções** extras.
->
-> [A ideia básica de uma função é encapsular um código de programação que pode ser invocado/chamado a qualquer momento. Seu significado e uso são muito semelhantes aos das funções matemáticas; há um nome, uma definição e uma invocação da função](https://www.ime.usp.br/~leo/mac2166/2017-1/introducao_funcoes.html). Neste tutorial você aprenderá sobre algumas funções, como concatenação (`c()`) e lista (`list()`).
-
-## Pacotes
-
-Parte do apelo ao R é justamente a flexibilidade das diferentes ferramentas disponíveis em cada um de seus pacotes. Aqui, usaremos dois (o [dplyr](https://dplyr.tidyverse.org/) e o [ggplot](https://ggplot2.tidyverse.org/index.html)), ambos parte do framework do **✨**[Tidyverse](https://www.tidyverse.org/)**✨**.
-
-O Tidyverse é uma coleção obstinada de pacotes R projetados para ciência de dados, ou seja, seus pacotes compartilham uma filosofia de design, gramática e estruturas de dados subjacentes. Neste universo magnífico, dplyr e ggplot são considerados essenciais. Além disso, é possível destacar dois pontos:
-
-1.  Muito do apelo comercial do R vem do tidyverse!
-2.  Aprender dplyr te coloca um passo mais próximo de aprender [SQL (uma linguagem de banco de dados amplamente usada)](https://pt.wikipedia.org/wiki/SQL).
-
-## O básico do R
+## O "R Base"
 
 ### Objetos
 
@@ -44,7 +31,7 @@ Criar um objeto é uma forma de "salvar valores" dentro da memória do nosso com
 
 <center>
 
-![](apoio/index.png){width="452"}
+![](index.png){width="521"}
 
 </center>
 
@@ -95,7 +82,7 @@ Os objetos possuem três características: Nome + conteúdo + atributo do conte�
 
 O atributo pode ser dividido em duas categorias: 1. Classe e 2. Estrutura do dado.
 
-#### Classe
+#### 1. Classe
 
 A classe é essencial em R! É aqui que funções e operadores podem saber exatamente o que fazer com o(s) objeto(s). Por exemplo, é possível somar dois objetos numéricos, ...
 
@@ -129,7 +116,7 @@ falso <- FALSE
         * Númericos (double ou integer)
 
 ```{r}
-x <- 1
+x <- 1.5
 y <- 2
 ```
 
@@ -143,7 +130,7 @@ meu_nome <- 'Isabella'
 
 A estrutura de um objeto é a forma como os dados são organizados (unidimensional, bidimensional, apenas números ou caracteres, etc.). As formas mais comuns com as quais trabalhamos são:
 
-      * Vetores: Objeto unidimensional que possui uma única classe de valor. Usamos a função "concatenar" ou c() para atribuir uma série de valores (separador por vírgula) ao objeto de tipo vetor.  
+      * Vetores: Objeto unidimensional que possui uma única classe de valor. Usamos a função "concatenar" ou c()¹ para atribuir uma série de valores (separador por vírgula) ao objeto de tipo vetor.  
 
 ```{r}
 vetor <- c("banana", "maça", "uva") 
@@ -155,24 +142,26 @@ vetor2 <- c(1, 2, 3, 5)
 vetor2
 ```
 
-        * Listas: Uma lista é uma coleção unidimensional de objetos. Os objetos que compõem uma lista podem conter uma ou mais classes de valores. 
+> <small> ⚠ ¹[A ideia básica de uma função é encapsular um código de programação que pode ser invocado/chamado a qualquer momento. Seu significado e uso são muito semelhantes aos das funções matemáticas; há um nome, uma definição e uma invocação da função](https://www.ime.usp.br/~leo/mac2166/2017-1/introducao_funcoes.html). No final deste tutorial falamos mais sobre funções. ⚠ </small>
+
+        * Listas: Uma lista é uma coleção unidimensional de objetos. Os objetos que compõem uma lista podem conter uma ou mais classes de valores. As listas são criadas ccom a função list(objetoA, objetoB, ...).
 
 ```{r}
 lista <- list(A, b, vetor, vetor2, meu_nome)
 lista
 ```
 
-Observe que as listas utilizam como "valores" os objetos que foram criados anteriormente.
+> ⚠ Observe que as listas utilizam como "valores" os objetos que foram criados anteriormente. ⚠
 
-        * Dataframe: Tabelas linhas x colunas (aquelas que costumamos trabalhar no Excel)
+        * Dataframe: São objetos bidimensionais - as famosas tabelas linhas x colunas (as que costumamos trabalhar no Excel). Nas colunas temos as variáveis/features e nas linhas nossas unidades observacionais/experimentais.
 
 ![](excel.png)
 
-Veremos como importar um data frame para o R na segunda parte deste tutorial.
+> É possível criar um dataframe diretamente em R com a função `data.frame(vetor1, vetor2, ...)`; MAS, para facilitar sua vida, veremos como importar um data frame **pronto** para o R na segunda parte deste tutorial✌️.
 
 ### E se eu não conseguir identificar qual é o *tipo* do meu objeto?
 
-Apesar de parecer uma pergunta simples, não conhecer o *tipo* do seu objeto é um problema que acontece com certa frequência. Como solução, você pode perguntar a classe ou estrutura do seu objeto ao R com a função `typeof(objeto)`. Essa função determina o tipo ou modo de armazenamento dos valores de qualquer objeto.
+Apesar de parecer uma pergunta simples, não conhecer o *tipo* do seu objeto é um problema que acontece com certa frequência. Como solução, podemos usar a função `typeof(objeto)`, que determina o tipo ou modo de armazenamento dos valores de qualquer objeto.
 
 ```{r}
 typeof(verdade)
@@ -210,22 +199,22 @@ x/y
 
 Você também pode comparar valores. Essas operações precisam de alguns símbolos importantes:
 
-     * & *:* significa E 
-     * | *:* significa ou
-     * == *:* significa igual
+| Símbolo de comparação | Aplicação com dois objetos | Significado            |
+|------------------------|--------------------------|-----------------------|
+| &                     | `A&B`                      | A e B                  |
+| \|                    | `A|B`                      | A ou B                 |
+| ==                    | `A==B`                     | A igual B²             |
+| !=                    | `A!=B`                     | A diferente de B       |
+| !                     | `A!B`                      | A negação B            |
+| \>=                   | `A>=B`                     | A maior ou igual a B   |
+| \<=                   | `A<=B`                     | A menor ou igual a B   |
+| \>                    | `A>B`                      | A maior que B          |
+| \<                    | `A<B`                      | A menor que B          |
+| :                     | `A:B`                      | De A até B (sequência) |
 
-> **⚠️ Atenção ⚠**️:
+> **⚠️ Atenção**️:
 >
-> A comparação de valores de objetos sempre é feita com dois iguais em sequência (`objA==objB`). Um único igual (`objA=objB`) é para uso de *atribuição*, ou seja, tem o mesmo valor que "`objA<-objB`".
-
-     * != *:* diferença
-     * ! *:* negação
-     * >= *:* maior igual
-     * <= *:* menor igual
-     * > *:* maior que
-     * < *:* menor que
-     * ':' *:* sequência 
-     
+> ²A comparação de valores de objetos sempre é feita com dois iguais em sequência (`objA==objB`). Um único igual (`objA=objB`) é para uso de *atribuição*, ou seja, tem o mesmo valor que "`objA<-objB`".
 
 Ao comparar os valores, a saída será um booleano, ou seja, se a comparação é verdadeira (TRUE) ou falsa (FALSE). Por exemplo:
 
@@ -271,7 +260,7 @@ objX[-3]
 
 Também podemos aplicar operadores matemáticos a vetores em conjunto com a indexação:
 
--   É possível multiplicar os elementos entre 1 e 3 de ObjX por 2...
+-   É possível multiplicar por 2 os elementos entre 1 e 3 de ObjX...
 
 ```{r}
 objX[1:3]*2
@@ -285,7 +274,7 @@ objX[1:3]*2
 objX[c(1,5)] == 20
 ```
 
--   E também podemos aplicar funções que calculam algumas estatísticas de tendência central ou de variabilidade, como a média e variância:
+-   Também podemos aplicar funções que calculam algumas estatísticas de tendência central ou de variabilidade, como a média e variância:
 
 ```{r}
 mean(objX[2:5])
@@ -300,173 +289,22 @@ Assim como os vetores: `nome_lista[posição]`! Por exemplo, qual é o terceiro 
 lista[3]
 ```
 
-Também é possível acessar diretamente os valores de um objeto dentro de uma usando dois colchetes: `nome_lista[[posição]]`:
+Também é possível acessar diretamente os valores de um objeto em nossa lista usando dois colchetes: `nome_lista[[posição]]`:
 
 ```{r}
 lista[[3]]
 ```
 
-Se eu quiser acessar o 2o elemento do objeto 3 que faz parte da **lista**: `nome_lista[[posição_objeto]][posição_elemento]`.
+Se eu quiser acessar um elemento de um objeto que faz parte de uma lista: `nome_lista[[posição_objeto]][posição_elemento]`. Por exemplo, para acessar o segundo elemento contido no objeto 3 de lista:
 
 ```{r}
 lista[[3]][2]
 ```
 
-## Importando dados para o R
+### Funções em R?
 
-Mas que tal facilitar a sua vida? Quanto menos esforço você colocar para importar e manipular dados com sucesso, melhor será a sua transição para o R. É mais fácil organizar seus dados em um programa como Excel ou Google docs do que fazer esse esforço diretamente em R (ou qualquer outra linguagem). Para isso, eu recomendo que você adote algumas boas práticas:
+Os **objetos** são nomes que contêm valores (`objeto <- valor`), enquanto **funções** são nomes que contêm um código R (`nome_função()` → `{código R}` → *resultado*). A ideia básica de uma função é encapsular um código que pode ser chamado a qualquer momento em R. (...)
 
--   Variáveis vão nas colunas.
+# FIM! 🏃
 
--   Unidades observacionais ou experimentais nas linhas.
-
--   Apenas um valor por célula (coluna vs. linha = 1 valor).
-
-    ![](bp.png)
-
--   Evite usar caracteres especiais e espaços no nome de colunas. Exemplo: prefira **endereco** no lugar de **endereço**, **dia_coleta** no lugar de **dia coleta**.
-
--   Não preencha valores faltantes (os famosos NA's) com zeros.
-
--   Salve suas planilhas em formato **.csv**, **.tsv** ou em **.txt**. Isso facilita a importação para o R.
-
--   Não coloque comentários ou a unidade métrica nos seus dados. ⚠️Dica: se você estiver medindo algo em centímetros, nomeie a coluna como **nomevariavel_cm**.
-
--   Para variáveis categóricas nominais, verifique se os nomes correspondentes à mesma característica estão escritos da mesma forma. Se, por exemplo, você está nomeando países e escreve Brasil de duas formas diferentes (numa linha Brasil e em outra brasil), R entenderá que são valores diferentes.
-
--   Quando analisamos dados, geralmente trabalhamos com objetos de duas dimensões (linhas vs. colunas). Por isso, ao preencher uma planilha, lembre-se de usar apenas uma aba do seu editor; caso contrário, você terá que despender um esforço mais significativo para importar e juntar os dados.
-
--   Não sublinhe ou use cores em sua planilha; essas formatações não são importáveis ao R.
-
-### Iris
-
-⚠️ Neste tutorial, trabalharemos com uma famosa planilha de dados - a **iris.csv** - que obedece a todas as regras e dicas pré-estabelecidas ([baixe aqui](https://github.com/bellabf/r_pressa)). Ao baixar **iris.csv**, salve-a na mesma pasta do seu computador que está sendo mantindo o seu script R. Você pode verificar qual é o endereço deste diretório com o seguinte comando:
-
-```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-getwd()
-
-```
-
-O conjunto de dados de íris fornece as medidas (em centímetros) do comprimento e largura da sépala e da pétala para três espécies de irís (Setosa, Versicolor e Virginia), totalizando 150 indivíduos.
-
-![](https://machinelearninghd.com/wp-content/uploads/2021/03/iris-dataset.png){width="660"}
-
-Após salvar a planilha no seu diretório, você deve usar a função `read.csv('nome_planilha.csv')` para importar a iris ao R.
-
-```{r}
-dados <- read.csv("iris.csv")
-dim(dados)
-```
-
-Ao chamar o nome da tabela "iris", R exibirá seu conteúdo: quatro colunas contendo as medidas das sépalas (sepal.length e sepal.width) e pétalas (petal.length e petal.width), uma coluna contendo o nome das espécies de íris (species) e 150 linhas referentes aos indivíduos florais medidos.
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-library(kableExtra)
-library(tidyverse)
-iris %>% 
-  kbl() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
-  scroll_box(height = "300px")
-```
-
-## Instalando pacotes e carregar uma biblioteca
-
-Vamos aumentar a funcionalidade do R instalando o Tidyverse para uso do pacote **dplyr**.
-
-Para instalar um pacote em R, executamos a função `install.packages("nome_do_pacote")`. ⚠ Nome do pacote **entre aspas**!! ⚠️
-
-```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-install.packages("tidyverse")
-```
-
-Após a instalação do tidyverse, é necessário invoca-lo para uso de suas funções. Para isso, usamos a função `library(nome_do_pacote)`. ⚠️ Nome do pacote **sem aspas**!! ⚠️
-
-```{r}
-library(tidyverse)
-```
-
-## Manipulando dados
-
-O **dplyr** é um pacote projetado para a manipulação de **dataframes**. Suas funções permitem que o gerenciamento de dados seja intuitivo e amigável. Com o dplyr, operamos diretamente os dataframes; contrário ao R base que atua sobre os vetores.
-
-![](https://miro.medium.com/max/1400/1*NXRsFH_12sfj79W-P4qI0Q.png)
-
-O dplyr trabalha com uma gramática de manipulação de dados na qual os verbos ditam certas ações. Cada verbo tem a sua função equivalente. Os verbos mais comuns são:
-
-#### MUTATE
-
-    Adiciona novas varíaveis em função de outras (como, por exemplo, percentagem).
-
-#### SELECT
-
-    Seleciona variáveis baseada no nome.
-
-#### FILTER
-
-    Seleciona variáveis baseada em valores.
-
-#### SUMMARIZE
-
-    Resume variavéis em valores únicos (como média).
-
-#### ARRANGE
-
-    Orderna as linhas da tabela.
-
-O tidyverse tem mais um símbolo "%\>%" ou "\|\>": o pipe. Ele permite agrupar várias operações que seriam realizadas separadamente em um única operação de maneira mais intuitiva. Todos os comandos que usaremos nesse tutorial serão escritos nesse estilo.
-
-\*BÔNUS: se você tem planos de aprender SQL no futuro, dplyr vai ter colocar no caminho certo.
-
-### Tutorial do dplyr
-
-Você pode obter os valores de média para sépalas e pétalas a partir da tabela iris usando o summarise.
-
-```{r}
-medias <- dados %>%
-          summarise(mean_sepal = mean(Sepal.Length), 
-                    mean_petal = mean(Petal.Length))
-medias
-
-```
-
-O problema é que dentro dessa tabela, não existem apenas uma espécie de flor. Para isso, a gente pode combinar o group_by com o summarise.
-
-```{r}
-medias_especies <- dados %>%
-                    group_by(Species) %>%
-                    summarise(mean_sepal = mean(Sepal.Length), 
-                              mean_petal = mean(Petal.Length))
-
-medias_especies
-
-```
-
-A gente pode modificar o código anterior para temos mais informações como desvio padrão e mediana usando funções auxiliares.
-
-```{r}
-medias_especies <- dados %>%
-  group_by(Species) %>%
-  summarise(mean_sepal = mean(Sepal.Length), 
-            mean_petal = mean(Petal.Length), 
-            median_sepal = median(Sepal.Length),
-            median_petal = median(Petal.Length),
-            sd_sepal = sd(Sepal.Length),
-            sd_petal = sd(Petal.Length),
-            n = n())
-
-medias_especies
-
-```
-
-## Salvando seus dados
-
-Por último, você pode exportar a sua tabela medias_especies usando a função *write.csv*.
-
-```{r}
-write.csv(medias_especies, "medias_especies.csv")
-
-```
-
-### E fim!
-
-Se você chegou aqui, você teve uma primeira experiência em R que eu espero que tenha sido remotamente agradável e que você esteja menos aterrorizado de se aventurar em R. No próximo, tutorial, nos vamos explorar a mesma tabela de outras formasa, então fique atento.
+Espero que a sua experiência tenha sido remotamente agradável e que você tenha menos medo de se aventurar no R 💙. No próximo tutorial, vamos falar sobre pacotes, dataframes, tibbles, tidyverse, dplyr e mais manipulação de dados!

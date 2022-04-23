@@ -1,0 +1,93 @@
+---
+title: "parte_2"
+author: "Isabella Bicalho Frazeto"
+date: "4/9/2022"
+output: html_document
+---
+
+# R para quem tem pressa: Parte III
+
+## (ou R para quem não quer aprender R)
+
+![](onepiecerun.gif){width="378"}
+
+Esse tutorial é para você que precisa aprender **R** por algum motivo de força maior, não sabe absolutamente nada sobre e precisa de um lugar para começar. O objetivo aqui *não* é te ensinar a programar, muito menos te ensinar a fazer análises estatísticas, mas sim te ensinar um pouco sobre o R, o pipe e como manipular um dataframe.
+
+> Nesta terceira parte, quero apresentar algumas funções que são úteis e que gostaria de ter descoberto quando iniciei o R **💙**.
+
+**Aqui vamos continuar trabalhando com a "iris.csv" ([que importamos no último tutorial](linkondefalaimportacao)) e o pacote Tidyverse.**
+
+```{r setup, include=FALSE}
+iris <- read.csv("iris.csv")
+library(tidyverse)
+```
+
+### Dando uma espiadinha 🕵️
+
+Após importar seus dados, uma boa prática é verificar a classe e a estrutura das variáveis contidas no seu dataframe.
+
+### *R Base*
+
+Com a função `head(nome_dataframe)` do *R base*, podemos visualizar o conteúdo das primeiras cinco linhas do dataframe.
+
+```{r}
+head(iris)
+```
+
+Se quiser ver as últimas, é só usar a função `tail(nome_dataframe)`.
+
+```{r}
+tail(dados)
+```
+
+E se você quiser um resumo das variáveis contidas em seu dataframe, é só executar a função `summary(dados)`.
+
+```{r}
+summary(dados)
+```
+
+### Dplyr
+
+Passando para o Tidyverse, o dplyr possui uma função que nos mostra o nome das colunas, suas respectivas classes e o conteúdo das primeiras linhas de um dataframe: a `glimpse(nome_dataframe)`. Este comando é semelhante ao `head()`, porém, aqui vemos as informações transpostas.
+
+```{r}
+glimpse(iris)
+```
+
+ACHO QUE EM VEZ DE FALAR SO SKIMR AQUI, PODERIA FALAR SOBRE COMO AVALIAR E TRANSFORMAR VARIÁVEIS QUE FORAM IMPORTADAS INCORRETAMENTE & TRATAMENTO DE NA'S.
+
+# skimr
+
+O *skimr* é um pacote que te dá uma overview dos resultados de uma tabela.
+
+```{r}
+library(skimr)
+skim(dados)
+
+```
+
+Note que ele te dá: 1. Um resumo do nome, número de linhas e colunas 2. A frequência de cada tipo de coluna 3. Se essa tabela possui um grupo 4. Para cada tipo de variável: nome, quantidade de valores faltantes, taxa de completa, se a tabela é ordenada e número de valores únicos.
+
+Eu, particulamente, gosto bastante do histograma ao lados dos valores númericos.
+
+Se você não estiver interessados em todos os dados. Você pode seleciona-los com o yank que cria uma partição dos seus dados.
+
+```{r}
+dados %>%
+  skim %>%
+  yank("numeric")
+```
+
+# Resumo
+
+Aqui vai um resumo do que vimos nesse tutorial:
+
+    * head : a cabeça da tabela
+    * tail : a cauda da tabela 
+    * summary : o resumo da tabela 
+    * dplyr::glimpse : nome <tipo> valores
+    * skimr::skim : overview dos dados com detalhes sobre frequência de valores e valores faltantes
+
+# FIM! 🏃
+
+Espero que a sua experiência tenha sido remotamente agradável e que você tenha menos medo de se aventurar no R 💙. No próximo tutorial, DESCREVER O QUE TERÁ NO PRÓXIMO.
