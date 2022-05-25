@@ -1,0 +1,178 @@
+---
+title: "{ES} Mejor dígalo con gráficos"
+layout: single-sidebar
+excerpt: "Una introducción a los increíbles gráficos de barras. ¡Tan simple, pero comunican mucho!"
+author: Eliana F. Burgos
+date: '2022-05-24'
+slug: IntroGitHub
+categories: 
+  - ES
+  - ggplot
+  - R base
+  - gráficos
+tags: 
+  - ES
+  - ggplot
+  - R base
+  - gráficos
+images: ~
+series: ~
+alt: ''
+featured: yes
+draft: no
+image:
+  focal_point: 'Center'
+  preview_only: no
+lastmod: '2022-05-24'
+---
+
+
+
+<div id="qué-es-un-gráfico-estadístico-y-para-qué-nos-sirven" class="section level2">
+<h2>¿Qué es un gráfico estadístico y para qué nos sirven? 📊</h2>
+<p>Los gráficos estadísticos son <strong>representaciones visuales</strong> de nuestros datos y resultados estadísticos. Nos sirven para expresar de manera gráfica (valga la redundancia) tanto las medidas descriptivas básicas como estadísticos asociados a modelos o simulaciones más complejas.</p>
+<p>Un buen gráfico, además de representar de manera clara nuestros datos y su información asociada, nos permite realizar comparaciones, destacar tendencias de los datos e ilustrarlas llamando la atención del lector.</p>
+<p>Para que un gráfico sea realmente <strong>representativo e informativo</strong>, no solo debemos estar atentos a brindar la mayor cantidad de información posible en él, sino que además, debemos elegir el gráfico adecuado para el tipo de variable que queremos visualizar (o interacción si fuera más de una variable).</p>
+<p>Como sabemos, podemos tener variables <strong>cualitativas</strong> (ordinales o nominales), y variables <strong>cuantitativas</strong> (discretas o continuas). No todos los gráficos permiten visualizar de manera sencilla y sin errores todos los tipos de datos.</p>
+<p>Empezando por el principio, veamos un par de ejemplos de graficos para variables cualitativas. Primero repasaremos las opciones existentes con <a href="https://rstudio-pubs-static.s3.amazonaws.com/84527_6b8334fd3d9348579681b24d156e7e9d.html"><strong>R base</strong></a> y luego con la librería <a href="https://ggplot2.tidyverse.org/reference/ggplot.html"><strong>ggplot2</strong></a><strong>.</strong></p>
+</div>
+<div id="gráficos-para-una-variable-cualitativa" class="section level2">
+<h2>Gráficos para una variable cualitativa</h2>
+<p><strong>Barplot</strong></p>
+<p>El <strong>barplot</strong>, o gráfico de <strong>barras</strong> o <strong>columnas</strong>, es uno de los gráficos más utilizados y representa visualmente una variable cualitativa (o categórica; eje x) y una cuantitativa (o numérica; eje y).</p>
+<p>Veamos un ejemplo con el comando <code>barplot().</code></p>
+<p>Vamos a crear un vector con nuestra variable cualitativa a la que llamaremos <em>“tratamiento”</em>. Luego, calcularemos las frecuencias de cada nivel de nuestra variable, es decir, cuántas veces se repite “A”, cuantas se repite “B”, etc.</p>
+<pre class="r"><code>tratamiento &lt;- as.factor(sample(c(&quot;A&quot;,&quot;B&quot;, &quot;C&quot;, &quot;D&quot;), size =30, replace = TRUE))    
+frec.tratam &lt;- table(tratamiento)
+frec.tratam</code></pre>
+<pre><code>## tratamiento
+##  A  B  C  D 
+##  9  4  5 12</code></pre>
+<p>Por último graficamos.</p>
+<pre class="r"><code>barplot(frec.tratam)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Como dijimos al comienzo de este post, un grafico tiene que ser representativo de la información que quiero visualizar. Por lo que siempre tiene que ir acompañado de los <strong>nombres de ejes</strong> y en lo posible un <strong>título</strong>.</p>
+<pre class="r"><code>barplot(frec.tratam,
+        xlab = &quot;Tratamiento&quot;, #nombre al eje x
+       ylab= &quot;Frecuencia&quot;,#nombre del eje Y 
+       main= &quot;Tratamientos finalizados&quot;# título del gráfico
+       ) </code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Los colores por defecto son en escalas de grises, a menos que especifiquemos lo contrario. Podemos indicar qué colores queremos de la siguiente forma:</p>
+<pre class="r"><code>barplot(frec.tratam,
+        xlab = &quot;Tratamiento&quot;, #nombre al eje x
+       ylab= &quot;Frecuencia&quot;,#nombre del eje Y 
+       main= &quot;Tratamientos finalizados&quot;,# título del gráfico
+       col= &quot;red&quot;, #color de las barras
+       ) </code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Si quisieramos que cada tratamiento tenga un color específico, por ejemplo que “A” sea negro, “B” gris, “C” azul y “D” rojo, tenemos que indicarlo en el orden en que R identifica los niveles de la variable, en esta caso, en orden alfabético. Veamos como programarlo:</p>
+<pre class="r"><code>barplot(frec.tratam,
+        xlab = &quot;Tratamiento&quot;, #nombre al eje x
+       ylab= &quot;Frecuencia&quot;,#nombre del eje Y 
+       main= &quot;Tratamientos finalizados&quot;,# título del gráfico
+       col= c(&quot;black&quot;, &quot;grey&quot;, &quot;blue&quot;, &quot;red&quot;)#color de las barras 
+       ) </code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>También podemos colorear las barres con otra gama de colores que podemos visualizar en: <a href="https://r-graph-gallery.com/ggplot2-color.html" class="uri">https://r-graph-gallery.com/ggplot2-color.html</a>.</p>
+<pre class="r"><code>barplot(frec.tratam,
+        xlab = &quot;Tratamiento&quot;, #nombre al eje x
+       ylab= &quot;Frecuencia&quot;,#nombre del eje Y 
+       main= &quot;Tratamientos finalizados&quot;,# título del gráfico
+       col= c(&quot;cyan1&quot;, &quot;coral1&quot;, &quot;darkorchid1&quot;, &quot;darkseagreen3&quot;)#color de las barras 
+       ) </code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Podemos modificar los bordes para que sean del mismo color de relleno de la siguiente forma:</p>
+<pre class="r"><code>barplot(frec.tratam,
+        xlab = &quot;Tratamiento&quot;, #nombre al eje x
+       ylab= &quot;Frecuencia&quot;,#nombre del eje Y 
+       main= &quot;Tratamientos finalizados&quot;,# título del gráfico
+       col= c(&quot;cyan1&quot;, &quot;coral1&quot;, &quot;darkorchid1&quot;, &quot;darkseagreen3&quot;),#defino los bordes#color de las barras
+        border=c(&quot;cyan1&quot;, &quot;coral1&quot;, &quot;darkorchid1&quot;, &quot;darkseagreen3&quot;) #defino el color de los bordes
+       ) </code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Además puedo definir el ancho de nuestras barras:</p>
+<pre class="r"><code>barplot(frec.tratam,
+        xlab = &quot;Tratamiento&quot;, #nombre al eje x
+       ylab= &quot;Frecuencia&quot;,#nombre del eje Y 
+       main= &quot;Tratamientos finalizados&quot;,# título del gráfico
+       col= c(&quot;cyan1&quot;, &quot;coral1&quot;, &quot;darkorchid1&quot;, &quot;darkseagreen3&quot;),#defino los bordes#color de las barras
+        border=c(&quot;cyan1&quot;, &quot;coral1&quot;, &quot;darkorchid1&quot;, &quot;darkseagreen3&quot;), #defino el color de los bordes
+       width= c(0.4,0.8,1,1.2)#cambio el ancho de las barras
+        )</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Y si no nos interesa el ancho de las barras, pero queremos que haya una mayor separación entre las mismas usamos el siguiente comandito:</p>
+<pre class="r"><code>barplot(frec.tratam,
+        xlab = &quot;Tratamiento&quot;, #nombre al eje x
+       ylab= &quot;Frecuencia&quot;,#nombre del eje Y 
+       main= &quot;Tratamientos finalizados&quot;,# título del gráfico
+       col= c(&quot;cyan1&quot;, &quot;coral1&quot;, &quot;darkorchid1&quot;, &quot;darkseagreen3&quot;),#defino los bordes#color de las barras
+        border=c(&quot;cyan1&quot;, &quot;coral1&quot;, &quot;darkorchid1&quot;, &quot;darkseagreen3&quot;), #defino el color de los bordes
+       space=(1)#cambio la separación entre barras
+        )</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>En el caso de que no queramos colores solidos en nuestras barras, y que quisieramos diferenciales con entramados podemos programarlo de la siguiente forma:</p>
+<pre class="r"><code>barplot(frec.tratam,
+        xlab = &quot;Tratamiento&quot;, #nombre al eje x
+       ylab= &quot;Frecuencia&quot;,#nombre del eje Y 
+       main= &quot;Tratamientos finalizados&quot;,# título del gráfico
+     density=c(18,14,10,14,18), #defino el entramado (cantidad de lineas)
+        angle=c(0,45,90,11,36), #defino el angulo del entramado
+        col=&quot;black&quot; #color del entramado
+        )</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="barplot-con-ggplot2" class="section level2">
+<h2>Barplot con ggplot2</h2>
+<p>Para poder graficar con <strong>ggplot2</strong> tenemos que recordar que los gráficos tiene una estructura específica y que debemos programar cada elemento del gráfico, los cuales son:</p>
+<ul>
+<li><em>data</em>: nuestra base de datos debe estar configurada como <strong>dataframe</strong>;</li>
+<li><em>aesthetics (</em>o <em>aes)</em>: define las relaciones de las variables que queremos graficar, así como algunos aspectos del gráfico;</li>
+<li><em>geometrias</em>: especifican cual elemento gráfico se utilizará para visualizar los datos.</li>
+</ul>
+<p>Estos elementos se agregan en <em>capas</em> o <em>layers</em> y vamos a ver algunos ejemplos a continuación, siguiendo con el dataset que creamos al principio del post.</p>
+<p><img src="ge_geom.png" /></p>
+<p>Para comenzar, vamos a crear un data frame a partir de nuestros datos de <strong>“tratamiento”</strong>; luego vamos a cargar la libreria <strong>“ggplot2”</strong> y realizar un gráfico de barras sencillo.</p>
+<p>La función por defecto de ggplot - para este tipo de grafico - es <code>stat="count"</code>, que cuenta el número de observaciones de cada valor, es decir, la frecuencia de dicho dato. Otra opción es utilizar <code>stat="identity"</code>, que grafica el valor del dato sin modificarlo. Como en este ejemplo estamos utilizando una única variable que es categórica, y lo que queremos graficar es su frecuencia, utilizaremos la funcion por defecto.</p>
+<pre class="r"><code>## Del vector al dataframe
+datos&lt;- as.data.frame(tratamiento)
+
+## Cargue el paquete ggplot
+library(ggplot2)
+
+## ¡Y crea el gráfico!
+ggplot(datos) + # defino el data set con el que voy a trabajar
+  geom_bar(aes(x=tratamiento)) # defino al geometria del gráfico y los ejes</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Le agregamos los nombres a los ejes, un título a nuestro gráfico y definimos las marcas del eje y:</p>
+<pre class="r"><code>ggplot(datos) + # defino el data set con el que voy a trabajar
+  geom_bar(aes(x=tratamiento)) + #defino al geometria del gráfico y los ejes
+  xlab(&quot;Tratamientos&quot;) + # agrego el nombre del eje X
+  ylab (&quot;Frecuencia&quot;) + # agrego el nombre del eje Y
+  ggtitle(&quot;Tratamientos finalizados&quot;) + # agrego el título
+  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10)) # establezco donde estan mis marcas del eje y</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Con el comando <code>theme()</code> podemos modificar varios elementos estéticos del gráfico y utilizar temas ya creados. En este ejemplo, usaremos uno de esos temas para modificar el fondo y caja del gráfico (Podes consultar otros temas acá: <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="uri">https://ggplot2.tidyverse.org/reference/ggtheme.html</a>).</p>
+<pre class="r"><code>ggplot(datos)+#defino el data set con el que voy a trabajar
+   geom_bar(aes(x=tratamiento))+ #defino al geometria del gráfico y los ejes
+  xlab(&quot;Tratamientos&quot;)+#agrego el nombre del eje X
+  ylab (&quot;Frecuencia&quot;)+#agrego el nombre del eje Y
+  ggtitle(&quot;Tratamientos finalizados&quot;)+   
+  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10))+#establezco donde estan mis marcas del eje y#agrego el título
+  theme_bw()#defino mi tema </code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Si queremos cambiar los colores de las barras, tenemos que indicar que queremos que se diferencien nuestras columnas en el <em>aes</em> de la geometria con el comando <code>fill=</code>:</p>
+<pre class="r"><code>ggplot(datos) +#defino el data set con el que voy a trabajar
+   geom_bar(aes(x=tratamiento), fill=c(&quot;black&quot;, &quot;grey&quot;, &quot;blue&quot;, &quot;red&quot;)) + #defino al geometria del gráfico y los ejes
+  xlab(&quot;Tratamientos&quot;) +#agrego el nombre del eje X
+  ylab (&quot;Frecuencia&quot;) +#agrego el nombre del eje Y
+  ggtitle(&quot;Tratamientos finalizados&quot;) +   
+  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10)) +#establezco donde estan mis marcas del eje y#agrego el título
+  theme_bw()#defino mi tema </code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="y-fín" class="section level2">
+<h2>¡Y FÍN!</h2>
+<p>Pero cuéntanos, ¿Te gusta trabajar con gráficos? ¿Cuál es tu favorito? ¿Cuál quieres ver aquí en el blog? ¡Deja la sugerencia en nuestras redes sociales (<a href="https://twitter.com/somaquadrados">twitter</a>/<a href="https://www.instagram.com/somaquadrados/">instagram</a>).</p>
+<p><img src="f4df7d10fc40431b6a0cecb773e85debe2121f161fa056094a3ec1da0b54070b_1.jpg" /></p>
+</div>

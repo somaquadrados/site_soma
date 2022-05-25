@@ -4,44 +4,48 @@ author: "by: Eliana F. Burgos"
 date: "6/5/2022"
 output: html_document
 ---
-## ¿Qué es un gráfico estadístico y para qué nos sirven?
+
+## ¿Qué es un gráfico estadístico y para qué nos sirven? 📊
 
 Los gráficos estadísticos son **representaciones visuales** de nuestros datos y resultados estadísticos. Nos sirven para expresar de manera gráfica (valga la redundancia) tanto las medidas descriptivas básicas como estadísticos asociados a modelos o simulaciones más complejas.
 
 Un buen gráfico, además de representar de manera clara nuestros datos y su información asociada, nos permite realizar comparaciones, destacar tendencias de los datos e ilustrarlas llamando la atención del lector.
 
-Para que un gráfico sea realmente **representativo e informativo**, no solo debemos estar atentos a brindar la mayor cantidad de información posible en él, sino que además, debemos elegir el gráfico adecuado para el tipo de variable que queremos visualizar (o interacción si fuera más de una variable). 
+Para que un gráfico sea realmente **representativo e informativo**, no solo debemos estar atentos a brindar la mayor cantidad de información posible en él, sino que además, debemos elegir el gráfico adecuado para el tipo de variable que queremos visualizar (o interacción si fuera más de una variable).
 
-Como sabemos, podemos tener variables **cualitativas** (ordinales o nominales), y variables **cuantitativas** (discretas o continuas). No todos los gráficos permiten visualizar de manera sencilla y sin errores todos los tipos de datos. 
+Como sabemos, podemos tener variables **cualitativas** (ordinales o nominales), y variables **cuantitativas** (discretas o continuas). No todos los gráficos permiten visualizar de manera sencilla y sin errores todos los tipos de datos.
 
-Empezando por el principio, veamos un par de ejemplos de graficos para variables cualitativas. Primero repasaremos las opciones existentes con **R base** y luego con la librería **ggplot2**
+Empezando por el principio, veamos un par de ejemplos de graficos para variables cualitativas. Primero repasaremos las opciones existentes con [**R base**](https://rstudio-pubs-static.s3.amazonaws.com/84527_6b8334fd3d9348579681b24d156e7e9d.html) y luego con la librería [**ggplot2**](https://ggplot2.tidyverse.org/reference/ggplot.html)**.**
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
 ## Gráficos para una variable cualitativa
 
-**Barplot** 
+**Barplot**
 
-El **barplot** o gráfico de **barras** o **columnas** es uno de los gráficos más utilizados y representa visualmente una variable cualitativa (o categórica) y una cuantitativa (o numérica). 
+El **barplot**, o gráfico de **barras** o **columnas**, es uno de los gráficos más utilizados y representa visualmente una variable cualitativa (o categórica; eje x) y una cuantitativa (o numérica; eje y).
 
-Veamos un ejemplo con el comando ```barplot()```
+Veamos un ejemplo con el comando `barplot().`
 
-Vamos a crear un vector con nuestra variable cualitativa a la que llamaremos *"tratamiento"*. Luego, calcularemos las frecuencias de cada nivel de nuestra variable, es decir, cuántas veces se repite "A", cuantas se repite "B", etc. 
+Vamos a crear un vector con nuestra variable cualitativa a la que llamaremos *"tratamiento"*. Luego, calcularemos las frecuencias de cada nivel de nuestra variable, es decir, cuántas veces se repite "A", cuantas se repite "B", etc.
+
+```{r}
+tratamiento <- as.factor(sample(c("A","B", "C", "D"), size =30, replace = TRUE))    
+frec.tratam <- table(tratamiento)
+frec.tratam
+```
 
 Por último graficamos.
 
 ```{r message=FALSE, warning=FALSE}
-tratamiento<-as.factor(sample(c("A","B", "C", "D"), size =30, replace = TRUE))    
-frec.tratam<- table(tratamiento)
 barplot(frec.tratam)
-
 ```
 
 Como dijimos al comienzo de este post, un grafico tiene que ser representativo de la información que quiero visualizar. Por lo que siempre tiene que ir acompañado de los **nombres de ejes** y en lo posible un **título**.
 
 ```{r message=FALSE, warning=FALSE}
-
 barplot(frec.tratam,
         xlab = "Tratamiento", #nombre al eje x
        ylab= "Frecuencia",#nombre del eje Y 
@@ -61,7 +65,7 @@ barplot(frec.tratam,
        ) 
 ```
 
-Si quisieramos que cada tratamiento tenga un color específico, por ejemplo que "A" sea negro, "B" gris, "C" azul y "D" rojo, tenemos que indicarlo en el orden en que R identifica los niveles de la variable, en esta caso, en orden alfabético. Veamos como programarlo: 
+Si quisieramos que cada tratamiento tenga un color específico, por ejemplo que "A" sea negro, "B" gris, "C" azul y "D" rojo, tenemos que indicarlo en el orden en que R identifica los niveles de la variable, en esta caso, en orden alfabético. Veamos como programarlo:
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -73,7 +77,7 @@ barplot(frec.tratam,
        ) 
 ```
 
-También podemos colorear las barres con otra gama de colores que podemos visualizar en: <https://r-graph-gallery.com/ggplot2-color.html>
+También podemos colorear las barres con otra gama de colores que podemos visualizar en: <https://r-graph-gallery.com/ggplot2-color.html>.
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -85,7 +89,7 @@ barplot(frec.tratam,
        ) 
 ```
 
-Podemos modificar los bordes para que sean del mismo color de relleno de la siguiente forma
+Podemos modificar los bordes para que sean del mismo color de relleno de la siguiente forma:
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -98,8 +102,7 @@ barplot(frec.tratam,
        ) 
 ```
 
-
-Además puedo definir el ancho de nuestras barras 
+Además puedo definir el ancho de nuestras barras:
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -114,10 +117,9 @@ barplot(frec.tratam,
        
 ```
 
-Y si no nos interesa el ancho de las barras, pero queremos que haya una mayor separación entre las mismas usamos el siguiente comandito: 
+Y si no nos interesa el ancho de las barras, pero queremos que haya una mayor separación entre las mismas usamos el siguiente comandito:
 
 ```{r message=FALSE, warning=FALSE}
-
 barplot(frec.tratam,
         xlab = "Tratamiento", #nombre al eje x
        ylab= "Frecuencia",#nombre del eje Y 
@@ -129,7 +131,7 @@ barplot(frec.tratam,
        
 ```
 
-En el caso de que no queramos colores solidos en nuestras barras, y que quisieramos diferenciales con entramados podemos programarlo de la siguiente forma: 
+En el caso de que no queramos colores solidos en nuestras barras, y que quisieramos diferenciales con entramados podemos programarlo de la siguiente forma:
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -146,40 +148,46 @@ barplot(frec.tratam,
 
 ## Barplot con ggplot2
 
-Para poder graficar con **ggplot2** tenemos que recordar que los gráficos tiene una estructura específica y que debemos programar cada elemento del gráfico, los cuales son: 
+Para poder graficar con **ggplot2** tenemos que recordar que los gráficos tiene una estructura específica y que debemos programar cada elemento del gráfico, los cuales son:
 
-- *data*: nuestra base de datos debe estar configurada como **dataframe**;
-- *aesthetics*: define las relaciones de las variables que queremos graficar, así como algunos aspectos del gráfico; 
-- *geometrias*: especifican cual elemento gráfico se utilizará para visualizar los datos. 
+-   *data*: nuestra base de datos debe estar configurada como **dataframe**;
+-   *aesthetics (*o *aes)*: define las relaciones de las variables que queremos graficar, así como algunos aspectos del gráfico;
+-   *geometrias*: especifican cual elemento gráfico se utilizará para visualizar los datos.
 
-Estos elementos se agregan en *capas* o *layers* y vamos a ver algunos ejemplos a continuación, siguiendo con el dataset que creamos al principio del post. 
+Estos elementos se agregan en *capas* o *layers* y vamos a ver algunos ejemplos a continuación, siguiendo con el dataset que creamos al principio del post.
 
-Para comenzar, vamos a crear un data frame a partir de l nuestros datos creados al comienzo (**"tratamiento"**), luego vamos a cargar la libreria **"ggplot2"** y realizar un gráfico de barras sencillo:
+![](ge_geom.png){width="553"}
 
-La función por defecto de ggplot para este tipo de graficos es ```stat="count"``` que cuenta el número de observaciones de cada valor, es decir, la frecuencia de dicho dato. Otra opción es utilizar ```stat="identity"```, que grafica el valor del dato sin modificarlo. Como en este ejemplo estamos utilizando una única variable que es categórica, y lo que queremos graficar es su frecuencia, utilizaremos la funcion por defecto.
+Para comenzar, vamos a crear un data frame a partir de nuestros datos de **"tratamiento"**; luego vamos a cargar la libreria **"ggplot2"** y realizar un gráfico de barras sencillo.
+
+La función por defecto de ggplot - para este tipo de grafico - es `stat="count"`, que cuenta el número de observaciones de cada valor, es decir, la frecuencia de dicho dato. Otra opción es utilizar `stat="identity"`, que grafica el valor del dato sin modificarlo. Como en este ejemplo estamos utilizando una única variable que es categórica, y lo que queremos graficar es su frecuencia, utilizaremos la funcion por defecto.
 
 ```{r message=FALSE, warning=FALSE}
+## Del vector al dataframe
 datos<- as.data.frame(tratamiento)
+
+## Cargue el paquete ggplot
 library(ggplot2)
-ggplot(datos)+#defino el data set con el que voy a trabajar
-  geom_bar(aes(x=tratamiento)) #defino al geometria del gráfico y los ejes
+
+## ¡Y crea el gráfico!
+ggplot(datos) + # defino el data set con el que voy a trabajar
+  geom_bar(aes(x=tratamiento)) # defino al geometria del gráfico y los ejes
        
 ```
 
-
-Le agregamos los nombres a los ejes, un título a nuestro gráfico y definimos las marcas del eje y: 
+Le agregamos los nombres a los ejes, un título a nuestro gráfico y definimos las marcas del eje y:
 
 ```{r message=FALSE, warning=FALSE}
-ggplot(datos)+#defino el data set con el que voy a trabajar
-  geom_bar(aes(x=tratamiento))+ #defino al geometria del gráfico y los ejes
-  xlab("Tratamientos")+#agrego el nombre del eje X
-  ylab ("Frecuencia")+#agrego el nombre del eje Y
-  ggtitle("Tratamientos finalizados")+#agrego el título
-  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10))#establezco donde estan mis marcas del eje y
+ggplot(datos) + # defino el data set con el que voy a trabajar
+  geom_bar(aes(x=tratamiento)) + #defino al geometria del gráfico y los ejes
+  xlab("Tratamientos") + # agrego el nombre del eje X
+  ylab ("Frecuencia") + # agrego el nombre del eje Y
+  ggtitle("Tratamientos finalizados") + # agrego el título
+  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10)) # establezco donde estan mis marcas del eje y
        
 ```
 
-Con el comando ```theme()``` puedo modificar varios elementos estéticos de mi gráfico y podemos utilizar temas ya creados. En este ejemplo, usaremos uno de esos temas para modificar el fondo y caja del gráfico. Podes consultar otros temas acá: <https://ggplot2.tidyverse.org/reference/ggtheme.html>
+Con el comando `theme()` podemos modificar varios elementos estéticos del gráfico y utilizar temas ya creados. En este ejemplo, usaremos uno de esos temas para modificar el fondo y caja del gráfico (Podes consultar otros temas acá: <https://ggplot2.tidyverse.org/reference/ggtheme.html>).
 
 ```{r message=FALSE, warning=FALSE}
 ggplot(datos)+#defino el data set con el que voy a trabajar
@@ -192,7 +200,7 @@ ggplot(datos)+#defino el data set con el que voy a trabajar
  
 ```
 
-Si queremos cambiar los colores de las barras, tenemos que indicar que queremos que se diferencien nuestras columnas en el *aes* de la geometria con el comando ```fill=```: 
+Si queremos cambiar los colores de las barras, tenemos que indicar que queremos que se diferencien nuestras columnas en el *aes* de la geometria con el comando `fill=`:
 
 ```{r message=FALSE, warning=FALSE}
 ggplot(datos)+#defino el data set con el que voy a trabajar
@@ -204,3 +212,9 @@ ggplot(datos)+#defino el data set con el que voy a trabajar
   theme_bw()#defino mi tema 
  
 ```
+
+## ¡Y FÍN!
+
+Pero cuéntanos, ¿Te gusta trabajar con gráficos? ¿Cuál es tu favorito? ¿Cuál quieres ver aquí en el blog? ¡Deja la sugerencia en nuestras redes sociales ([twitter](https://twitter.com/somaquadrados)/[instagram](https://www.instagram.com/somaquadrados/)).
+
+![](f4df7d10fc40431b6a0cecb773e85debe2121f161fa056094a3ec1da0b54070b_1.jpg)

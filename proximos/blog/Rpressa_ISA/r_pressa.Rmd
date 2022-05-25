@@ -200,7 +200,7 @@ x/y
 Você também pode comparar valores. Essas operações precisam de alguns símbolos importantes:
 
 | Símbolo de comparação | Aplicação com dois objetos | Significado            |
-|------------------------|--------------------------|-----------------------|
+|-----------------------|----------------------------|------------------------|
 | &                     | `A&B`                      | A e B                  |
 | \|                    | `A|B`                      | A ou B                 |
 | ==                    | `A==B`                     | A igual B²             |
