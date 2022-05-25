@@ -238,4 +238,4 @@ ggplot(datos) +#defino el data set con el que voy a trabajar
 
 Pero cuéntanos, ¿Te gusta trabajar con gráficos? ¿Cuál es tu favorito? ¿Cuál quieres ver aquí en el blog? ¡Deja la sugerencia en nuestras redes sociales ([twitter](https://twitter.com/somaquadrados)/[instagram](https://www.instagram.com/somaquadrados/)).
 
-![](f4df7d10fc40431b6a0cecb773e85debe2121f161fa056094a3ec1da0b54070b_1.jpg)
+![](featured.jpg)
