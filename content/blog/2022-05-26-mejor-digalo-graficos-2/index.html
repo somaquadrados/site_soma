@@ -1,0 +1,195 @@
+---
+title: "{ES} Mejor dígalo con gráficos II"
+layout: single-sidebar
+excerpt: "Ven a conocer el controvertido gráfico de torta 😋!"
+author: Eliana F. Burgos
+date: '2022-05-26'
+slug: introGraficosII
+categories: 
+  - ES
+  - ggplot
+  - R base
+  - gráficos
+tags: 
+  - ES
+  - ggplot
+  - R base
+  - gráficos
+images: ~
+series: ~
+alt: ''
+featured: yes
+draft: no
+image:
+  focal_point: 'Center'
+  preview_only: no
+lastmod: '2022-05-26'
+---
+
+
+
+<div id="gráficos-para-variables-cualitativas." class="section level2">
+<h2>Gráficos para variables cualitativas.</h2>
+<p><strong>Piechart</strong></p>
+<p>El <strong>piechart</strong> o <strong>gráfico de tortas</strong> es un grafico circular divido en secciones que muestran la proporcion relativa de las variables graficadas.</p>
+<p><img src="piememe.png" width="423" /></p>
+<p>Siguiendo con nuestro ejemplo del post anterior, vamos a graficar las frecuencias de nuestros tratamientos.</p>
+<pre class="r"><code>tratamiento &lt;- as.factor(sample(c(&quot;A&quot;,&quot;B&quot;, &quot;C&quot;, &quot;D&quot;), size =30, replace = TRUE))  # creo mi vector aleatorio con la variable cualitativa
+frec.tratam &lt;-  table(tratamiento) # calculo las frecuencias
+pie(frec.tratam) # hago el gráfico de tortas</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Podemos modificar el gráfico para que tenga bordes de la siguienta manera:</p>
+<pre class="r"><code>pie(frec.tratam, edges=10) # modifico los bordes</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>También podemos cambiar los colores, siempre recordando que el programa nos reconoce los niveles de la variable en orden alfabetico o de menor a mayor (las ordena).</p>
+<pre class="r"><code>pie(frec.tratam, # grafico de torta
+    edges=10, # cmodifico los bordes
+    col = c(&quot;black&quot;, &quot;grey&quot;, &quot;blue&quot;, &quot;red&quot;)) # le cambio los colores</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Si quisieramos agregarle un entramado usamos los mismos códigos que para el comando <code>barplot()</code>: <code>density=</code> y <code>angle=</code>.</p>
+<pre class="r"><code> pie(frec.tratam, # gráfico de torta
+    edges=10, # modifico los bordes
+    col = c(&quot;black&quot;, &quot;grey&quot;, &quot;blue&quot;, &quot;red&quot;),# cambio los colores
+    density = c(10,15,20,25),# cantidad de lineas para el entramado
+        angle= c(0,90,11,36))# direccion del entramado</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>En este caso, los nombres de los niveles ya son brindados por el mismo comando, pero si quisieramos cambiarlos para que sean más representativos o ponerlos en otro idioma diferente al que tenemos en nuestra base de datos, podemos hacerlo con el comando <code>labels=c()</code> y colocamos los nombres en el mismo orden en el cual el programa los reconoce, en este ejemplo, para “A”, corresponde el nombre “Trat-A”, y así continúo en orden con los demás.</p>
+<pre class="r"><code>pie(frec.tratam, # gráfico de torta
+    edges=10, # modifico los bordes
+    col = c(&quot;black&quot;, &quot;grey&quot;, &quot;blue&quot;, &quot;red&quot;), # cambio los colores
+    density = c(10,15,20,25), # cantidad de lineas para el entramado
+        angle= c(0,90,11,36), # direccion del entramado,
+    labels=c(&quot;Trat-A&quot;, &quot;Trat-B&quot;, &quot;Trat-C&quot;, &quot;Trat-D&quot;)) # cambio los nombres de los niveles</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><strong>Piechart con ggplot2</strong></p>
+<p>Recordemos que para graficar en <strong>ggplot2</strong> tenemos que configuar nuestra base de datos como un data frame.</p>
+<p>Con esta libreria, hacer un gráfico de tortas lleva un poco más de programación, ya que primero necesitamos realizar un gráfico de barras y luego con el comando <code>coord_polar()</code> le damos forma circular.</p>
+<pre class="r"><code>frec.tratam &lt;- as.data.frame(frec.tratam) # convierto en data frame mi tabla
+library(ggplot2)
+ggplot(frec.tratam, aes(x=&quot;&quot;, y=Freq, fill=tratamiento)) + # defino los valores a graficar
+  geom_bar(stat=&quot;identity&quot;, width=1) + # defino la geometria del gráfico
+  coord_polar(&quot;y&quot;, start=0)#lo cambio a gráfico circular</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Ahora tenemos que sacarle el fondo gris y los valores de los ejes:</p>
+<pre class="r"><code>ggplot(frec.tratam, aes(x=&quot;&quot;, y=Freq, fill=tratamiento)) + #defino los valores a graficar
+  geom_bar(stat=&quot;identity&quot;, width=1) + #defino la geometria del gráfico
+  coord_polar(&quot;y&quot;, start=0)+ # lo cambio a gráfico circular
+  theme_void() # le saco el fondo y los ejes</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Y acá es donde tenemos que escribir un par de códigos por separado. Para poder agregarle los nombres de los niveles en el gráfico y eliminar la leyenda, necesitamos calcular la posicion de cada nivel en el eje. Para ello necesitamos la ayuda del paquete <strong>dplyr</strong></p>
+<p>Entonces primero hacemos el calculo de la posicion de cada nivel:</p>
+<pre class="r"><code>library(dplyr)
+data &lt;- frec.tratam %&gt;% # nuestra base de datos
+  arrange(desc(tratamiento)) %&gt;% # ordena las filas por variable
+  mutate(prop = Freq / sum(frec.tratam$Freq) *100) %&gt;% # agrega columnas 
+  mutate(ypos = cumsum(prop)- 0.5*prop) # agrega columnas </code></pre>
+<p>Ahora, graficamos nuestro piechart con los nombres de nuestros niveles.</p>
+<pre class="r"><code>ggplot(data, aes(x=&quot;&quot;, y=prop, fill=tratamiento)) +
+  geom_bar(stat=&quot;identity&quot;, width=1, color=&quot;white&quot;) +
+  coord_polar(&quot;y&quot;, start=0) +
+  theme_void() + 
+  theme(legend.position=&quot;none&quot;) +
+  geom_text(aes(y = ypos, label = tratamiento), color = &quot;white&quot;, size=6)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Y si quiero, puedo cambiarle los colores:</p>
+<pre class="r"><code>ggplot(data, aes(x=&quot;&quot;, y=prop, fill=tratamiento)) +
+  geom_bar(stat=&quot;identity&quot;, width=1, color=&quot;white&quot;) +
+  coord_polar(&quot;y&quot;, start=0) +
+  theme_void() + 
+  theme(legend.position=&quot;none&quot;) +
+  geom_text(aes(y = ypos, label = tratamiento), color = &quot;white&quot;, size=6) +
+  scale_fill_manual(values = c(&quot;black&quot;, &quot;grey&quot;, &quot;blue&quot;, &quot;red&quot;))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><strong>Críticas al piechart</strong></p>
+<p>Muchos/as han desaconsejado el uso del gráfico de torta o piechart, debido a que en algunas ocasiones las diferencias en las proporciones de cada nivel no son tan fácilmente diferenciables.</p>
+<p>Si no me crees, mirá el ejemplo de este link y te vas a convencer <a href="https://www.data-to-viz.com/caveat/pie.html" class="uri">https://www.data-to-viz.com/caveat/pie.html</a></p>
+<p>Han surgido algunas alternativas que podrían ser más recomendables. Vamos a ver un par de ejemplos.</p>
+<p><strong>Donutchart</strong></p>
+<p>Si bien puede sufrir los mismos problemas que el piechart, en algunas ocasiones puede ser superador.</p>
+<p>Vamos a construirlo con ggplot2, que si bien no existe un comando para graficarlo directamente, hay que programar las modificaciones como hicimos para el piechart.</p>
+<p>Entonces partiendo de nuestro data frame, vamos a calcular las proporciones de cada nivel de nuestra variable “tratamiento”</p>
+<pre class="r"><code>frec.tratam2 &lt;- frec.tratam %&gt;% # data frame
+  arrange (desc(tratamiento)) %&gt;% # orden descendente de nuestros niveles
+  mutate(prop = Freq / sum(Freq)) %&gt;% # calculamos las frecuencias relativas
+  mutate(ymax = cumsum(prop)) %&gt;% # las frecuencias acumuladas
+  mutate(ymin = c(0, head(ymax, n=-1)))</code></pre>
+<p>Ahora graficamos. Vamos por parte para que se visualice cada codigo lo que hace:</p>
+<pre class="r"><code>ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)) + #definimos los valores que vamos a graficar
+  geom_rect() #definimos la geometría</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Ahora lo confiruramos para que sea circular:</p>
+<pre class="r"><code>ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)) + #definimos los valores que vamos a graficar
+  geom_rect()+#definimos la geometría
+  coord_polar(theta=&quot;y&quot;) #modificamos a forma circular</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Le damos forma de “dona”:</p>
+<pre class="r"><code>ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)) + #definimos los valores que vamos a graficar
+  geom_rect()+#definimos la geometría
+  coord_polar(theta=&quot;y&quot;)+ #modificamos a forma circular
+  xlim(c(2, 4)) #definimos el centro</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Y le sacamos el fondo gris y los datos de los ejes que no necesitamos:</p>
+<pre class="r"><code>ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)) + #definimos los valores que vamos a graficar
+  geom_rect()+#definimos la geometría
+  coord_polar(theta=&quot;y&quot;)+ #modificamos a forma circular
+  xlim(c(2, 4)) + #definimos el centro
+  theme_void() #eliminamos el fondo gris y los valores</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Y por último le agregamos los nombres de los niveles en el lugar que corresponden, para eso calculamos la posicion de los niveles:</p>
+<pre class="r"><code>frec.tratam2 &lt;- frec.tratam2 %&gt;% #data frame
+  mutate(labelposition= (ymax + ymin) / 2)%&gt;%
+  mutate(label= paste0(tratamiento, &quot;\n value: &quot;,Freq))</code></pre>
+<p>Y ahora los graficamos,sacamos la leyenda y le cambiamos el color. También podemos “afinar” nuestro gráfico y para eso solo debemos cambiar los valores del comando <code>xlim()</code>. Veamos:</p>
+<pre class="r"><code>ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)) + #definimos los valores que vamos a graficar
+  geom_rect()+#definimos la geometría
+  coord_polar(theta=&quot;y&quot;)+ #modificamos a forma circular
+  xlim(c(-1, 4)) + #definimos el centro
+  theme_void()+ #eliminamos el fondo gris y los valores
+  geom_label( x=3.5, aes(y=labelposition, label=label), size=3) + #definimos las etiquetas
+  theme(legend.position = &quot;none&quot;)+#eliminamos la leyenda
+   scale_fill_brewer(palette=4)# cambiamos la paleta de colores</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><strong>Lollipop</strong></p>
+<p>Es básicamente un gráfico de barras en el que cambiamos las barras por segmentos y puntos.</p>
+<pre class="r"><code>ggplot(frec.tratam, aes(x=tratamiento, y=Freq)) + #definimos los valores
+  geom_point() + #graficamos los puntos
+  geom_segment( aes(x=tratamiento, xend=tratamiento, y=0, yend=Freq))+ #unimos el eje x con los puntos
+  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10)) #definimos las marcas del eje y</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Podemos modificar el color y tamaño de los puntos:</p>
+<pre class="r"><code>ggplot(frec.tratam, aes(x=tratamiento, y=Freq)) + #definimos los valores
+  geom_point( size=5, color=&quot;red&quot;, alpha=0.7) + #graficamos los puntos
+  geom_segment( aes(x=tratamiento, xend=tratamiento, y=0, yend=Freq))+ #unimos el eje x con los puntos
+  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10)) #definimos las marcas del eje y</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Podemos modificar las formas del punto, al agregar en <code>aes(shape=)</code> en el renglor de geometria:</p>
+<pre class="r"><code>ggplot(frec.tratam, aes(x=tratamiento, y=Freq)) + #definimos los valores
+  geom_point(aes(shape= tratamiento), size=5, color=&quot;red&quot;, alpha=0.7) + #graficamos los puntos
+  geom_segment( aes(x=tratamiento, xend=tratamiento, y=0, yend=Freq))+ #unimos el eje x con los puntos
+  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10)) #definimos las marcas del eje y</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>También podemos cambiarle el formato del segmento, engrosar la línea, ponerle color o hacerla punteada:</p>
+<pre class="r"><code>ggplot(frec.tratam, aes(x=tratamiento, y=Freq)) + #definimos los valores
+  geom_point(aes(shape= tratamiento), size=5, color=&quot;red&quot;, alpha=0.7) + #graficamos los puntos
+  geom_segment( aes(x=tratamiento, xend=tratamiento, y=0, yend=Freq), size=1, color= &quot;blue&quot;, linetype= &quot;dotdash&quot;)+ #ual agregarle size, color, y linetype puedo cambiar el tamaño, color y tipo de linea.
+  scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10)) #definimos las marcas del eje y</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><strong>Treemap</strong></p>
+<p>Este gráfico de la libreria<code>treemap</code> permite graficar relaciones jerarquicas de los niveles de una variable.</p>
+<p>Esto gráficos se originaron para visualizar la estructura y tamaño de los archivos en el disco duro de un ordenador, pero han sido aplicados a diferentes áreas y ejemplos.</p>
+<p>Permiten visualizar una garan cantidad de datos en espacio reducido y de forma visualmente sencilla.</p>
+<p>Su progamación es muy sencilla, y dado que en el ejemplo que estamos realizando tenemos pocos datos, veamos la base de su programación:</p>
+<pre class="r"><code>library(treemap)
+treemap(frec.tratam,#nuestro data frame
+        index=&quot;tratamiento&quot;, #la colunmna con la variable cualitativa
+        vSize=&quot;Freq&quot;,#la columna con la variable numérica
+        type=&quot;index&quot; #determinamos como coloreamos los rectangulos, en este caso los va a colorear de acuerdo a nuestros niveles de la columna &quot;tratamiento&quot;
+)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>Se pueden agregar subniveles, cambiar los colores, nombres de las etiquetas, los bordes, entre otros cambios que pueden hacerse. Si les interesan estos gráficos, pueden consultar este link <a href="https://r-graph-gallery.com/236-custom-your-treemap.html" class="uri">https://r-graph-gallery.com/236-custom-your-treemap.html</a> para ver mas opciones de programación.</p>
+</div>
+<div id="y-fín" class="section level2">
+<h2>¡Y FÍN!</h2>
+<p>Pero cuéntanos, ¿Te gusta trabajar con gráficos? ¿Cuál es tu favorito? ¿Cuál quieres ver aquí en el blog? ¡Deja la sugerencia en nuestras redes sociales (<a href="https://twitter.com/somaquadrados">twitter</a>/<a href="https://www.instagram.com/somaquadrados/">instagram</a>).</p>
+<p><img src="featuredg.jpg" /></p>
+</div>
