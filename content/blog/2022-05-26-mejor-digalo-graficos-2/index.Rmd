@@ -177,7 +177,7 @@ ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)
   geom_rect() #definimos la geometría
 ```
 
-Ahora lo confiruramos para que sea circular:
+Ahora lo configuramos para que sea circular:
 
 ```{r message=FALSE, warning=FALSE}
 ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)) + #definimos los valores que vamos a graficar
@@ -267,11 +267,11 @@ ggplot(frec.tratam, aes(x=tratamiento, y=Freq)) + #definimos los valores
 
 **Treemap**
 
-Este gráfico de la libreria`treemap` permite graficar relaciones jerarquicas de los niveles de una variable.
+Este gráfico de la libreria `treemap` permite graficar relaciones jerarquicas de los niveles de una variable.
 
 Esto gráficos se originaron para visualizar la estructura y tamaño de los archivos en el disco duro de un ordenador, pero han sido aplicados a diferentes áreas y ejemplos.
 
-Permiten visualizar una garan cantidad de datos en espacio reducido y de forma visualmente sencilla.
+Permiten visualizar una gran cantidad de datos en espacio reducido y de forma visualmente sencilla.
 
 Su progamación es muy sencilla, y dado que en el ejemplo que estamos realizando tenemos pocos datos, veamos la base de su programación:
 
