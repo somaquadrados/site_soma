@@ -117,7 +117,7 @@ data &lt;- frec.tratam %&gt;% # nuestra base de datos
 <pre class="r"><code>ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)) + #definimos los valores que vamos a graficar
   geom_rect() #definimos la geometría</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>Ahora lo confiruramos para que sea circular:</p>
+<p>Ahora lo configuramos para que sea circular:</p>
 <pre class="r"><code>ggplot(frec.tratam2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tratamiento)) + #definimos los valores que vamos a graficar
   geom_rect()+#definimos la geometría
   coord_polar(theta=&quot;y&quot;) #modificamos a forma circular</code></pre>
@@ -175,9 +175,9 @@ data &lt;- frec.tratam %&gt;% # nuestra base de datos
   scale_y_continuous(breaks = c(0,1,2,3, 4,5, 6,7,8,9,10)) #definimos las marcas del eje y</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p><strong>Treemap</strong></p>
-<p>Este gráfico de la libreria<code>treemap</code> permite graficar relaciones jerarquicas de los niveles de una variable.</p>
+<p>Este gráfico de la libreria <code>treemap</code> permite graficar relaciones jerarquicas de los niveles de una variable.</p>
 <p>Esto gráficos se originaron para visualizar la estructura y tamaño de los archivos en el disco duro de un ordenador, pero han sido aplicados a diferentes áreas y ejemplos.</p>
-<p>Permiten visualizar una garan cantidad de datos en espacio reducido y de forma visualmente sencilla.</p>
+<p>Permiten visualizar una gran cantidad de datos en espacio reducido y de forma visualmente sencilla.</p>
 <p>Su progamación es muy sencilla, y dado que en el ejemplo que estamos realizando tenemos pocos datos, veamos la base de su programación:</p>
 <pre class="r"><code>library(treemap)
 treemap(frec.tratam,#nuestro data frame
