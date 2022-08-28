@@ -1,0 +1,286 @@
+---
+title: "{ES} RASTER I (o cómo usar las armas para la ciencia)"
+excerpt: "Resumen para la página" ## !! Debe incluir un resumen aquí
+author: Rodrigo J. Alonso
+date: '2022-08-28'
+slug: raster_armas_para_la_ciencia_I ## es como se verá en la dirección para acceder a la publicación
+categories: 
+- "R"
+- "Análisis espacial"
+- "Raster"
+tags: 
+- "ES"
+- "Análisis espacial"
+subtitle: ''
+image:
+  focal_point: 'Center'
+  preview_only: no
+alt: ''
+output: 
+  html_document: 
+    fig_width: 5
+---
+
+
+
+<div id="introducción" class="section level2">
+<h2><strong>Introducción</strong></h2>
+<p>Podríamos pensar que los satétiles fueron creados con objetivos científicos, como explorar remotamente otros planetas, nuestra galaxia o el universo, o quizás podríamos pensar que son piezas claves en las telecomunicaciones y que, por lo tanto, fueron pensados para tal fin. Sin duda alguna hoy en día estas máquinas, que orbitan la tierra de muchas formas, nos brindan toneladas de información diaria sobre inimaginables cosas (<a href="https://www.argentina.gob.ar/ciencia/conae/misiones-espaciales/sac-c/introduccion" title="SAC-C">temperaturas, humedad</a>, <a href="https://elpais.com/sociedad/2011/06/10/actualidad/1307656810_850215.html" title="SAC-D/Aquarius">salinidad de los océanos</a>, <a href="https://www.britespace.eu/" title="BRITESPACE">emisión de gases de efecto invernadero</a>, tipos de <a href="https://landsat.gsfc.nasa.gov/satellites/landsat-9/" title="Landsat">coberturas de la tierra</a>, <a href="https://webb.nasa.gov/" title="James Webb">distancias, formas, composición de estrellas, planetas, galaxias, agujeros negros</a> y un gigante etc.). Sin embargo, estos nos fueron sus orígenes. Estas maravillosas herramientas, como tantas otras, fueron creadas para la guerra. Los satélites modernos tienen su origen en la posguerra de la II Guerra Mundial, en el período (mal llamado) “Guerra Fría”. Fueron (<a href="https://www.france24.com/es/minuto-a-minuto/20220309-c%C3%B3mo-las-im%C3%A1genes-satelitales-privadas-est%C3%A1n-dando-forma-al-conflicto-ucraniano" title="Satélites privados en la Guerra Ruso-Ucraniana">y lo siguen siendo</a>) aparatos diseñados para controlar al enemigo (movimientos, posiciones, recursos, etc.). Como efecto colateral de este desarrollo surgieron todas las aplicaciones derivadas que ya mencionamos.</p>
+<p>No pretendemos angustiar a nadie con estas líneas, ni debatir sobre la condición humana (¿o si?). Pero quizás podamos aprender a usar algunas de estas armas con fines <em>de otra humanidad</em> y dibujar <a href="https://www.youtube.com/watch?v=-DRG6vCD2ts" title="&#39;Tu órbita&#39;, Bandalos Chinos">otras órbitas</a>.</p>
+</div>
+<div id="qué-es-un-raster" class="section level2">
+<h2><strong>¿Qué es un raster?</strong></h2>
+<p>La información satelital (también llamada de <em>sensores remotos</em>) suele encontrarse de dos formas posibles: como un conjunto de vectores de distintas dimensiones, es decir, en <strong>formato vectorial</strong>, o como una grilla/matriz, es decir, en <strong>formato raster</strong>. Sobre este último formato vamos a empezar a hablar hoy.</p>
+<p>Actualmente hay muchos y distintos tipos de software para el tratamiento de información espacial, los cuales forman parte de los llamados “Sistemas de Información Geográfica”(GIS, en inglés). En los últimos años se ha ido migrando de la utilización de dichos programas a entornos de programación abiertos, como R, Phyton, Java, etc. En este breve instructivo utilizaremos el software <a href="https://www.r-project.org/" title="R">R</a> dentro del entorno de <a href="https://www.rstudio.com/" title="RStudio">RStudio</a>.</p>
+<div id="creando-un-raster" class="section level3">
+<h3><strong>Creando un raster</strong></h3>
+<p>Como siempre y antes de comenzar con una nueva serie de comandos, vamos a borrar los elementos guardados en la memoria de R y limpiar el <em>environment</em>. Además, vamos a setear nuestro directorio de trabajo.</p>
+<pre class="r"><code>rm(list=ls())
+setwd(&quot;E:/User/transiciones_y_mapas&quot;)
+## !! Recuerde que a R no le gustan los espacios en los nombres de archivo, así que evítelo siempre que sea posible.</code></pre>
+<p>Hay varios paquetes en R para trabajar con datos espaciales. Uno de los últimos y más completos es <strong>terra</strong> <a href="https://www.youtube.com/watch?v=WsMLNm-R7Co" title="&#39;Terra&#39;s sacrifice&#39;, Teen Titans">(gracias Terra por tu sacrificio)</a>. Así que vamos a instalarlo y cargarlo.</p>
+<pre class="r"><code>install.packages(&quot;terra&quot;)
+library(terra)</code></pre>
+<p>Como dijimos anteriormente, un raster no es ni más ni menos que una matriz o grilla. El tamaño de la matriz está dado por el número de filas <strong>m</strong> y de columnas <strong>n</strong>. Cada intersección entre una fila y una columna representa el valor <strong>i</strong><sub>mn</sub>. Dicho valor puede ser numérico o categórico. Hagamos una matriz de 10 filas por 10 columnas, de forma tradicional:</p>
+<pre class="r"><code>## Creo un vector de valores de 1 a 100
+matriz &lt;- c(1:100) 
+## Asignamos las dimensiones de la matriz, en este caso de 10 x 10
+dim(matriz) &lt;- c(10,10) 
+## llamamos matriz
+matriz</code></pre>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+##  [1,]    1   11   21   31   41   51   61   71   81    91
+##  [2,]    2   12   22   32   42   52   62   72   82    92
+##  [3,]    3   13   23   33   43   53   63   73   83    93
+##  [4,]    4   14   24   34   44   54   64   74   84    94
+##  [5,]    5   15   25   35   45   55   65   75   85    95
+##  [6,]    6   16   26   36   46   56   66   76   86    96
+##  [7,]    7   17   27   37   47   57   67   77   87    97
+##  [8,]    8   18   28   38   48   58   68   78   88    98
+##  [9,]    9   19   29   39   49   59   69   79   89    99
+## [10,]   10   20   30   40   50   60   70   80   90   100</code></pre>
+<p>El objeto <strong>matriz</strong> es nuestra matriz, donde cada una de las 100 casillas toma valores del 1 al 100. Transformemos a esta matriz en un objeto tipo raster y veamos qué pinta tiene:</p>
+<pre class="r"><code>## rast: convierte matrices a raster. 
+## También lee rasters y hace rasters automaticamente.
+raster1 &lt;- rast(matriz) 
+
+## graficando la matriz
+plot(raster1)</code></pre>
+<p><img src="staticunnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Lo que nos muestra este gráfico es nuestra matriz de 10 x 10, donde cada unas de las intersecciones toma un valor, señalizado en la escala de colores de la derecha (0: blanco, 100: verde). El objeto <strong>raster1</strong> ha dejado de ser una matriz, para transformarse en un objeto raster.</p>
+<p>Otra forma de hacer un raster es utilizando directamente la función <em><code>rast()</code></em>. Veamos cómo:</p>
+<pre class="r"><code>## Es necesario expresar explicitamente los límites del raster (x,y min/max) 
+## para que sea igual a la matriz que hicimos antes.
+raster2 &lt;- rast(ncol = 10, # número de columnas n
+          nrow = 10, # número de filas m
+          xmin = 0, # coordenada x inicial
+          xmax = 10, # coordenada x final
+          ymin = 0, # coordenada y inicial
+          ymax = 10) # coordenada y final</code></pre>
+<p>El objeto <strong>raster2</strong> es creado directamente como un objeto raster. Sin embargo, no tiene valores, es simplemente un esqueleto.</p>
+<pre class="r"><code>raster2</code></pre>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 10, 0, 10  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84</code></pre>
+<p>Vamos a asignarle valores:</p>
+<pre class="r"><code>## El número de celdas.
+ncell(raster2) </code></pre>
+<pre><code>## [1] 100</code></pre>
+<pre class="r"><code>## Le decimos que adopte los valores desde 1 hasta el número de celdas de raster2
+values(raster2) &lt;- 1:ncell(raster2) 
+
+## graficamos
+plot(raster2)</code></pre>
+<p><img src="staticunnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>El raster <strong>raster2</strong> es igual al <strong>raster1</strong>, solo cambia la forma en que se le asignaron los valores a cada una de las casillas. Hasta el momento tenemos dos objetos raster, pero ninguno de ellos tiene un valor espacial. Para otorgarle espacialidad, tenemos que ubicarlos en algún lugar de la Tierra. Para ello, los vamos a proyectar utilizando un <strong>Sistema de Coordenadas Referencia</strong> (CRS, en inglés) determinado.</p>
+<p>Hay al menos dos formas de asignarle un CRS a un objeto: podemos asignarle cada uno de los elementos del CRS a mano en lo que se conoce como cadena “proj4” o asignarle un código EPSG (EPSG: European Petroleum Search Group), que ya contiene todos los elementos codificados.</p>
+<blockquote>
+<p>Cabe mencionar que la cadena “proj4” está en desuso, y que la mayoría de los paquetes para el manejo de datos espaciales en R utilizan de una u otra forma los códigos EPSG. ¿Por qué sucede esto? Veamos.</p>
+</blockquote>
+<p>Vamos a proyectar nuestro raster usando la proyección <a href="https://ramsac.ign.gob.ar/posgar07_pg_web/documentos/Informe_sobre_codigos_oficiales_EPSG.pdf,%22Proyecciones%20de%20Argentina%22"><strong>POSGAR 2007 faja 5</strong></a>, utilizada para proyectar imágenes en ciertas partes de Argentina:</p>
+<pre class="r"><code>crs(raster1) &lt;- &quot; +proj=tmerc +lat_0=-90 +lon_0=-60 +k=1 +x_0=5500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;
+#+proj: tipo de proyección, en este caso Trasversal Mercator.
+#+lat_0: valor de latitud 0 u origen.
+#+lon_0: valor de longitud 0 u origen.
+#+k:factor de escalado del meridiano central
+#+x_0: valor del falso este
+#+y_0: valor del falso norte
+#+ellps: elipsoide de referencia (¿qué forma de la tierra se encaja con tu proyección?)
+#+towgs84: otros factores de escalado
+#+units: unidad de medida
+#+no_defs: sin otros seteos por default.
+raster1</code></pre>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 10, 0, 10  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=tmerc +lat_0=-90 +lon_0=-60 +k=1 +x_0=5500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+## source      : memory 
+## name        : lyr.1 
+## min value   :     1 
+## max value   :   100</code></pre>
+<p>En “coord. ref.” podemos ver los parámetros del CRS que le asignamos. Para poder proyectar una imagen y/o entender los parámetros de la cadena proj4 casi que tenemos que hacer un curso de cartografía. Veamos cómo es el comando para asignarle una proyección a nuestro raster utilizando los códigos EPSG. El código EPSG de <strong>POSGAR 2007 faja 5</strong> es 5347:</p>
+<pre class="r"><code>## asignación de la proyección
+crs(raster2) &lt;- &quot;epsg:5347&quot;
+
+## la salida
+raster2</code></pre>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 10, 0, 10  (xmin, xmax, ymin, ymax)
+## coord. ref. : POSGAR 2007 / Argentina 5 (EPSG:5347) 
+## source      : memory 
+## name        : lyr.1 
+## min value   :     1 
+## max value   :   100</code></pre>
+<p><strong>¡Me estas jodiennndoo!</strong> diría un <a href="https://www.youtube.com/watch?v=hG5WfT0h3Ig" title="Nicolás Cabré">famoso actor argentino</a>. Con un simple código, establecimos el CRS. Al final, la industria petrolera no era taaan mala… (es broma, lo es). Supongamos que queremos proyectar un elemento espacial, en este caso un raster, con los valores de un CRS de otro elemento espacial. Podemos extraer los valores de un CRS y asignarselos a otro:</p>
+<pre class="r"><code>## asignando la proyección del raster 2 en el 1
+crs(raster1) &lt;- crs(raster2)
+
+## nueva proyección
+raster1</code></pre>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 10, 0, 10  (xmin, xmax, ymin, ymax)
+## coord. ref. : POSGAR 2007 / Argentina 5 (EPSG:5347) 
+## source      : memory 
+## name        : lyr.1 
+## min value   :     1 
+## max value   :   100</code></pre>
+<p>¡Genial! Ahora sí tenemos un objeto explícitamente espacial. ¿Dónde está ubicado? Como nosotros le asignamos una extensión (x min/max,y min/max), toma esos valores como coordenadas. La proyección que nosotros utilizamos tiene un meridiano central que asume el valor 5500000 = x. Es decir, nuestro <strong>raster1</strong> inicia a 5500000m a la izquierda de este meridiano central y termina a 5499900m del mismo. En cuanto a la posición Y, nuestro CRS toma el valor 0 en el polo sur, al igual que nuestro raster (ymin:0). Por lo tanto, el raster estaría en algún lugar cercano al polo sur. Por el momento, no nos interesa una visualización en el contexto planetario, lo dejaremos para más adelante, solo vamos a decir que con un simple cambio en la extensión del mapa, podríamos reubicarlo.</p>
+</div>
+<div id="operaciones-con-rasters" class="section level3">
+<h3><strong>Operaciones con rasters</strong></h3>
+<p>Ya vimos como crear un raster. También dijimos que un raster, en esencia, es una matriz con valores. Este concepto nos permite aplicarle álgebra matricial a nuestro objeto espacial. Veamos algunos ejemplos de operaciones básicas:</p>
+<ol style="list-style-type: decimal">
+<li>Hacer <strong>raster2</strong>x2 nos arroja un nuevo raster <strong>raster3</strong>, cuyos valores son el doble del <strong>raster2</strong>. Podemos verlo en la escala de la izquierda:</li>
+</ol>
+<pre class="r"><code>## multiplico los valores de la matriz &#39;raster2&#39; por 2
+raster3 &lt;- raster2 * 2 
+
+## el resultado
+plot(raster3)</code></pre>
+<p><img src="staticunnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>También es posible sumar los rásteres:</li>
+</ol>
+<pre class="r"><code>## sumamos el 2 con el 3 y creamos el 4
+raster4 &lt;- raster2 + raster3 
+
+## mira cómo cambia la escalda de valores!
+plot(raster4) </code></pre>
+<p><img src="staticunnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Ahora el valor máximo del raster raster4 es 300, que es la suma del máximo entre 2 y 3. Esto nos muestra que la suma se hace al igual que la suma de matrices, posición a posición. Como la suma y la multiplicación son operaciones admitidas, también lo serán la resta y la división.</p>
+<p>Otras funciones que resultan útiles a la hora de trabajar con objetos espaciales son las siguientes:</p>
+<p><code>class(raster)</code>: Nos dice con qué tipo de objeto espacial estamos lidiando.</p>
+<pre class="r"><code>class(raster2)</code></pre>
+<pre><code>## [1] &quot;SpatRaster&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;terra&quot;</code></pre>
+<p><code>cellSize(raster)</code>: Nos muestra el tamaño de la celda, en las unidades de la proyección que nosotros le dimos (m<sup>2</sup>).</p>
+<pre class="r"><code>cellSize(raster2)</code></pre>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 10, 0, 10  (xmin, xmax, ymin, ymax)
+## coord. ref. : POSGAR 2007 / Argentina 5 (EPSG:5347) 
+## source      : memory 
+## name        :      area 
+## min value   : 0.5158278 
+## max value   : 0.5158328</code></pre>
+<p><code>barplot(raster)</code>: Nos arroja un gráfico de barras con la frecuencia de los valores presentes en el raster. Especialmente útil para contabilizar y caracterizar ambientes según tipos de cobertura. En este caso, como los valores no se repiten, siempre tienen la frencuencia uno. Hagamos un raster con valores aleatorios y veamos que nos muestra la función <em>barplot</em>.</p>
+<pre class="r"><code>## Frecuencia de los valores ráster: todos tienen la misma frecuencia
+barplot(raster1)</code></pre>
+<p><img src="staticunnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## Para crear un ráster aleatorio, comenzando con la función de &#39;rast()&#39;:
+raster_aleatorio &lt;- rast(ncol = 10, nrow = 10, 
+                         xmin = 0, xmax = 10, ymin = 0, ymax = 10) 
+
+## En la secuencia, asignamos valores al azar entre 1 y 100 con la funcion runif()
+## (para más info a respecto de runif, ejecutar &#39;?runif&#39;):
+values(raster_aleatorio) &lt;- runif(100, min = 1, max = 100) 
+
+## Asignamos la misma proyección que el raster2
+crs(raster_aleatorio)  &lt;- crs(raster2)
+
+## Graficamos el raster ...
+plot(raster_aleatorio)</code></pre>
+<p><img src="staticunnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># ... y el gráfico de barras
+barplot(raster_aleatorio)</code></pre>
+<p><img src="staticunnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## !! Ahora vemos que, por azar, hay varios valores repetidos en el raster.</code></pre>
+<p><code>crds(raster, df = TRUE, na.rm = TRUE)</code>: Otra función interesante es la de capturar los valores de las coordenadas X e Y de nuestro raster (o de cualquier raster/objeto espacial) y guardarlas en un objeto de tipo “<em>data frame</em>” (tabla de datos):</p>
+<pre class="r"><code>coordenadas &lt;- crds(raster2, 
+                    df = TRUE, # parámetro para guardar valores en &#39;data frame&#39;
+                               # si es FALSE, guarda en formato de matriz. 
+                    na.rm = TRUE) # Si TRUE, excluyen las celdas VERDADERAS que son NA
+
+## resultado
+head(coordenadas)</code></pre>
+<pre><code>##     x   y
+## 1 0.5 9.5
+## 2 1.5 9.5
+## 3 2.5 9.5
+## 4 3.5 9.5
+## 5 4.5 9.5
+## 6 5.5 9.5</code></pre>
+<p><code>c(raster1, raster2, …, rastern)</code>: Otra función muy útil es la que nos permite hacer una “pila” (<em>stack</em>, en inglés) de rasters. Cada raster será un capa (layer, en inglés). Esta función es especialmente útil cuando tenemos imágenes provenientes de distintas fuentes, como por ejemplo de sensores multiespectrales. Se puede asignar una imagen a un determinado color y crear imágenes compuestas. Pero eso también lo veremos más adelante.</p>
+<pre class="r"><code>## primero hago un &quot;vector&quot; de rasters con la función de concatenación &#39;c()&#39;
+pila &lt;- c(raster1, raster2, raster3, raster4) 
+
+## resultado
+pila</code></pre>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 4  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 10, 0, 10  (xmin, xmax, ymin, ymax)
+## coord. ref. : POSGAR 2007 / Argentina 5 (EPSG:5347) 
+## sources     : memory  
+##               memory  
+##               memory  
+##               ... and 1 more source(s)
+## names       : lyr.1, lyr.1, lyr.1, lyr.1 
+## min values  :     1,     1,     2,     3 
+## max values  :   100,   100,   200,   300</code></pre>
+<p>Nuestro stack <strong>pila</strong> sigue siendo un raster espacial (mira la classe!):</p>
+<pre class="r"><code>class(pila)</code></pre>
+<pre><code>## [1] &quot;SpatRaster&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;terra&quot;</code></pre>
+<p>Si llamamos a la función “<code>plot()</code>” con el nombre de nuestro objeto <strong>pila</strong>, se trazan todos los rásteres que componen nuestra <strong>pila</strong>:</p>
+<pre class="r"><code>plot(pila)</code></pre>
+<p><img src="staticunnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Si necesitamos trabajar con una de las capas de la pila, podemos extraerla de manera individual:</p>
+<pre class="r"><code>## guarda el raster número 4 en un objeto llamado &quot;pila_4&quot;
+pila_4 &lt;- pila[[4]]
+
+## el resultado
+pila_4</code></pre>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 10, 0, 10  (xmin, xmax, ymin, ymax)
+## coord. ref. : POSGAR 2007 / Argentina 5 (EPSG:5347) 
+## source      : memory 
+## name        : lyr.1 
+## min value   :     3 
+## max value   :   300</code></pre>
+<blockquote>
+<p><u>Nota</u>: Si no sabe cómo manejar objetos en R, tenemos una clase aquí en el blog (<a href="https://introduccionalr.netlify.app/2021/07/20/clase-2/">haga clic aquí</a>).</p>
+</blockquote>
+<p><code>writeRaster(raster, 'nombre_raster.tif')</code>: Por último, una vez que hayamos terminado de trabajar con nuestros raster, podemos guardarlos como imágenes y dejarlas disponibles para un futuro trabajo en algún SIG (o “Sistema de Información Geográfica”):</p>
+<pre class="r"><code>writeRaster(pila,&quot;raster_pila.tif&quot;) </code></pre>
+</div>
+</div>
+<div id="conclusión" class="section level2">
+<h2><strong>Conclusión</strong></h2>
+<p>Ahora que sabemos un poquito más sobre cómo funcionan los rasters y qué podemos hacer con ellos, nos adentraremos en algunos de los tantos trabajos que podemos realizar usando objetos espaciales tipo raster, además de cómo visualizarlos y, si nos da el tiempo, obtener algunos datos y clasificar alguna imagen obtenida por sensores remotos multiespectrales.</p>
+<p>¡Esperamos que haya sido útil!</p>
+<p>Nos leemos 👋</p>
+<p><img src="fin.gif" /></p>
+</div>
