@@ -1,0 +1,376 @@
+---
+title: "RASTER II (o cómo usar las armas para la ciencia)"
+author: "Rodrigo J. Alonso"
+date: '2022-08-17'
+output: 
+  html_document:
+    toc: yes
+    toc_depth: 3
+    theme: united
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **Introducción**
+
+En la entrega anterior ([a la cual pueden acceder desde aquí](https://www.somaquadrados.com/blog/raster_armas_para_la_ciencia_i/)), además de tirar los ánimos abajo charlando sobre el orígen de los satélites, creamos algunos raster desde las bases. También los ubicamos en el espacio, hicimos algunas operaciones, los apilamos, etc. La idea de esta entrega es que profundicemos un poquito en los parámetros de visualización de los rasters y podamos elaborar un mapa, con todos sus elementos, en el entorno de [**R**](https://www.r-project.org/ "R") y [**R Studio**](https://www.rstudio.com/ "RStudio"). Prometemos no amargarle el día a nadie, por ahora...
+
+## **Cargando una imágen prediseñada**
+
+Ya vimos que un raster no es otra cosa que una [matriz de valores](https://www.youtube.com/watch?v=-zdAicjlnao&list=PLqnnuEVGcRQyQhvsd5Tl47q9JllRqcnGY&index=2 "Matrix") espacialmente contextualizada a partir de un SCR. Otra forma de trabajar con imágenes tipo raster es a partir de un archivo TIFF ([Tagged Image File Format](https://es.wikipedia.org/wiki/TIFF "TIFF")) ya creado. Las imágenes satelitales tomadas por distintas agencias espaciales suelen estar disponibles de forma gratuita y cuentan con un importante set de imágenes periódicas y de alta resolución de la Tierra. Las más usadas son [MODIS](https://modis.gsfc.nasa.gov/data/ "MODIS - NASA"), [Landsat](https://landsat.gsfc.nasa.gov/ "Landsat") y [Sentinel](https://www.sentinel-hub.com/, "Sentinel - ESA"). Todas ellas vienen en formato TIFF. Como suelen ser imágenes multiespectrales y de grandes extensiones tienen un tamaño (en bytes) del orden de los Gigabytes. Para evitar los problemas que acarrea trabajar con tamañas imágenes, vamos a cargar una imagen prefabricada de la recientemente creada [Reserva Ecológica Costanera Norte](http://www.recucn.com.ar/ "RECN"). Agradecemos publicamente al [Dr. Horacio Cirolli del Grupo de Investigación en Ecología de Humedales](https://www.ege.fcen.uba.ar/investigacion/grupo-de-investigacion-en-ecologia-de-humedales-gieh/ "GIEH") y a la materia de la FCEN [Ecología Ambiental](https://www.ege.fcen.uba.ar/academico/materias-de-grado/materias-del-ciclo-superior-primer-cuatrimestre/materias-del-area-ecologia/ecologia-ambiental/ "Ecología Ambiental") por darnos acceso a estos archivos. Hechos los agradecimientos de rigor ¡manos a la obra!
+
+Como siempre y antes de hacer cualquier otra cosa, borramos la memoria de R y establecemos el directorio de trabajo:
+
+```{r, message=FALSE}
+rm(list=ls())
+setwd("E:/Rodrigo/transiciones y mapas")
+```
+
+Utilizando el paquete **terra** ([¡Si! ¡Terra ha vuelto!](https://www.youtube.com/watch?v=Rw4Z3ODiL04, "'Terra regresa', Teen Titans")), leemos el archivo TIFF (.tif) con nuestra información, usando otra vez el comando *rast*:
+
+```{r, message=FALSE}
+library(terra)
+RECN<-rast("RECU 2018 posgar 6.tif")
+```
+
+Chequeamos que efectivamente se haya cargado como un raster:
+
+```{r}
+class(RECN)
+```
+
+Y chusmeamos que hay dentro de él:
+
+```{r}
+RECN
+```
+
+Vemos lo siguiente: **1** Es, efectivamente, un raster; **2** Tiene 319 filas y 380 columnas (ya podemos imaginarnos un rectángulo alargado horizontalmente) y que tiene una sola capa (nlyr: number of layers); **3** El tamaño de las celdas es de aproximadamente 2 x 2. **4** La extensión (espacial) va, en el eje x, desde 6367012m hasta 6367772m y, en el eje y, desde los 6177273m hasta 6177912m. **5** El CRS utilizado para la proyección es POSGAR 2007 faja 6, cuyo código EPSG:5348 [(podemos ver aquí a qué zona de Argentina pertenece)]((https://ramsac.ign.gob.ar/posgar07_pg_web/documentos/Informe_sobre_codigos_oficiales_EPSG.pdf%20%22Proyecciones%20de%20Argentina%22)); **6 y 7** La fuente y el nombre del archivo; **8 y 9** **Valores mínimos y máximos** que adoptan las celdas. Estos últimos valores fueron asignados a distintas coberturas de la superficie, a partir de un relevamiento a campo. Antes de adentrarnos en la manipulación de los parámetros visuales, hagamos un plot:
+
+```{r fig.align="center"}
+plot(RECN)
+```
+
+Lo que observamos en este ya de por si bello grafiquito es el área mapeada con cada uno de los valores. El comando gráfico nos dibuja una escala de valores continua porque entiende que son valores numéricos. Sin embargo, cada valor representa una clase de cobertura y, por lo tanto, la escala debería ser discreta. Por otra parte, en los eje *x* e *y* vemos que se graficaron los valores de longitud (eje x) y latitud (eje y) de acuerdo al tipo de proyección que adoptamos (Posgar 2007 faja 6).
+
+## **Usando *base* y *terra* **
+### **Cambiando colores y escala con *base***
+
+Empecemos modificando la escala de valores del raster y los colores. Como tenemos valores o clases de cobertura que van de 1 a 8, podemos crear un vector del mismo tamaño con colores. Las clases de cobertura se corresponden con los siguientes valores: **1-\>Agua**, **2-\>Roca/Hormigón**,**3-\>Suelo desnudo**,**4-\>Vegetación acuática**,**5-\>Vegetación herbácea**,**6-\>Vegetación leñosa**,**7-\>Agua interior**,**8-\>Edificio de la FCEN**.
+
+```{r}
+colores<-c("blue","black","brown","cyan","green","forestgreen","skyblue","grey")
+```
+
+Usando *base* graficamos señalando el vector de colores:
+
+```{r fig.align="center"}
+plot(RECN,
+     main= "Reserva Ecológica Costanera Norte", #le ponemos un título
+     col= colores) #le indicamos el vector de colores como el conjunto de colores
+```
+
+¡Esto ya tiene otra pinta! Solo cambiando los colores, parece algo que tiene una forma y una disposición más tangible. Sabemos que probablemente estés pensando en que queres ver una imagen "real" del área de estudio para poder situarte. Pero ¡paciencia! ya habrá un *espacio* (guiño) para eso (y también para ver los cambios del espacio en el tiempo... ¿Acaso habrá una 3era entrega?). Si observamos la escala de la izquierda, sigue adoptando valores continuos pues, claro está, solo modificamos los colores. Vamos modificar la leyenda y veamos qué pasa.
+
+```{r fig.align="center"}
+par(xpd = FALSE) #parámetro que evita (FALSE) que grafiquemos por fuera de los límites del gráfico
+plot(RECN,
+     main= "Reserva Ecológica Costanera Norte", #le ponemos un título
+     col= colores, #le indicamos el vector de colores como el conjunto de colores
+     legend=F) 
+legend(
+  "topright", #Ponemos la leyenda arriba a la derecha
+  legend = c("Agua", "Roca/Hormigón", "Suelo desnudo", "Vegetación acuática", "Vegetación herbácea","Vegetación leñosa","Agua interior","Edif.FCEN"),
+  fill = colores #rellenamos la leyenda con los colores de las clases de cobertura
+  )
+```
+
+**Hermoso**... pero la leyenda nos tapa una parte de nuestra imagen. Vamos a setearle algunos parámetros para poner la leyenda por fuera del área graficada:
+
+```{r fig.align="center"}
+par(xpd = FALSE) #parámetro que evita (FALSE) que grafiquemos por fuera de los límites del gráfico
+plot(RECN,
+     main= "Reserva Ecológica Costanera Norte", #le ponemos un título
+     col= colores, #le indicamos el vector de colores como el conjunto de colores
+     legend=F) 
+par(xpd = TRUE) #parámetro que permite (TRUE) que grafiquemos por fuera de los límites del gráfico
+legend(
+  "topright", #Ponemos la leyenda arriba a la derecha
+  inset=c(-0.16,0), #desplazamos la leyenda sobre el eje x, hacia la derecha  
+  legend = c("Agua", "Roca/Hormigón", "Suelo desnudo", "Vegetación acuática", "Vegetación herbácea","Vegetación leñosa","Agua interior","Edif.FCEN"),
+  fill = colores #rellenamos la leyenda con los colores de las clases de cobertura
+  )
+```
+
+**Perfecto**... pero nos quedó por fuera del gráfico... modifiquemos el área de los márgenes entonces:
+
+```{r fig.align="center"}
+par(xpd = FALSE)
+plot(RECN,
+     mar=c(2,2,2,9), #agrandamos el márgen derecho (posición 4)
+     main= "Reserva Ecológica Costanera Norte", #le ponemos un título
+     col= colores, #le indicamos el vector de colores como el conjunto de colores 
+    legend=F)
+par(xpd = TRUE)#parámetro que permite (TRUE) que grafiquemos por fuera de los límites del gráfico
+legend(
+  "topright", #Ponemos la leyenda arriba a la derecha
+  inset=c(-0.33,0), #desplazamos la leyenda sobre el eje x, hacia la derecha  
+  legend = c("Agua", "Roca/Hormigón", "Suelo desnudo", "Vegetación acuática", "Vegetación herbácea","Vegetación leñosa","Agua interior","Edif.FCEN"),
+  fill = colores, #rellenamos la leyenda con los colores de las clases de cobertura
+  bty="n", #le quitamos el cuadro
+  title=(expression(bold("Tipo de cobertura"))),#Le ponemos título a la leyenda en negrita
+  cex = 0.8) #achicamos un poco la letra
+```
+
+**Una belleza**, nos queda un espacio debajo de la leyenda donde podemos agregar un mapita de referencia con cualquier editor de imágenes (o con R). Veamos una forma de hacer eso:
+
+```{r fig.align="center"}
+library(png) #Cargamos el paquete png para leer imágenes png
+picture<-readPNG("argentina_png.png") #leemos una imagen prediseñada png
+```
+
+Con el comando anterior creamos un objeto PNG que es una imágen fija de Argentina. Ahora la vamos a insertar en nuestro raster:
+
+```{r fig.align="center"}
+par(xpd = FALSE)
+plot(RECN,
+     mar=c(2,2,2,9), #agrandamos el márgen derecho (posición 4)
+     main= "Reserva Ecológica Costanera Norte", #le ponemos un título
+     col= colores, #le indicamos el vector de colores como el conjunto de colores 
+    legend=F)
+par(xpd = TRUE)#parámetro que permite (TRUE) que grafiquemos por fuera de los límites del gráfico
+legend(
+  "topright", #Ponemos la leyenda arriba a la derecha
+  inset=c(-0.33,0), #desplazamos la leyenda sobre el eje x, hacia la derecha  
+  legend = c("Agua", "Roca/Hormigón", "Suelo desnudo", "Vegetación acuática", "Vegetación herbácea","Vegetación leñosa","Agua interior","Edif.FCEN"),
+  fill = colores, #rellenamos la leyenda con los colores de las clases de cobertura
+  bty="n", #le quitamos el cuadro
+  title=(expression(bold("Tipo de cobertura"))),#Le ponemos título a la leyenda en negrita
+  cex = 0.8) #achicamos un poco la letra
+par(xpd = TRUE)
+rasterImage(picture,6367800,6177270,6368070,6177685) #le setemos la ubicación en la escala del raster
+```
+
+Las coordenadas seteadas para el PNG tienen la forma (x<sub>1</sub>,y<sub>1</sub>) (abajo a la izquierda), (x<sub>2</sub>, y<sub>2</sub>) (arriba a la derecha). Con estas 4 coordenadas modificamos la extensión de la imagen y la ubicamos en nuestro mapita. Podríamos agregar alguna señalización para el área de estudio. Podemos dibujar un punto sobre el mapa de referencia, veamos una forma de hacerlo:
+
+### **Punto de referencia, escala y flecha al norte **
+Primero, vamos a creear un elemento vectorial puntual (un puntito) en las coordenadas donde esté nuestra área de estudio:
+
+```{r fig.align="center"}
+x<-c(6367995) #coordenada x en el gráfico
+y<-c(6177525) #coordenada y en el gráfico
+xy <- cbind(x,y) #los unimos en un elemento 
+xy<-vect(xy) #creamos un vector puntual con las coordenadas x e y
+```
+
+Luego agregamos nuestro vector puntual al raster que ya habíamos generado:
+```{r fig.align="center"}
+par(xpd = FALSE)
+plot(RECN,
+     mar=c(2,2,2,9), #agrandamos el márgen derecho (posición 4)
+     main= "Reserva Ecológica Costanera Norte", #le ponemos un título
+     col= colores, #le indicamos el vector de colores como el conjunto de colores 
+    legend=F)
+par(xpd = TRUE)#parámetro que permite (TRUE) que grafiquemos por fuera de los límites del gráfico
+legend(
+  "topright", #Ponemos la leyenda arriba a la derecha
+  inset=c(-0.34,0), #desplazamos la leyenda sobre el eje x, hacia la derecha  
+  legend = c("Agua", "Roca/Hormigón", "Suelo desnudo", "Vegetación acuática", "Vegetación herbácea","Vegetación leñosa","Agua interior","Edif.FCEN"),
+  fill = colores, #rellenamos la leyenda con los colores de las clases de cobertura
+  bty="n", #le quitamos el cuadro
+  title=(expression(bold("Tipo de cobertura"))),#Le ponemos título a la leyenda en negrita
+  cex = 0.8) #achicamos un poco la letra
+par(xpd = TRUE)
+rasterImage(picture,6367800,6177270,6368070,6177685) #le setemos la ubicación en la escala del raster
+par(xpd = TRUE)
+points(xy, cex=3, pch=20, col="red") #Agregamos un punto en el área de estudio
+```
+
+Casi, casi que tenemos nuestro primer mapita hecho con *base*. Nos quedaría agregar una Rosa de los Vientos (mejor nombre que "flecha al [norte](https://www.youtube.com/watch?v=SBYO1ZfxxS "'Pal norte', Calle 13")", estos tipejos del norte global siempre sintiéndose el center of the World) y una barra de escala. Intentemos agregar estos elementos en nuestro mapa, usando las herramienas que nos da *terra*:
+
+```{r fig.align="center"}
+par(xpd = FALSE)
+plot(RECN,
+     mar=c(2,2,2,9), #agrandamos el márgen derecho (posición 4)
+     main= "Reserva Ecológica Costanera Norte", #le ponemos un título
+     col= colores, #le indicamos el vector de colores como el conjunto de colores 
+    legend=F)
+par(xpd = TRUE)#parámetro que permite (TRUE) que grafiquemos por fuera de los límites del gráfico
+legend(
+  "topright", #Ponemos la leyenda arriba a la derecha
+  inset=c(-0.34,0), #desplazamos la leyenda sobre el eje x, hacia la derecha  
+  legend = c("Agua", "Roca/Hormigón", "Suelo desnudo", "Vegetación acuática", "Vegetación herbácea","Vegetación leñosa","Agua interior","Edif.FCEN"),
+  fill = colores, #rellenamos la leyenda con los colores de las clases de cobertura
+  bty="n", #le quitamos el cuadro
+  title=(expression(bold("Tipo de cobertura"))),#Le ponemos título a la leyenda en negrita
+  cex = 0.8) #achicamos un poco la letra
+par(xpd = TRUE)
+rasterImage(picture,6367800,6177270,6368070,6177685) #le setemos la ubicación en la escala del raster
+par(xpd = TRUE)
+points(xy, cex=1, pch=20, col="red") #Agregamos un punto en el área de estudio, lo achiqué
+sbar(200, #distancia cubierta por la barra o escala
+     xy="bottomleft", #ubicación
+     "bar", #tipo de escala, puede ser linea o barra
+     divs=4, #número de divisiones de la escala (2 o 4)
+     cex=0.8, 
+     label=c("0m", "100m" , "200m") #vector de posiciones de capas de texto sobre la barra  
+    )
+north(xy="topright", #flecha al norte
+      type = 2, #tipo de flechita, hay muchas
+      col="white") #color de la parte oscura
+```
+
+Ahora si, nuestro primer mapa hecho con *base* y el paquete *terra*. Obviamente se pueden cambiar muchos elementos estéticos más (tamaños y tipos de letras, colores de todos los elementos, etc.), pero esos detalles menores se lo dejamos a los futuros y futuras usuarias. Si bien el armado fue bastante casero, en el proceso pudios ir aprendiendo a juntar distintos elementos espaciales y comprender un poquito cómo es la lógica subyasente a la hora de trabajar con rasters (y vectores). Veamos otra forma de visualizar elementos espaciales.
+
+## **Usando *tmap* **
+Como mencionamos en otra oportunidad, hay muchos paquetes y formas de visualizar mapas en R. En las lineas subsiguientes intentaremos obtener un mapa básico de nuestra área de estudio, pero sepan que hay formas de hacer mapas interactivos con estos paquetes (por ejemplo, insertándolos en una shiny app) que escapan a esta sencilla explicación. Vamos a cargar algunos paquetes para la manipulación de datos vectoriales:
+```{r fig.align="center", message=FALSE}
+library(sf)
+```
+
+Y otros para la visulización de datos:
+```{r fig.align="center", message=FALSE}
+library(tmap)    
+library(leaflet) 
+library(ggplot2)
+```
+
+Vamos a crear otra capa raster dentro de RECN que tenga los valores de la capa original, pero como factores y no como valores y un vector con los nombres de las clases de cobertura:
+```{r}
+RECN$coberturas<-as.factor(RECN$`RECU 2018 posgar 6`)
+b<-c("Agua", "Roca/Hormigón", "Suelo desnudo", "Vegetación acuática", "Vegetación herbácea","Vegetación leñosa","Agua interior","Edif.FCEN")
+```
+
+### **Mapa base**
+Vamos a usar *tmap* para hacer la visualización del raster. Este paquete funciona con la lógica aditiva de *ggplot2*, por lo tanto, cada cosa que querramos agregar será indicada con un signo "+". Además, el término siguiente al "+" modifica lo anterior, es decir, si hacemos una operación de visualización sobre un término "A", entonces dado "A" + "B", "B" modificará a "A" y solo a "A". Para evitar que *tmap* se habra en otro modo  (modo sorpresa), le vamos a decir que lo que queremos ver son gráficos estáticos: 
+```{r fig.align="center", message=FALSE}
+tmap_mode("plot") #tmap modo gráfico
+tm_shape(RECN$coberturas) +  #capa de interés
+  tm_raster(style = "fixed", #leyenda de valores fijos
+            title = "Coberturas", #título de la leyenda
+            palette = colores, #paleta de colores,usamos vector "colores"
+            legend.show = FALSE) + #Le decimos que no queremos la leyenda por default
+  tm_legend(outside = T) + #le indicamos que la leyenda esté fuera del mapa
+  tm_grid(labels.inside.frame = FALSE, #agregamos una grilla. Que los valores de la grilla estén fuera del mapa 
+          n.x = 4, n.y = 4, #señalamos cuántas lineas queremos por eje. Pondrá de acuerdo a la proyección. 
+          projection = "WGS84", #cambiamos la proyección anterior, solo para variar
+           labels.format = list(digits = 3), #le indcamos la cantidad de dígitos detrás de la coma
+  labels.cardinal = T, #le indicamos que ponga en qué hemisferio nos encontramos
+  lines=F) + #sin lineas en el mapa (FALSE)
+  tm_layout(main.title = "Reserva Ecológica Costanera Norte", #título principal
+            main.title.position = "center") + #centrado
+  tm_compass(type = "arrow", #rosa de los vientos tipo flecha. Hay muchas opciones
+             size = 3, #tamaño
+             position = c("right", "top"),#ubicación en el mapa 
+             color.light ="black") + #color de la parte clara de la flecha
+  tm_scale_bar(position= c("left", "bottom"))+ #barra de escala.
+  tm_add_legend(labels = b, # agregamos la leyenda. #Los nombres son nuestras coberturas guardadas en "b"
+                col = colores, #colores
+                border.lwd = 0.5, #ancho del borde
+                title = (expression(bold("Coberturas"))), #título de leyenda
+                border.col = "white") #color del borde
+```
+
+**Muy lindo** y rápido. Algunas opciones ya vienen de fábrica y nos ahorran tiempo. Intentemos agregarle un mapa de referencia. En este caso, vamos a usar un mapa de la Ciudad de Bs. As (CABA). Primero, guardamos nuestra creación anterior en un elemento llamado **RESERVA**:
+```{r fig.align="center", message=FALSE}
+RESERVA<-tm_shape(RECN$coberturas) +  #Capa de interés
+  tm_raster(style = "fixed", #Leyenda de valores fijos
+            title = "Coberturas", #título de la leyenda
+            palette = colores, #paleta de colores,usamos vector "colores"
+            legend.show = FALSE) + #Le decimos que no queremos la leyenda por default
+  tm_legend(outside = T) + #le indicamos que la leyenda esté fuera del mapa
+  tm_grid(labels.inside.frame = FALSE, #agregamos una grilla. Que los valores de la grilla estén fuera del mapa 
+          n.x = 4, n.y = 4, #Señalamos cuántas lineas queremos por eje. Pondrá de acuerdo a la proyección. 
+          projection = "WGS84", #cambiamos la proyección anterior, solo para variar
+           labels.format = list(digits = 3), #le indcamos la cantidad de dígitos detrás de la coma
+  labels.cardinal = T, #Le indicamos que ponga en qué hemisferio nos encontramos
+  lines=F) + #Sin lineas en el mapa (FALSE)
+  tm_layout(main.title = "Reserva Ecológica Costanera Norte", #título principal
+            main.title.position = "center") + #centrado
+  tm_compass(type = "arrow", #rosa de los vientos tipo flecha. Hay muchas opciones
+             size = 3, #tamaño
+             position = c("right", "top"),#ubicación en el mapa 
+             color.light ="black") + #color de la parte clara de la flecha
+  tm_scale_bar(position= c("left", "bottom"))+ #barra de escala.
+  tm_add_legend(labels = b, # Agregamos la leyenda. #Los nombres son nuestras coberturas guardadas en "b"
+                col = colores, #colores
+                border.lwd = 0.5, #ancho del borde
+                title = (expression(bold("Coberturas"))), #título de leyenda
+                border.col = "white") #color del borde
+
+```
+
+### **Agregando un mapa de referencia**
+
+Cargamos un archivo vectorial de la [CABA](https://data.buenosaires.gob.ar/dataset/comunas/resource/Juqdkmgo-612222-resource "Gobierno de la Ciudad de Bs. As."):
+```{r fig.align="center", message=FALSE}
+CABA<-st_read("comunas_wgs84.shp") #función para cargar archivos vectoriales con sf
+class(CABA)
+str(CABA)
+```
+
+Con el comando **class** vemos que el archivo cargado es un "sf" (*simple feature*, archivo vectorial georreferenciado de características simples) y un *data frame* al mismo tiempo. En **str** vemos que hay varias columnas dentro del archivo, esto es porque posee distintos polígonos agrupados por algún criterio (Comuna, limite general, barrio, etc.). El hecho de que sea un data frame puede enmascarar la espacialidad del archivo vectorial. Para evitarnos ese problema, vamos a extraer un conjunto de polígonos del elemento **CABA** y vamos a validar sus coordenadas:
+
+```{r fig.align="center", message=FALSE}
+BARRIOS<-CABA[4]#Extraemos la columna 4: barrios de la CABA
+BARRIOS<-st_make_valid(BARRIOS) #validamos su disposición geográfica
+plot(BARRIOS)
+```
+
+El elemento creado es ahora propiamente un vector. Veamos su proyección y estructura:
+```{r}
+crs(BARRIOS)
+str(BARRIOS)
+BARRIOS$BARRIOS #vemos cómo es la columna de barrios
+```
+
+El CRS de la capa vectorial **BARRIOS** tiene el mismo CRS que nuestra capa reproyectada. Usando *tmp* vamos a crear un elemento que guarde las visualizaciones que queremos dentro de una lista. Aquí podríamos ponerle todo tipo de elementos visuales. Yo le voy a pedir que marque en rojo el barrio de Núñez, que es donde se encuentra la reserva.  
+
+```{r fig.align="center", message=FALSE}
+NUÑEZ<-BARRIOS[8,] #Extraigo el barrio de Núñez
+NUÑEZ<-st_make_valid(NUÑEZ) #validamos su disposición geográfica
+```
+
+Creamos un elemento *tmp* de la CABA con el barrio de Núñez marcado en rojo:
+
+```{r fig.align="center", message=FALSE}
+caba_shp <- tm_shape(BARRIOS) + #Hago una capa vectorial de la CABA
+  tm_polygons() +  #Le agrego la línea de polígonos de la CABA
+  tm_layout(title = "Ciudad Autónoma de Bs. As", frame = T, bg.color = NA, title.position = c("RIGHT", "BOTTOM")) + #Titulo
+  tm_shape(NUÑEZ) + #agrego el archivo vectorial del barrio Núñez y alrededores
+  tm_polygons(col = "red")#Lo pintamos de rojo
+caba_shp
+
+```
+
+Vamos a usar el paquete *grid* para insertar en nuestra RESERVA el mapa de la CABA:
+```{r fig.align="center", message=FALSE}
+library(grid)
+RESERVA
+print(caba_shp , vp = grid::viewport(0.81, 0.29, width = 0.4, height = 0.4))
+```
+
+**¡Excelente!** Nos quedó un bello mapita, con todos sus elementos. Así como insertamos el mapa de la CABA, podríamos haber realizado una composición de Sudamérica, Argentina, la provincia de Bs. As o lo que quisiésemos siempre y cuando contásemos con el archivo vectorial correspondiente. 
+
+### **Visualización de capa raster en *leaflet* **
+Por ultimo vamos a activar el visualizador sorpresa de *tmap*: tmap_mode("view") y veamos que nos muestra:
+```{r}
+tmap_mode("view") 
+```
+
+Nos sale un mensaje que nos avisa que está prendido el modo visualización. Vamos a correr nuestro archivo "RESERVA":
+```{r fig.align="center", message=FALSE}
+RESERVA
+```
+
+Lo que tenemos es un visualizador de la capa raster que se inserta en una base proporcionada por el paquete *leaflet*, el cual podemos manjera como si estuviésemos en Google Maps. Si Ud. quisiera, podría cargarle otros mapas base (ya trae algunos, como el Open Street Map) y apagar distintas capas. Cuando abrimos el visualizador, nos dice que la barra de escala y la Rosa de los Vientos no son compatibles (tampoco las necesitamos, aunque barra de escala trae incorporada). Ya puede armar sus propios mapas estáticos e interactivos para impresionar a toda la familia (?).
+
+## **Conclusión**
+En esta enrega nos empezamos a amigar con algunas formas de visualización de archivos espaciales tipo **raster**. También manipulamos algunos archivos **vectoriales** (*shape files*). Ud. puede encontrar en línea muchas formas de manipular archivos vectoriales, ya que son un poco más amigables que los tipo raster. Sin embargo, las herramientas que hemos visto también le permitirian, contando con los archivos vectoriales correspondintes, hacer un mapa de polígonos. En la próxima entrega hablaremos un poco más de la Reserva Ecológica Costanera Norte e intentaremos seguir su transformación en el tiempo y el espacio, de forma amigable e interaciva. ¡Au revoir!  
+
+
+
+
+
