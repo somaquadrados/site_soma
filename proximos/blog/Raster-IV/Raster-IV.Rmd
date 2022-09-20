@@ -1,0 +1,151 @@
+---
+title: "Raster IV (o cómo usar las armas para la ciencia)"
+author: "Rodrigo J. Alonso"
+date: '2022-09-13'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **Introducción**
+
+¡Hola! Aquí estamos otra vez, con nuestros tutoriales sobre herramientas espaciales. Esta vez les proponemos trabajar en una aplicación práctica de las herramientas geoespaciales, como lo es obtener métricas del paisaje. Cada vez es mucho más frecuente observar estudios en ecología que aborden múltiples escalas de análisis, ya sea para describir fenómenos comunitarios o poblaciones. Las imágenes satelitales, entonces, comienzan a ser de uso frecuente en estos estudios. Las características del paisaje pueden ser descriptas mediante una gran variedad de métricas, algunas de ellas muy simples, como el número de parches que componen un paisaje, hasta otras de mayor complejidad como lo son las dimensiones fractales. La comunión entre los sensores remotos y el software estadístico nos brindan la posibilidad manejar grandes cantidades de datos, tanto de grandes extensiones espaciales como de gran cantidad de unidades muestrales, con unas simples líneas de código. Pongámonos manos a la obra con un ejemplo usando el software **R** en el entorno de **R Studio**.
+
+Vamos a empezar, como siempre, seteando nustro directorio de trabajo:
+
+```{r}
+rm(list=ls())
+setwd("E:/Rodrigo/transiciones y mapas")
+```
+
+Vamos a cargar los paquetes que utilizamos para manejarnos con los archivos tipo raster, pero además, con algunos otros paquetes para trabajar con vectores:  
+
+```{r, message = FALSE}
+library(terra)
+library(dplyr)
+```
+
+Los paquetes *sf* (*simple feature*) y *sp* (*spatial*) nos permiten manipular datos espaciales tipo vectoriales (*shape files* en la jerga de los Sistemas de Información Geográfica):
+
+```{r, message = FALSE}
+library(sf)
+library(sp)
+```
+
+Los protagonistas de esta entrega serán dos paquetes hermanos: *ladscapemetrics* y *landscapetools*. Estos paquetes son adaptaciones de un viejo y muy util programa conocido como **FRAGSTAT**, desarrollado por McGarigal et al. (2012), quienes pertenecen al Departamento de Agricultura de EE.UU. Ambos paquetes funcionan juntos y poseen gran cantidad de métricas que pueden calcular, tanto a nivel de parche, como área o región. Para mayor detalle de las funciones, pueden ingresar a la página de [Landscapemetrics aquí](https://r-spatialecology.github.io/landscapemetrics/ "Landscape metrics"). Además usaremos el paquete *tidyverse* para modificar la estructura de la base de datos:    
+```{r, message = FALSE}
+library(landscapemetrics)
+library(landscapetools)
+library(tidyverse)
+```
+
+## **¿Cómo vamos a trabajar?**
+
+Les proponemos la siguiente situación hipotética como una buena excusa para aprender a manejar estas herramientas: Imaginémonos que estamos haciendo un relevamiento de fauna dentro de la Reserva Ecológica Costanera Norte - RECN. Nos toca, dentro del relevamiento, relevar las características del ensamble de los artrópodos caminadores. Para tal fin, vamos a colocar trampitas de caída distribuidas al azar en  la RECN. Una vez realizado eso (imaginemos que ya lo hicimos), quereremos estudiar la asociación entre las clases de cobertura en un área alrededor de la trampa (*área buffer*) con las especies capturadas, ya que suponemos que hay una relación entre estas clases y los atributos del ensamble de artrópodos.        
+
+## **Cargando nuestro raster**
+
+Vamos a usar la capa raster del RECN del 2018 que estuvimos utilizando en [las entregas anteriores sobre rasters](LINKS). Por supuesto que esta capa va a ser utilizada a modo de ejemplo y que el lector *debe* utilizar la capa que crea adecuada para sus fines, es decir, el uso de esta capa carece de fines científicos, sino que son puramente didácticos. Hechas estas aclaraciones, vamos a cargar nuestra capa, usando la función *rast* del paquete **terra**:
+
+```{r}
+RECN18<-rast("RECU 2018 posgar 6.tif")
+```
+
+## **Creando nuestras áreas buffer**
+
+Antes de crear nuestras, vamos crear puntos al azar dentro de la extensión de nuestra capa raster. Para saber cuáles son los valores máximos y mínimos de la extensión tanto en el eje X como en el eje Y, podemos usar la función xmin/xmax e ymin/ymax incluido en **terra**: 
+
+```{r}
+xmin(RECN18)
+xmax(RECN18)
+ymin(RECN18)
+ymax(RECN18)
+```
+
+Vamos a crear 30 puntos al azar. Necesitamos, entonces, 30 valores para la coordenada en X y 30 valores para la coordenada Y.Luego, pareamos las coordenadas dentro de un *data frame*: 
+
+```{r}
+set.seed(892)
+coordenada_X<-runif(30, min = xmin(RECN18), max = xmax(RECN18))
+coordenada_Y<-runif(30, min = ymin(RECN18), max = ymax(RECN18))
+coordenadas<-as.data.frame(cbind(coordenada_X, coordenada_Y))
+coordenadas
+```
+
+Por el momento, no tenemos más que una serie de pares de puntos sin espacialidad. Vamos a darle una ubicación espacial y crear nuestras áreas:  
+
+```{r}
+buffers_coord = st_as_sf(coordenadas,coords=c("coordenada_X","coordenada_Y")) #Seteamos las coordenadas como "simple features"
+st_crs(buffers_coord) = st_crs(RECN18) #Le ortogamos el CRS de nuestra capa raste
+areas_OK = st_buffer(buffers_coord, 20) #Le indicamos que haga un área "buffer" a partir de los puntos, de 20 m de radio. El valor dentro del argumento siempre está en los valores de la extensión del CRS, en este caso es en metros.
+areas_OK
+
+```
+
+El objeto *areas_OK* es un conjunto de polígonos creador alrededor de nuestros puntos hechos al azar. Vamos a graficar su ubicación dentro de nuestra área de estudio:
+
+```{r fig.align="center", message=FALSE}
+plot(RECN18)
+plot(areas_OK, add= TRUE)
+```
+Como vemos hay algunos círculos que, por estar distribuidos al azar, nos caen en cualquier lugar, por ejemplo en el edificio de la FCEN o en el medio del río. Por el momento no es un problema, una vez que tengamos las características que buscamos vamos a filtrar los datos.
+
+Una alternativa a la creación de las áreas buffer en R es importar los archivos vectoriales. Suele utilizarse el software libre QGis para tales fines, que brinda una interfaz más tradicional y con la que la mayoría de los usuarios pueden sentirse más comodos. Invitamos a abandonar esa supuesta comodidad y poner en práctica la forma que aquí le mostramos, mucho más práctica y sin complicaciones. Para ver la forma de importar archivos tipo shape pueden dirigirse [a la entrega Raster II](LINK). 
+
+## **Calculando las métricas dentro del área**
+
+Ya tenemos nuestras áreas buffer, tenemos nuestro raster, nos queda calcular las métricas del paisaje que nosotros querramos. A modo de ejemplo, en este caso vamos a calcular la proporción de cada clase de cobertura y el índice de diversidad de Shannon - Weiner y de Simpson dentro del área. Hay multiplicidad de funciones que se pueden calcular, como la densidad de borde, el número de parches, la dimensión fractal, etc., etc.
+
+Cada escala del paisaje tiene su propia función, por lo tanto, recomendamos usar el paquete de forma muy concienzuda, mirando cuidadosamente la función y la escala a emplear en la página del paquete [Landscapemetrics aquí](https://r-spatialecology.github.io/landscapemetrics/ "Landscape metrics"). 
+
+```{r fig.align="center", message=FALSE}
+PROP <- sample_lsm(RECN18, y = areas_OK, what = c("lsm_c_pland")) #Calcula la proporción 
+DIVER <- sample_lsm(RECN18, y = areas_OK, what = c("lsm_l_sidi","lsm_l_shdi")) #Calcula las diversidades
+```
+
+Si miran con atención los argumentos de la función, lo que le estamos indicando es: la capa raster, luego la geometría donde tiene que calcular la función y un vector de funciones (es decir, que admite más de una función a la vez).
+
+## **Reordenando la tabla**
+
+La tabla que sale de las funciones de **Landscapemetrics** es una tabla "a lo largo", es decir, cada valor se encuentra repetido *n* veces para cada objeto. Una forma más amigable (siempre dependiendo de nuestras necesidades, por supuesto), es tener una tabla "a lo ancho". Para cambiar entre formatos vamos "pivotear" en función de alguna variable. El resto de las variables se van a mover en función de esa variable pivote.
+
+Hablando de pivotes, nos tomamos el atrevimiento de ilustrar la función del pivote con el gran [Gabriel Deck](https://www.fiba.basketball/es/americup/2022/videos/Gabriel-Deck-%F0%9F%87%A6%F0%9F%87%B7-%7C-20-PTS-%7C-7-AST-%7C-1-REB "Grabiel Deck"), el ala-pivote de la Selección Argentina campeona de la AmeriCup frente a Brasil y MVP del torneo. El pivoteo es el movimiento que realiza sobre una pierna (variable pivote), hacia un lado y el otro, debajo del aro rival (como en el último punto del partido). Esperamos no ofender a ningún/a brasilero/a (¿o si?) ¡jajaja! 
+
+Entonces, para pivotear, vamos a usar el paquete *tydiverse* de la siguiente manera:
+```{r fig.align="center", message=FALSE}
+resultados_pp <- PROP %>%  #Indicamos la base a pivotear
+  pivot_wider(names_from = class, values_from = (value), values_fill = 0) #Puede pivotear "longer" o "wider", en este caso "wider"
+resultados_pp<-resultados_pp[,c(-1,-2,-3,-4,-6)] #Eliminamos las columnas que no nos aportan información útil
+```
+
+Hacemos lo mismo con la tabla de diversidad:
+```{r fig.align="center", message=FALSE}
+resultados_div <- DIVER %>%
+  pivot_wider(names_from = metric, values_from = (value), values_fill = 0)
+resultados_div<-resultados_div[,-c(1,2,3,4,6)]
+```
+
+Podemos, para ir finalizando, unir las dos tablas en una única tabla, a partir de una variable en común. En este caso, el nombre de cada área buffer es el mismo para las dos tablas. Por lo tanto, podemos utilizar dicha variable para hacer una unión: 
+```{r fig.align="center", message=FALSE}
+TABLA_RECN<-left_join(resultados_pp, resultados_div, by = "plot_id", copy = FALSE) #unimos por la izquierda
+colnames(TABLA_RECN) <- paste("2018", colnames(TABLA_RECN), sep = "_") #cambiamos el nombre de las clases, para identificarlas con el año
+head(TABLA_RECN)
+```
+
+## **Filtrando la base**
+
+¡Genial! Ahora que tenemos nuestra base lista, podríamos filtrarla para sacar los valores que son 100 de agua o 100 de ciudad universitaria, ya que son los puntos que cayeron o en el rio o en el edificio. Recordemos que los valores representan distintas clases de cobertura, lo cuales son: **1 -> Agua**, **2 -> Roca/Hormigón**, **3 -> Suelo desnudo**, **4 -> Vegetación acuática**, **5 -> Vegetación herbácea**, **6 -> Vegetación leñosa**, **7 -> Agua interior**, **8 -> Edificio de la FCEN**.
+
+```{r}
+TABLA_RECN1<-subset(TABLA_RECN, TABLA_RECN$`2018_8`!= 100.00000) #Hacemos un subset de datos que tengan a la columna de la FCEN con valor distinto al 100%
+TABLA_RECN_FINAL<-subset(TABLA_RECN1, TABLA_RECN1$`2018_1`!= 100.00000) #Hacemos un subset de los datos de la tabla anterior que tengan a la columna de agua con valor distinto al 100%
+```
+
+¡Eso es todo! ¡Ya tenemos una base de datos lista para utilizar y hacer todos los análisis que quieran! ¿Fácil, no?
+
+## **Conclusiones**
+
+Hemos visto cómo crear áreas buffer entorno a puntos de interés, cómo calcular métricas del paisaje en su interior y cómo reordenar los datos obtenidos en distintas tablas. Invitamos a todas y todos los lectores a que hagan sus propias experiencias y nos compartan sus dudas y resultados. Como siempre, esperamos que haya sido de utilidad. ¡Nos leemos!
+
